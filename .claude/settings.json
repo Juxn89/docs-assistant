@@ -1,0 +1,24 @@
+{
+	"permissions": {
+		"allow": [
+			"Bash(dotnet build:*)",
+			"Bash(dotnet test:*)",
+			"Bash(dotnet format:*)",
+			"Bash(dotnet ef migrations add:*)",
+			"Bash(docker compose:*)"
+		]
+	},
+	"hooks": {
+		"PostToolUse": [
+			{
+				"matcher": "Edit|Write",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "bash .claude/hooks/format.sh"
+					}
+				]
+			}
+		]
+	}
+}

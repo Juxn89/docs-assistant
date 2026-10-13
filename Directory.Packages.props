@@ -1,0 +1,72 @@
+<Project>
+	<!--
+		Central Package Management. Project files reference packages WITHOUT a Version attribute.
+		Every version below was verified against api.nuget.org on 13 Oct 2026.
+	-->
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+		<CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+	</PropertyGroup>
+
+	<ItemGroup Label="AI">
+		<!-- The ports: IChatClient / IEmbeddingGenerator. Application depends on the abstractions only. -->
+		<PackageVersion Include="Microsoft.Extensions.AI.Abstractions" Version="10.10.0" />
+		<PackageVersion Include="Microsoft.Extensions.AI" Version="10.10.0" />
+		<!-- Official Anthropic SDK (MIT). Implements IChatClient. -->
+		<PackageVersion Include="Anthropic" Version="12.55.0" />
+		<!-- In-process embeddings: multilingual-e5-small as ONNX. No embedding API, no sidecar. -->
+		<PackageVersion Include="Microsoft.ML.OnnxRuntime" Version="1.31.0" />
+		<PackageVersion Include="Microsoft.ML.Tokenizers" Version="2.0.0" />
+	</ItemGroup>
+
+	<ItemGroup Label="Document extraction">
+		<PackageVersion Include="PdfPig" Version="0.1.16" />
+		<PackageVersion Include="DocumentFormat.OpenXml" Version="3.5.1" />
+	</ItemGroup>
+
+	<ItemGroup Label="Persistence">
+		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.13" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.13" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.13" />
+		<PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
+		<PackageVersion Include="Npgsql" Version="10.0.3" />
+		<PackageVersion Include="Pgvector.EntityFrameworkCore" Version="0.3.0" />
+		<!-- snake_case tables and columns without hand-naming every property (Apache-2.0). -->
+		<PackageVersion Include="EFCore.NamingConventions" Version="10.0.1" />
+		<PackageVersion Include="Pgvector" Version="0.3.2" />
+	</ItemGroup>
+
+	<ItemGroup Label="Hosting and observability">
+		<PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.13" />
+		<PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.10.0" />
+		<PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.10.0" />
+		<PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.19.1" />
+		<PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.19.1" />
+		<PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.19.0" />
+		<PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.19.0" />
+		<PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.19.0" />
+		<PackageVersion Include="StackExchange.Redis" Version="3.4.5" />
+		<PackageVersion Include="MailKit" Version="4.18.1" />
+	</ItemGroup>
+
+	<ItemGroup Label="Aspire">
+		<PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.6.1" />
+		<PackageVersion Include="Aspire.Hosting.Valkey" Version="13.6.1" />
+		<PackageVersion Include="CommunityToolkit.Aspire.Hosting.MailPit" Version="13.6.0" />
+	</ItemGroup>
+
+	<!--
+		xUnit stays on the v2 line: TngTech.ArchUnitNET.xUnit 0.13.4 depends on xunit.assert 2.x, and
+		xunit.runner.visualstudio 3.1.5 is the last v2-compatible runner (4.x is v3-only).
+	-->
+	<ItemGroup Label="Testing">
+		<PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
+		<PackageVersion Include="xunit" Version="2.9.3" />
+		<PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
+		<PackageVersion Include="TngTech.ArchUnitNET" Version="0.13.4" />
+		<PackageVersion Include="TngTech.ArchUnitNET.xUnit" Version="0.13.4" />
+		<PackageVersion Include="Testcontainers.PostgreSql" Version="4.16.0" />
+		<PackageVersion Include="Testcontainers.Redis" Version="4.16.0" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.13" />
+	</ItemGroup>
+</Project>

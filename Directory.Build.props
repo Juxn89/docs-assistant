@@ -1,0 +1,28 @@
+<Project>
+	<!--
+		Repo-wide build properties. Package VERSIONS live in Directory.Packages.props (Central Package
+		Management), never here: this file is imported before the project body, so a
+		`PackageReference Update=` here has nothing to update yet (NU1015).
+	-->
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<Version>0.1.0</Version>
+		<Authors>Juan Gómez</Authors>
+		<RepositoryUrl>https://github.com/Juxn89/docs-assistant</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<IsPackable>false</IsPackable>
+
+		<!-- Build gates: analyzer and naming violations fail the build, they do not warn. -->
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<AnalysisLevel>latest</AnalysisLevel>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+		<Deterministic>true</Deterministic>
+		<ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+	</PropertyGroup>
+</Project>

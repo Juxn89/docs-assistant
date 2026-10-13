@@ -1,0 +1,36 @@
+# Line-ending policy.
+#
+# This repo is developed on Windows but its stack runs on Linux (Docker, GitHub Actions). Without
+# this file, `core.autocrlf` checks files out with CRLF, and a shell script with CRLF fails inside a
+# container with `bad interpreter: /bin/bash^M` — silently, on a fresh clone, not on the machine
+# that authored it.
+#
+# Deliberately targeted rather than a repo-wide `* text=auto eol=lf`: normalising every file would
+# rewrite the whole working tree on the next checkout. Only the files that actually break, plus the
+# ones consumed by Linux tooling, are pinned.
+
+# Files executed or parsed inside Linux containers — CRLF breaks these.
+*.sh            text eol=lf
+Dockerfile      text eol=lf
+Dockerfile.*    text eol=lf
+*.yaml          text eol=lf
+*.yml           text eol=lf
+
+# Consumed by Keycloak and the OTel collector inside containers.
+*.json          text eol=lf
+
+# C# and project files follow platform convention.
+*.cs            text
+*.csproj        text
+*.props         text
+*.targets       text
+*.sln           text eol=crlf
+
+# Never touched.
+*.png           binary
+*.jpg           binary
+*.gif           binary
+*.ico           binary
+*.pdf           binary
+*.nupkg         binary
+*.dll           binary

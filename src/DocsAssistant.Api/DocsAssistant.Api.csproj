@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<UserSecretsId>docs-assistant-api</UserSecretsId>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DocsAssistant.Infrastructure\DocsAssistant.Infrastructure.csproj" />
+		<ProjectReference Include="..\DocsAssistant.ServiceDefaults\DocsAssistant.ServiceDefaults.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="DocsAssistant.Integration.Tests" />
+	</ItemGroup>
+</Project>

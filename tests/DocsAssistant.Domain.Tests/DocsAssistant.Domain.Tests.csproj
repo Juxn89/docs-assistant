@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\DocsAssistant.Domain\DocsAssistant.Domain.csproj" />
+	</ItemGroup>
+</Project>

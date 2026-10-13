@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<ItemGroup>
+		<ProjectReference Include="..\DocsAssistant.Domain\DocsAssistant.Domain.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<!-- Ports only. The concrete clients (Anthropic, ONNX) live in Infrastructure. -->
+		<PackageReference Include="Microsoft.Extensions.AI.Abstractions" />
+	</ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="DocsAssistant.Application.Tests" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,27 @@
+name: AI review
+
+# Reviewed by my own bot (github.com/Juxn89/claude-pr-review-bot): one review per PR, comments only,
+# it can never approve or block. Without the ANTHROPIC_API_KEY secret it runs in dry-run mode.
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Juxn89/claude-pr-review-bot@v1
+        with:
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          model: claude-sonnet-5-5
+          ignore-globs: "**/Migrations/**"
+          project-context: >-
+            Multi-tenant RAG support assistant on .NET 10 / C# 14. Clean Architecture enforced by tests:
+            Domain has no dependencies, Application depends only on Domain and Microsoft.Extensions.AI
+            abstractions. Every tenant-owned query must be scoped by tenant. No magic strings or numbers.
+            Tabs for indentation.

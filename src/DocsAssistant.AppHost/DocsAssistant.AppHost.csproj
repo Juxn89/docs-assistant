@@ -1,0 +1,15 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.6.1">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<AspireUseCliBundle>true</AspireUseCliBundle>
+		<UserSecretsId>docs-assistant-apphost</UserSecretsId>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DocsAssistant.Api\DocsAssistant.Api.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Aspire.Hosting.PostgreSQL" />
+		<PackageReference Include="Aspire.Hosting.Valkey" />
+		<PackageReference Include="CommunityToolkit.Aspire.Hosting.MailPit" />
+	</ItemGroup>
+</Project>

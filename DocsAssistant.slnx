@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DocsAssistant.Api/DocsAssistant.Api.csproj" />
+    <Project Path="src/DocsAssistant.AppHost/DocsAssistant.AppHost.csproj" />
+    <Project Path="src/DocsAssistant.Application/DocsAssistant.Application.csproj" />
+    <Project Path="src/DocsAssistant.Domain/DocsAssistant.Domain.csproj" />
+    <Project Path="src/DocsAssistant.Infrastructure/DocsAssistant.Infrastructure.csproj" />
+    <Project Path="src/DocsAssistant.ServiceDefaults/DocsAssistant.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DocsAssistant.Application.Tests/DocsAssistant.Application.Tests.csproj" />
+    <Project Path="tests/DocsAssistant.Architecture.Tests/DocsAssistant.Architecture.Tests.csproj" />
+    <Project Path="tests/DocsAssistant.Domain.Tests/DocsAssistant.Domain.Tests.csproj" />
+    <Project Path="tests/DocsAssistant.Integration.Tests/DocsAssistant.Integration.Tests.csproj" />
+  </Folder>
+</Solution>

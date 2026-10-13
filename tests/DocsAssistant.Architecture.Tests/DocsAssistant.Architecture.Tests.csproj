@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\DocsAssistant.Api\DocsAssistant.Api.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="TngTech.ArchUnitNET" />
+		<PackageReference Include="TngTech.ArchUnitNET.xUnit" />
+	</ItemGroup>
+</Project>

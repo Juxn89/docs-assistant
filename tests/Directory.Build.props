@@ -1,0 +1,24 @@
+<Project>
+	<!--
+		Chains the repo-root Directory.Build.props (MSBuild stops at the nearest one), then applies what
+		only test projects need. IsTestProject is set here, not conditioned on in the root file: the
+		root is imported before Microsoft.NET.Test.Sdk sets it, so a condition there never fires.
+	-->
+	<Import Project="$([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)../))" />
+
+	<PropertyGroup>
+		<IsTestProject>true</IsTestProject>
+		<!-- xUnit test methods are public by necessity and named for readability (Method_State_Result). -->
+		<NoWarn>$(NoWarn);CA1707;CA1515</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" />
+		<PackageReference Include="xunit" />
+		<PackageReference Include="xunit.runner.visualstudio" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="Xunit" />
+	</ItemGroup>
+</Project>
