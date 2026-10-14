@@ -55,6 +55,12 @@ jobs:
         with:
           path: ~/.local/share/docs-assistant/models
           key: e5-small-${{ hashFiles('src/DocsAssistant.Infrastructure/Ai/Embeddings/EmbeddingModelOptions.cs') }}
+      # The int8 embedding model runs different ONNX Runtime kernels depending on the CPU's instruction
+      # set; recording it makes a numerical difference between runners explainable (ADR-0003).
+      - name: CPU
+        run: |
+          lscpu | grep 'Model name'
+          for flag in avx2 avx512f avx512_vnni avx_vnni; do grep -qw "$flag" /proc/cpuinfo && echo "$flag: yes" || echo "$flag: no"; done
       # Real Postgres + pgvector in containers (Docker is preinstalled on ubuntu runners) and the real model.
       - run: dotnet test tests/DocsAssistant.Integration.Tests -c Release
 
