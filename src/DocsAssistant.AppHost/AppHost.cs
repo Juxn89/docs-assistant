@@ -19,10 +19,15 @@ var cache = builder.AddValkey("cache")
 
 var mail = builder.AddMailPit("mail");
 
+// Local development value lives in appsettings.Development.json; deployed environments set the
+// parameter from a secret store. The API refuses to start without a key of at least 32 characters.
+var adminKey = builder.AddParameter("admin-key", secret: true);
+
 builder.AddProject<Projects.DocsAssistant_Api>("api")
 	.WithReference(database)
 	.WithReference(cache)
 	.WithReference(mail)
+	.WithEnvironment("Admin__ApiKey", adminKey)
 	.WaitFor(database)
 	.WaitFor(cache)
 	.WithHttpHealthCheck("/health");

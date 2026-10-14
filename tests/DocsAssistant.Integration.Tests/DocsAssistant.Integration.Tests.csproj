@@ -7,4 +7,7 @@
 		<PackageReference Include="Testcontainers.Redis" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
 	</ItemGroup>
+	<ItemGroup>
+		<None Include="Fixtures\**" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
 </Project>

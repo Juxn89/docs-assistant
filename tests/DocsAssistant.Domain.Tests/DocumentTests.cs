@@ -32,7 +32,7 @@ public sealed class DocumentTests
 	{
 		var document = NewDocument();
 
-		document.StartProcessing();
+		document.StartProcessing(Now);
 		document.MarkReady(chunkCount: 4, Now);
 
 		Assert.Equal(DocumentStatus.Ready, document.Status);
@@ -44,7 +44,7 @@ public sealed class DocumentTests
 	public void RecordFailure_BeforeTheLimit_GoesBackToPending()
 	{
 		var document = NewDocument();
-		document.StartProcessing();
+		document.StartProcessing(Now);
 
 		var willRetry = document.RecordFailure("timeout", MaxAttempts, Now);
 
@@ -59,11 +59,11 @@ public sealed class DocumentTests
 		var document = NewDocument();
 		for (var attempt = 1; attempt < MaxAttempts; attempt++)
 		{
-			document.StartProcessing();
+			document.StartProcessing(Now);
 			document.RecordFailure("timeout", MaxAttempts, Now);
 		}
 
-		document.StartProcessing();
+		document.StartProcessing(Now);
 		var willRetry = document.RecordFailure("timeout", MaxAttempts, Now);
 
 		Assert.False(willRetry);
@@ -75,10 +75,10 @@ public sealed class DocumentTests
 	public void StartProcessing_ClearsThePreviousError()
 	{
 		var document = NewDocument();
-		document.StartProcessing();
+		document.StartProcessing(Now);
 		document.RecordFailure("timeout", MaxAttempts, Now);
 
-		document.StartProcessing();
+		document.StartProcessing(Now);
 
 		Assert.Null(document.Error);
 	}
@@ -91,16 +91,57 @@ public sealed class DocumentTests
 	public void StartProcessing_Twice_Throws()
 	{
 		var document = NewDocument();
-		document.StartProcessing();
+		document.StartProcessing(Now);
 
-		Assert.Throws<DomainException>(document.StartProcessing);
+		Assert.Throws<DomainException>(() => document.StartProcessing(Now));
 	}
+
+	[Fact]
+	public void ReleaseExpiredClaim_FreshClaim_IsKept()
+	{
+		var document = NewDocument();
+		document.StartProcessing(Now);
+
+		Assert.False(document.ReleaseExpiredClaim(Now.AddMinutes(1), TimeSpan.FromMinutes(10), MaxAttempts));
+		Assert.Equal(DocumentStatus.Processing, document.Status);
+	}
+
+	[Fact]
+	public void ReleaseExpiredClaim_ExpiredClaim_GoesBackToPending()
+	{
+		var document = NewDocument();
+		document.StartProcessing(Now);
+
+		Assert.True(document.ReleaseExpiredClaim(Now.AddMinutes(11), TimeSpan.FromMinutes(10), MaxAttempts));
+		Assert.Equal(DocumentStatus.Pending, document.Status);
+		Assert.NotNull(document.Error);
+	}
+
+	[Fact]
+	public void ReleaseExpiredClaim_OnTheLastAttempt_FailsInsteadOfLooping()
+	{
+		var document = NewDocument();
+		for (var attempt = 1; attempt < MaxAttempts; attempt++)
+		{
+			document.StartProcessing(Now);
+			document.RecordFailure("timeout", MaxAttempts, Now);
+		}
+
+		document.StartProcessing(Now);
+
+		Assert.True(document.ReleaseExpiredClaim(Now.AddHours(1), TimeSpan.FromMinutes(10), MaxAttempts));
+		Assert.Equal(DocumentStatus.Failed, document.Status);
+	}
+
+	[Fact]
+	public void ReleaseExpiredClaim_NotProcessing_DoesNothing() =>
+		Assert.False(NewDocument().ReleaseExpiredClaim(Now.AddDays(1), TimeSpan.FromMinutes(10), MaxAttempts));
 
 	[Fact]
 	public void MarkEmpty_IsAPermanentFailure()
 	{
 		var document = NewDocument();
-		document.StartProcessing();
+		document.StartProcessing(Now);
 
 		document.MarkEmpty(Now);
 

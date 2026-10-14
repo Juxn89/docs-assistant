@@ -49,5 +49,11 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
-      # Real Postgres + pgvector and Valkey in containers; Docker is preinstalled on ubuntu runners.
+      # The embedding model (~123 MB) is downloaded on first use and verified by SHA-256. The cache key
+      # is the pinned hashes, so changing the model in EmbeddingModelOptions invalidates it.
+      - uses: actions/cache@v4
+        with:
+          path: ~/.local/share/docs-assistant/models
+          key: e5-small-${{ hashFiles('src/DocsAssistant.Infrastructure/Ai/Embeddings/EmbeddingModelOptions.cs') }}
+      # Real Postgres + pgvector in containers (Docker is preinstalled on ubuntu runners) and the real model.
       - run: dotnet test tests/DocsAssistant.Integration.Tests -c Release

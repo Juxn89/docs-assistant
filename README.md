@@ -31,7 +31,10 @@ assistant is only useful if it **answers from your content, shows where the answ
 | Domain: tenants, documents, structure-aware chunking, rank fusion | ✅ done, unit tested |
 | Persistence: pgvector (HNSW, cosine) + full-text (GIN, per-language stemming), tenant isolation that fails closed | ✅ done, tested against real Postgres |
 | Architecture rules enforced in CI | ✅ |
-| Ingestion pipeline (PDF/DOCX/URL → chunks → embeddings) | ⏳ |
+| Ingestion: PDF, DOCX, Markdown, text and web pages → chunks → embeddings, in a background worker with retries, crash recovery and dedup | ✅ end-to-end tested with the real model |
+| In-process multilingual embeddings, verified against the Python reference | ✅ [ADR-0003](docs/adr/0003-in-process-embeddings.md) |
+| URL ingestion hardened against SSRF (connect-time IP checks, redirects re-checked) | ✅ |
+| Admin API (tenants, documents) | ✅ |
 | Hybrid retrieval + evals | ⏳ |
 | Streaming answers with citations, abstention, guardrails | ⏳ |
 | Handoff, widget, admin panel, cost dashboard | ⏳ |
@@ -53,6 +56,23 @@ metrics wired.
 dotnet test        # unit + architecture + integration (integration needs Docker)
 ```
 
+The first integration run downloads the embedding model (~123 MB, verified by SHA-256) into the
+user cache; later runs reuse it.
+
+### Try the admin API
+
+With the AppHost running (local admin key in `src/DocsAssistant.AppHost/appsettings.Development.json`):
+
+```bash
+KEY=local-dev-admin-key-not-a-secret-0123456789
+TENANT=$(curl -s -X POST localhost:5010/v1/admin/tenants -H "X-Admin-Key: $KEY" -H 'content-type: application/json' \
+  -d '{"name":"Acme","handoffEmail":"help@acme.test","defaultLanguage":"Spanish","allowedOrigins":[]}' | jq -r .id)
+curl -s -X POST localhost:5010/v1/admin/tenants/$TENANT/documents -H "X-Admin-Key: $KEY" -F file=@faq.pdf
+curl -s localhost:5010/v1/admin/tenants/$TENANT/documents -H "X-Admin-Key: $KEY" | jq '.[] | {title, status, chunkCount}'
+```
+
+Errors are ProblemDetails with a stable `code`: see [docs/errors.md](docs/errors.md).
+
 ## Architecture
 
 ```
@@ -60,8 +80,8 @@ Domain  ←  Application  ←  Infrastructure  ←  Api
 ```
 
 - **Domain** is plain C#: chunking, fusion, document state machine. No packages at all.
-- **Application** holds use cases and ports; it sees `IChatClient` / `IEmbeddingGenerator`
-  (Microsoft.Extensions.AI), never a concrete model client.
+- **Application** holds use cases and ports; it sees ports such as `IChatClient` (Microsoft.Extensions.AI) and
+  `IEmbedder`, never a concrete model client.
 - The rule is not a diagram: [`tests/DocsAssistant.Architecture.Tests`](tests/DocsAssistant.Architecture.Tests)
   fails the build when it is broken, and each rule was proven able to fail.
 

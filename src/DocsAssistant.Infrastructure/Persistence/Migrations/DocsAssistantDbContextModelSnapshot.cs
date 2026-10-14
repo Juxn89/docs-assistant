@@ -132,6 +132,10 @@ namespace DocsAssistant.Infrastructure.Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("processed_at");
 
+                    b.Property<DateTimeOffset?>("ProcessingStartedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("processing_started_at");
+
                     b.Property<string>("SourceType")
                         .IsRequired()
                         .HasColumnType("text")
@@ -157,6 +161,12 @@ namespace DocsAssistant.Infrastructure.Persistence.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)")
                         .HasColumnName("title");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
 
                     b.HasKey("Id")
                         .HasName("pk_documents");
@@ -220,6 +230,30 @@ namespace DocsAssistant.Infrastructure.Persistence.Migrations
                     b.ToTable("tenants", (string)null);
                 });
 
+            modelBuilder.Entity("DocsAssistant.Infrastructure.Persistence.DocumentContent", b =>
+                {
+                    b.Property<Guid>("DocumentId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("document_id");
+
+                    b.Property<byte[]>("Bytes")
+                        .IsRequired()
+                        .HasColumnType("bytea")
+                        .HasColumnName("bytes");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tenant_id");
+
+                    b.HasKey("DocumentId")
+                        .HasName("pk_document_contents");
+
+                    b.HasIndex("TenantId")
+                        .HasDatabaseName("ix_document_contents_tenant_id");
+
+                    b.ToTable("document_contents", (string)null);
+                });
+
             modelBuilder.Entity("DocsAssistant.Domain.Documents.Chunk", b =>
                 {
                     b.HasOne("DocsAssistant.Domain.Documents.Document", null)
@@ -238,6 +272,16 @@ namespace DocsAssistant.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_documents_tenants_tenant_id");
+                });
+
+            modelBuilder.Entity("DocsAssistant.Infrastructure.Persistence.DocumentContent", b =>
+                {
+                    b.HasOne("DocsAssistant.Domain.Documents.Document", null)
+                        .WithOne()
+                        .HasForeignKey("DocsAssistant.Infrastructure.Persistence.DocumentContent", "DocumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_document_contents_documents_document_id");
                 });
 #pragma warning restore 612, 618
         }

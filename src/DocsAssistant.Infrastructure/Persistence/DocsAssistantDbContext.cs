@@ -16,6 +16,8 @@ public sealed class DocsAssistantDbContext(
 
 	public DbSet<Chunk> Chunks => Set<Chunk>();
 
+	internal DbSet<DocumentContent> DocumentContents => Set<DocumentContent>();
+
 	/// <summary>
 	/// Read by the query filters at execution time (EF parameterizes members of the context), so one
 	/// compiled model serves every tenant. With no tenant in context it is the empty GUID, which no
@@ -32,6 +34,7 @@ public sealed class DocsAssistantDbContext(
 
 		modelBuilder.Entity<Document>().HasQueryFilter(d => d.TenantId == CurrentTenantFilter);
 		modelBuilder.Entity<Chunk>().HasQueryFilter(c => c.TenantId == CurrentTenantFilter);
+		modelBuilder.Entity<DocumentContent>().HasQueryFilter(c => c.TenantId == CurrentTenantFilter);
 	}
 
 	protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)

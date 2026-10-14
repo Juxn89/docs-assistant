@@ -51,6 +51,20 @@ internal sealed class DocumentConfiguration : IEntityTypeConfiguration<Document>
 
 		// The worker polls for pending work; a partial index keeps that scan tiny.
 		builder.HasIndex(d => d.CreatedAt).HasFilter("status = 'Pending'");
+
+		// Optimistic concurrency on Postgres' xmin system column: no extra column, and two workers
+		// claiming the same Pending document cannot both win.
+		builder.Property<uint>(PostgresNames.RowVersionProperty).IsRowVersion();
+	}
+}
+
+internal sealed class DocumentContentConfiguration : IEntityTypeConfiguration<DocumentContent>
+{
+	public void Configure(EntityTypeBuilder<DocumentContent> builder)
+	{
+		builder.HasKey(c => c.DocumentId);
+		builder.HasOne<Document>().WithOne().HasForeignKey<DocumentContent>(c => c.DocumentId).OnDelete(DeleteBehavior.Cascade);
+		builder.HasIndex(c => c.TenantId);
 	}
 }
 

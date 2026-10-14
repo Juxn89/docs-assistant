@@ -101,7 +101,7 @@ public sealed class PersistenceTests(PostgresFixture postgres)
 			ContentHash.Compute(System.Text.Encoding.UTF8.GetBytes(name + text)),
 			ContentLanguage.Spanish,
 			Now);
-		document.StartProcessing();
+		document.StartProcessing(Now);
 		document.MarkReady(1, Now);
 
 		db.Tenants.Add(tenant);

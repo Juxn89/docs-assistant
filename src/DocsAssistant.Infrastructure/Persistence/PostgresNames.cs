@@ -7,6 +7,9 @@ internal static class PostgresNames
 
 	public const string ChunksTable = "chunks";
 
+	/// <summary>Shadow property mapped by Npgsql to the xmin system column (optimistic concurrency).</summary>
+	public const string RowVersionProperty = "Version";
+
 	public const string SearchVectorColumn = "search_vector";
 
 	public const string EmbeddingColumn = "embedding";

@@ -2,13 +2,17 @@ using DocsAssistant.Domain.Common;
 
 namespace DocsAssistant.Domain.Documents;
 
+/// <summary>
+/// The format of the content, which is what extraction depends on. Where it came from is
+/// <see cref="Document.SourceUri"/>: a URL that serves a PDF is a <see cref="Pdf"/>.
+/// </summary>
 public enum DocumentSourceType
 {
 	Pdf = 0,
 	Docx = 1,
 	Markdown = 2,
 	PlainText = 3,
-	Url = 4,
+	Html = 4,
 }
 
 public enum DocumentStatus
@@ -41,7 +45,7 @@ public sealed class Document
 
 	public DocumentSourceType SourceType { get; private set; }
 
-	/// <summary>The original file name, or the URL for web sources.</summary>
+	/// <summary>The original file name, or the URL the content was fetched from.</summary>
 	public string SourceUri { get; private set; }
 
 	public ContentHash ContentHash { get; private set; }
@@ -59,6 +63,9 @@ public sealed class Document
 	public DateTimeOffset CreatedAt { get; private set; }
 
 	public DateTimeOffset? ProcessedAt { get; private set; }
+
+	/// <summary>When the current processing attempt claimed the document. Acts as a lease.</summary>
+	public DateTimeOffset? ProcessingStartedAt { get; private set; }
 
 	public static Document Register(
 		TenantId tenantId,
@@ -87,12 +94,50 @@ public sealed class Document
 		};
 	}
 
-	public void StartProcessing()
+	public void StartProcessing(DateTimeOffset now)
 	{
 		EnsureStatus(DocumentStatus.Pending, nameof(StartProcessing));
 		Status = DocumentStatus.Processing;
 		Attempts++;
 		Error = null;
+		ProcessingStartedAt = now;
+	}
+
+	/// <summary>
+	/// A worker that died mid-attempt leaves the document Processing forever. Once the claim is older
+	/// than <paramref name="leaseDuration"/> it is released back to Pending; the abandoned attempt still
+	/// counts, so a document that crashes the worker every time ends up Failed instead of looping.
+	/// Returns whether the claim was released.
+	/// </summary>
+	public bool ReleaseExpiredClaim(DateTimeOffset now, TimeSpan leaseDuration, int maxAttempts)
+	{
+		if (Status != DocumentStatus.Processing || ProcessingStartedAt is not { } started || now - started < leaseDuration)
+		{
+			return false;
+		}
+
+		Error = "The previous processing attempt did not finish (worker restarted or crashed).";
+		if (Attempts < maxAttempts)
+		{
+			Status = DocumentStatus.Pending;
+		}
+		else
+		{
+			Status = DocumentStatus.Failed;
+			ProcessedAt = now;
+		}
+
+		return true;
+	}
+
+	/// <summary>
+	/// The language is a guess at registration (the tenant default) and is confirmed once the text has
+	/// been read. It decides the full-text stemming of every chunk, so it can only change while processing.
+	/// </summary>
+	public void SetLanguage(ContentLanguage language)
+	{
+		EnsureStatus(DocumentStatus.Processing, nameof(SetLanguage));
+		Language = language;
 	}
 
 	public void MarkReady(int chunkCount, DateTimeOffset now)
