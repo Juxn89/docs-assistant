@@ -39,7 +39,8 @@ assistant is only useful if it **answers from your content, shows where the answ
 | Hybrid retrieval (pgvector + full text, RRF) with a retrieval eval gating CI | ✅ [results](evals/results/retrieval.md) |
 | Streaming answers (SSE) with validated citations and three-level abstention | ✅ [ADR-0005](docs/adr/0005-grounded-answers-and-abstention.md) |
 | Works with no paid model: Ollama locally, extractive mode (quotes with citations) for the demo and as automatic fallback | ✅ [ADR-0006](docs/adr/0006-no-paid-key-providers-and-extractive-mode.md) |
-| Guardrails, semantic cache, rate limiting, spend cap | ⏳ |
+| Rate limiting (per client, per assistant, admin key guessing; spoof-resistant, IPv6 /64) | ✅ [ADR-0007](docs/adr/0007-rate-limiting.md) |
+| Guardrails (prompt injection eval), handoff, widget, deploy | ⏳ |
 | Handoff, widget, admin panel, cost dashboard | ⏳ |
 | Live demo | ⏳ — will run on [juangomezb.com](https://juangomezb.com) |
 

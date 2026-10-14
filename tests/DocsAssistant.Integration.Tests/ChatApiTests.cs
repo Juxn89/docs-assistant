@@ -47,6 +47,9 @@ public sealed class ChatApiTests : IDisposable
 			builder.UseSetting($"ConnectionStrings:{DependencyInjection.DatabaseConnectionName}", _postgres.ConnectionString);
 			builder.UseSetting($"{AdminOptions.SectionName}:ApiKey", AdminKey);
 			builder.UseSetting("Ingestion:SweepInterval", "00:00:01");
+			// These tests poll the admin API while waiting for ingestion; rate limits are tested in RateLimitingTests.
+			builder.UseSetting("RateLimiting:AdminPerMinutePerIp", "10000");
+			builder.UseSetting("RateLimiting:ChatPerMinutePerIp", "10000");
 			builder.UseSetting("Chat:ExtractiveFallback", extractiveFallback.ToString());
 			builder.ConfigureTestServices(services => services.AddSingleton(model));
 		});

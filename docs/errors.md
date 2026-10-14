@@ -24,6 +24,8 @@ ProblemDetails with a stable `code` extension. Clients should branch on `code`, 
 | <a id="chat-question_required"></a>`chat.question_required` | 400 | The question is empty. |
 | <a id="chat-origin_not_allowed"></a>`chat.origin_not_allowed` | 403 | The request's `Origin` is not in the tenant's allowed origins. |
 
+| <a id="rate_limited"></a>`rate_limited` | 429 | Too many requests from this client or for this assistant; retry after the `Retry-After` header ([ADR-0007](adr/0007-rate-limiting.md)). |
+
 Requests to `/v1/admin/*` without a valid `X-Admin-Key` header get a 401 ProblemDetails.
 
 ## Chat stream events

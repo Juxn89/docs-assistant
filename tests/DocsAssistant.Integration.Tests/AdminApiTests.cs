@@ -33,6 +33,9 @@ public sealed class AdminApiTests : IDisposable
 			builder.UseSetting($"ConnectionStrings:{DependencyInjection.DatabaseConnectionName}", postgres.ConnectionString);
 			builder.UseSetting($"{AdminOptions.SectionName}:ApiKey", AdminKey);
 			builder.UseSetting("Ingestion:SweepInterval", "00:00:01");
+			// These tests poll the admin API while waiting for ingestion; rate limits are tested in RateLimitingTests.
+			builder.UseSetting("RateLimiting:AdminPerMinutePerIp", "10000");
+			builder.UseSetting("RateLimiting:ChatPerMinutePerIp", "10000");
 		});
 	}
 
