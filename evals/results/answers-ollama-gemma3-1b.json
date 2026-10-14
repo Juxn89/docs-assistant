@@ -1,0 +1,503 @@
+{
+  "RanAt": "2026-10-14T20:19:44.1005041+00:00",
+  "Provider": "Ollama gemma3:1b",
+  "Metrics": {
+    "Provider": "Ollama gemma3:1b",
+    "Answerable": 44,
+    "AnsweredRate": 0.9772727272727273,
+    "CitedEvidenceRate": 0.022727272727272728,
+    "Unanswerable": 10,
+    "AbstentionRate": 0.3,
+    "InvalidCitationRate": 0,
+    "LatencyP50Ms": 30176.7644,
+    "LatencyP95Ms": 48782.422
+  },
+  "Results": [
+    {
+      "Id": "profile-01",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 23462.8311,
+      "Answer": "Juan currently works remotely for multiple international companies and public sector organizations."
+    },
+    {
+      "Id": "profile-02",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 18736.0538,
+      "Answer": "No_ANSWER"
+    },
+    {
+      "Id": "profile-03",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 30448.9194,
+      "Answer": "1\n"
+    },
+    {
+      "Id": "profile-04",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 26940.9269,
+      "Answer": "by 25%"
+    },
+    {
+      "Id": "profile-05",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 30005.6058,
+      "Answer": "The document mentions ExtJS, JavaScript, .NET, and Performance Optimization as technologies used at Axxis-Systems."
+    },
+    {
+      "Id": "profile-06",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 15334.1169,
+      "Answer": "[2]"
+    },
+    {
+      "Id": "profile-07",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 28227.5895,
+      "Answer": "Yes"
+    },
+    {
+      "Id": "mcp-01",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 21543.0102,
+      "Answer": "The documents state that MCP uses the stdio protocol channel."
+    },
+    {
+      "Id": "mcp-02",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 26075.5195,
+      "Answer": "You can test a server MCP without connecting a client by running \u0060npx @modelcontextprotocol/inspector dotnet run --project ./AuroraCoffee.Mcp\u0060 in the terminal."
+    },
+    {
+      "Id": "mcp-03",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 26804.6506,
+      "Answer": "[1] %APPDATA%\\Claude\\"
+    },
+    {
+      "Id": "mcp-04",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 22528.4324,
+      "Answer": "When tools need to be shared or reused, and when exactly one app will ever use the tools and it\u0027s the app doing the model calls."
+    },
+    {
+      "Id": "mcp-05",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 25872.8907,
+      "Answer": "No_ANSWER"
+    },
+    {
+      "Id": "aot-01",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 52295.7466,
+      "Answer": "No_ANSWER"
+    },
+    {
+      "Id": "aot-02",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 48782.422,
+      "Answer": "CreateSlimBuilder is used to create a minimal API with source-generated JSON, skipping the JsonSerializerContext."
+    },
+    {
+      "Id": "aot-03",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 33214.2401,
+      "Answer": "The library author can now declare AOT compatibility explicitly using the \u003CPropertyGroup\u003E tag, specifying whether it is AOT compatible and providing a TRIM setting."
+    },
+    {
+      "Id": "aot-04",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 30859.9406,
+      "Answer": "When you\u0027re running many instances of the same service, shaving startup time and memory off one replica pays for itself a hundredfold across a fleet."
+    },
+    {
+      "Id": "min-01",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 59918.3998,
+      "Answer": "Before .NET 10 the answer was FluentValidation or a hand-rolled filter. Now System.ComponentModel.DataAnnotations works on Minimal API parameters directly, wired up by a source generator: builder.Services.AddProblemDetails(); builder.Services.AddValidation(); That\u0026apos;s the whole setup. Microsoft.Extensions.Validation lives in the ASP.NET Core shared framework, so a Microsoft.NET.Sdk.Web project needs no PackageReference \u2014 a plain class library does. And no, you don\u0026apos;t need the InterceptorsNamespaces csproj incantation you\u0026apos;ll find in preview-era blog posts; the SDK adds it for you on net10.0. Now annotate the request: public sealed record PlaceOrderRequest( [property: Required] [property: RegularExpression( @\u0026quot;^[A-Z]{3}-[A-Z0-9]{2,4}$\u0026quot;, ErrorMessage = \u0026quot;SKU must look like ETH-250 or COL-1KG.\u0026quot;)] string Sku, [property: Range(1, 100, ErrorMessage = \u0026quot;Orders are capped at 100 units per line.\u0026quot;)] int Quantity); Do not skip the [property:] prefix. On a positional record, an attribute that\u2019s legal on both a parameter and a property binds to the parameter by default, and the validator reads properties. Leave it off and your validation silently does nothing \u2014 the worst possible failure mode, since the endpoint keeps returning 201 and you only find out from a support ticket. A failed request now gets a 400 with application/problem\u002Bjson, RFC 9457 shaped:\n"
+    },
+    {
+      "Id": "min-02",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 33830.6126,
+      "Answer": "The answer is: \u0060AddValidation().DisableValidation()\u0060"
+    },
+    {
+      "Id": "min-03",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 39181.0369,
+      "Answer": "Without versioning it\u0026apos;s just builder.Services.AddOpenApi() plus app.MapOpenApi(), serving /openapi/v1.json."
+    },
+    {
+      "Id": "min-04",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 24598.4754,
+      "Answer": "3.1"
+    },
+    {
+      "Id": "min-05",
+      "Answerable": true,
+      "Outcome": "AbstainedByModel",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 30269.7512,
+      "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?"
+    },
+    {
+      "Id": "min-06",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 34035.3074,
+      "Answer": "The order store is a ConcurrentDictionary because it\u2019s a singleton serving concurrent requests, and a plain Dictionary would create a data race during a resize."
+    },
+    {
+      "Id": "rmq-01",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 31399.2618,
+      "Answer": "No_ANSWER"
+    },
+    {
+      "Id": "rmq-02",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 26484.6943,
+      "Answer": "The routing key is set by the producer, per message, at publish time, while the binding key is set on the binding, once, when you wire a queue to an exchange."
+    },
+    {
+      "Id": "rmq-03",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 28510.6246,
+      "Answer": "A fanout exchange ignores the routing key completely and copies each message to every bound queue."
+    },
+    {
+      "Id": "rmq-04",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 27982.5303,
+      "Answer": "A poison pill is a message that fails every single time \u2014 a payload your parser rejects, a reference to a row someone deleted, a bug on one specific code path. It is not a transient failure and no amount of patience fixes it."
+    },
+    {
+      "Id": "rmq-05",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 30888.1609,
+      "Answer": "The message states: \u201CA topic exchange with a # binding behaves exactly like a fanout, so a reasonable default is to make every exchange a topic exchange from day one and let the bindings decide.\u201D"
+    },
+    {
+      "Id": "rmq-06",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 28347.7201,
+      "Answer": "The tutorial publishes directly to the name of the cola because it\u2019s using Interlocked.Increment to maintain the identifier of the trace."
+    },
+    {
+      "Id": "rmq-07",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 31764.925,
+      "Answer": "No_ANSWER"
+    },
+    {
+      "Id": "bot-01",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 27416.2692,
+      "Answer": "20000"
+    },
+    {
+      "Id": "bot-02",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 29520.8615,
+      "Answer": "The bot doesn\u0027t use a tool because it\u0027s designed to only post comments, not to use tools for other functions."
+    },
+    {
+      "Id": "bot-03",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 35538.3111,
+      "Answer": "The 422s are rejected because the API returns a 422 that names no line and explains nothing. The bot fails to handle the diff, returning a comment without a context, which is rejected by GitHub."
+    },
+    {
+      "Id": "bot-04",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 34995.5499,
+      "Answer": "The bot\u2019s only capability is posting comments. There is no merge tool, no label tool, no approve tool. The worst outcome of a successful injection is a review that stays quiet. Never let it gate a merge. The review is posted with event: \u0026quot;COMMENT\u0026quot;, never APPROVE or REQUEST_CHANGES:"
+    },
+    {
+      "Id": "rag-01",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 18854.2432,
+      "Answer": "RAG stands for Retrieval-Augmented Generation."
+    },
+    {
+      "Id": "rag-02",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 29286.2611,
+      "Answer": "sqlite-vec stores the vectors in a SQLite table."
+    },
+    {
+      "Id": "rag-03",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 25266.6339,
+      "Answer": "RAG is the right tool when your knowledge is large, private, or changing."
+    },
+    {
+      "Id": "obs-01",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 30176.7644,
+      "Answer": "The monitoring response answers questions that you already wrote down; observability responds to questions that you haven\u0027t yet thought of.\n"
+    },
+    {
+      "Id": "obs-02",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 36150.2671,
+      "Answer": "The documents state that vague descriptions here are the number-one reason a model ignores a perfectly good tool."
+    },
+    {
+      "Id": "obs-03",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 37920.4741,
+      "Answer": "Sample individual spans is recommended.\n"
+    },
+    {
+      "Id": "obs-04",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 37175.0194,
+      "Answer": "Traces tell you where the time went, logs tell you why, and metrics tell you how frequently and how badly."
+    },
+    {
+      "Id": "node-01",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 29810.0624,
+      "Answer": "Yes"
+    },
+    {
+      "Id": "node-02",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 47815.94,
+      "Answer": "Decorators fail with Node\u2019s built-in TypeScript support because Node\u2019s built-in support for decorators allows the compiler to generate code that removes types, leaving the code intact.  This is a consequence of the \u0060--experimental-transform-types\u0060 experimental mode, which allows node to generate the code instead of deleting characters."
+    },
+    {
+      "Id": "node-03",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 27692.1109,
+      "Answer": "Node pelado es 3.7 times slower to start, approximately 25ms less."
+    },
+    {
+      "Id": "node-04",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 34649.7972,
+      "Answer": "Node never reads tsconfig.json, so paths don\u2019t work: TypeError [ERR_PACKAGE_IMPORT_NOT_DEFINED]: Package import specifier #;#billing/types.ts is not defined. The replacement is the package.json imports: the own path imports of Node, which TypeScript also understands. Therefore, the above mapping maps #src/.  The other limitation is firmer. Type deletion is disabled inside node_modules: Error [ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING]: Stripping types is currently unsupported for files under node_modules, for #/@acme/billing/index.ts.  Five things break: aliases aren\u2019t existing, node_modules is outside the scope."
+    },
+    {
+      "Id": "none-01",
+      "Answerable": false,
+      "Outcome": "AbstainedNoContext",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 51.5249,
+      "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?"
+    },
+    {
+      "Id": "none-02",
+      "Answerable": false,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 32215.5203,
+      "Answer": "The premium plan costs approximately 25ms per execution, which is equivalent to 100ms."
+    },
+    {
+      "Id": "none-03",
+      "Answerable": false,
+      "Outcome": "AbstainedByModel",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 15175.1898,
+      "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?"
+    },
+    {
+      "Id": "none-04",
+      "Answerable": false,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 44485.0747,
+      "Answer": "To configure a GraphQL federation, you need to create a new federated schema. This involves defining a single schema that is used by multiple GraphQL servers.  The process is as follows:\n\n1.  **Create a new schema:** Create a new schema that will serve as the federation.\n2.  **Define the federation schema:** Define the schema for the federation, including the data structures and relationships between the different GraphQL servers.\n3.  **Configure the federation:** Configure the federation using a service provider.\n4.  **Start the federation:** Start the federation service.\n\nThe documentation provides more detailed information on setting up federations, including the specific steps involved."
+    },
+    {
+      "Id": "none-05",
+      "Answerable": false,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 31552.2404,
+      "Answer": "The documents do not provide instructions on how to deploy a container to Google Cloud Run."
+    },
+    {
+      "Id": "none-06",
+      "Answerable": false,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 32036.5255,
+      "Answer": "No_ANSWER"
+    },
+    {
+      "Id": "none-07",
+      "Answerable": false,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 30662.4662,
+      "Answer": "The borrow checker in Rust is a system that enforces memory safety without relying on garbage collection. It works by ensuring that only one mutable borrow of a value can exist at any given time.  When a variable is assigned to a new value, the borrow checker checks that the value is valid and doesn\u2019t violate any of the rules related to borrowing. If a borrow is used to create a new value, the borrow checker will prevent the creation of that new value, ensuring that the original value is not modified.  This prevents dangling pointers and data races."
+    },
+    {
+      "Id": "none-08",
+      "Answerable": false,
+      "Outcome": "AbstainedNoContext",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 16.6063,
+      "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?"
+    },
+    {
+      "Id": "none-09",
+      "Answerable": false,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 47618.694,
+      "Answer": "Here\u2019s the answer to how to bake a chocolate cake:\n\n1.  **Gather Ingredients:** You\u2019ll need flour, sugar, cocoa powder, butter, eggs, milk, baking powder, vanilla extract, and chocolate chips (optional).\n2.  **Preheat Oven:** Preheat your oven to 350\u00B0F (175\u00B0C).\n3.  **Grease and Flour Pan:** Grease and flour a cake pan to prevent the cake from sticking.\n4.  **Mix Ingredients:** In a bowl, combine the dry ingredients (flour, sugar, cocoa powder, baking powder, and salt) and the wet ingredients (butter, eggs, milk, and vanilla extract). Mix until just combined.\n5.  **Pour into Pan:** Pour the batter into the prepared cake pan.\n6.  **Bake:** Bake for 30-35 minutes, or until a toothpick inserted into the center comes out clean.\n7.  **Cool:** Let the cake cool in the pan for 10 minutes before inverting it onto a wire rack to cool completely.\n8.  **Frost (Optional):** Frost the cake with your favorite frosting."
+    },
+    {
+      "Id": "none-10",
+      "Answerable": false,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 30408.2626,
+      "Answer": "The documentation does not provide instructions on how to configure a Redis cluster."
+    }
+  ]
+}

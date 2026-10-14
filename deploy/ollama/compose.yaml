@@ -1,0 +1,54 @@
+# Local language models, isolated in a container instead of installed on the host.
+#
+#   docker compose -f deploy/ollama/compose.yaml up -d
+#   docker compose -f deploy/ollama/compose.yaml exec ollama ollama pull qwen3:1.7b
+#   Ai__Provider=Ollama Ai__OllamaModel=qwen3:1.7b dotnet run --project src/DocsAssistant.AppHost
+#
+# The evals start an identical, equally hardened container on their own (Testcontainers) and share
+# the same model volume, so a model is downloaded once for both.
+name: docs-assistant-ollama
+
+services:
+  ollama:
+    # Pinned, never `latest`: a model runtime that changes under the evals makes runs incomparable.
+    image: ollama/ollama:0.40.4
+    container_name: docs-assistant-ollama
+    restart: unless-stopped
+
+    # Reachable from this machine only — never from the network.
+    ports:
+      - "127.0.0.1:11434:11434"
+
+    environment:
+      OLLAMA_HOST: "0.0.0.0:11434"
+      # Keep a model in memory for 10 minutes between calls; the eval asks dozens in a row.
+      OLLAMA_KEEP_ALIVE: "10m"
+      # One request at a time per model: predictable latency numbers in the evals.
+      OLLAMA_NUM_PARALLEL: "1"
+
+    volumes:
+      - models:/root/.ollama
+
+    # Hardening: nothing writable but the model volume and a scratch tmpfs, no Linux capabilities,
+    # no privilege escalation, bounded memory and CPU so a runaway model cannot starve the host.
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    # Sized for small models (≤ 2B parameters); raise it before pulling a 4B or larger one.
+    mem_limit: 4g
+    cpus: 4
+    pids_limit: 512
+
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+volumes:
+  models:
+    name: docs-assistant-ollama-models

@@ -36,5 +36,6 @@ Requests to `/v1/admin/*` without a valid `X-Admin-Key` header get a 401 Problem
 | `done` | `{ "outcome", "offerHandoff", "citations": [{ "number", "title", "source", "section", "excerpt" }] }` | Exactly once, last, when the answer completed. |
 | `error` | `{ "code": "assistant.unavailable", "message" }` | Instead of `done`, when the model cannot be used (not configured, provider failure). |
 
-`outcome` is one of `Answered`, `AnsweredWithoutCitations`, `AbstainedNoContext`, `AbstainedByModel`
-([ADR-0005](adr/0005-grounded-answers-and-abstention.md)).
+`outcome` is one of `Answered`, `AnsweredWithoutCitations`, `AnsweredExtractively`, `AbstainedNoContext`,
+`AbstainedByModel`
+([ADR-0005](adr/0005-grounded-answers-and-abstention.md), [ADR-0006](adr/0006-no-paid-key-providers-and-extractive-mode.md)).

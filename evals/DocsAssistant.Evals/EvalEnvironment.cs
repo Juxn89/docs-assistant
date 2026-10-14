@@ -5,6 +5,7 @@ using DocsAssistant.Application.Features.Tenants;
 using DocsAssistant.Domain.Common;
 using DocsAssistant.Domain.Documents;
 using DocsAssistant.Infrastructure;
+using DocsAssistant.Infrastructure.Ai;
 using DocsAssistant.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,11 +47,13 @@ internal sealed class EvalEnvironment : IAsyncDisposable
 	private const string PgvectorImage = "pgvector/pgvector:0.8.7-pg18";
 
 	private readonly PostgreSqlContainer? _container;
+	private readonly OllamaSandbox? _ollama;
 
-	private EvalEnvironment(ServiceProvider services, PostgreSqlContainer? container)
+	private EvalEnvironment(ServiceProvider services, PostgreSqlContainer? container, OllamaSandbox? ollama)
 	{
 		Services = services;
 		_container = container;
+		_ollama = ollama;
 	}
 
 	public ServiceProvider Services { get; }
@@ -65,6 +68,18 @@ internal sealed class EvalEnvironment : IAsyncDisposable
 			connectionString = container.GetConnectionString();
 		}
 
+		// Ai__Provider=Ollama without an explicit Ai__OllamaEndpoint: start a sandboxed Ollama container
+		// for this run. With an endpoint (e.g. the deploy/ollama compose stack), use that instead.
+		var requested = new ConfigurationBuilder().AddEnvironmentVariables().Build();
+		OllamaSandbox? ollama = null;
+		var overrides = new Dictionary<string, string?>();
+		if (string.Equals(requested["Ai:Provider"], nameof(ChatProvider.Ollama), StringComparison.OrdinalIgnoreCase)
+			&& string.IsNullOrWhiteSpace(requested["Ai:OllamaEndpoint"]))
+		{
+			ollama = await OllamaSandbox.StartAsync(requested["Ai:OllamaModel"] ?? new AiOptions().OllamaModel);
+			overrides["Ai:OllamaEndpoint"] = ollama.Endpoint.ToString();
+		}
+
 		var configuration = new ConfigurationBuilder()
 			.AddInMemoryCollection(new Dictionary<string, string?>
 			{
@@ -72,13 +87,14 @@ internal sealed class EvalEnvironment : IAsyncDisposable
 			})
 			// Lets an experiment override any option without code changes, e.g. Retrieval__TextWeight=0.5.
 			.AddEnvironmentVariables()
+			.AddInMemoryCollection(overrides)
 			.Build();
 		var services = new ServiceCollection()
 			.AddLogging(builder => builder.AddSimpleConsole().SetMinimumLevel(LogLevel.Warning))
 			.AddInfrastructure(configuration)
 			.BuildServiceProvider();
 		await DatabaseMigrator.MigrateAsync(services);
-		return new EvalEnvironment(services, container);
+		return new EvalEnvironment(services, container, ollama);
 	}
 
 	/// <summary>Creates a tenant and ingests every corpus file through the real use cases, synchronously.</summary>
@@ -137,6 +153,11 @@ internal sealed class EvalEnvironment : IAsyncDisposable
 		if (_container is not null)
 		{
 			await _container.DisposeAsync();
+		}
+
+		if (_ollama is not null)
+		{
+			await _ollama.DisposeAsync();
 		}
 	}
 }

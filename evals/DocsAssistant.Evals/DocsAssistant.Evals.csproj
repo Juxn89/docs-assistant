@@ -12,5 +12,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Testcontainers.PostgreSql" />
+		<PackageReference Include="Testcontainers.Ollama" />
 	</ItemGroup>
 </Project>

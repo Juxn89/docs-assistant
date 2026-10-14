@@ -66,6 +66,13 @@ public sealed class ChatAnswerOptions
 	/// instead of failing. Off only where an error is preferable to a quoted answer.
 	/// </summary>
 	public bool ExtractiveFallback { get; set; } = true;
+
+	/// <summary>
+	/// The answer is already in the passages; the model only phrases and cites it. Measured on
+	/// 2026-10-14 with qwen3:0.6b on the same question: reasoning off answered in 9 s with a correct
+	/// citation, effort Low took 60 s and produced a malformed one. Configurable per provider.
+	/// </summary>
+	public Microsoft.Extensions.AI.ReasoningEffort ReasoningEffort { get; set; } = Microsoft.Extensions.AI.ReasoningEffort.None;
 }
 
 /// <summary>Fixed, user-facing answers the system gives on its own, in both supported languages.</summary>

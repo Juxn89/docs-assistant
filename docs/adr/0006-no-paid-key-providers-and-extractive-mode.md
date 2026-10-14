@@ -53,3 +53,37 @@ person. A quote that turns out irrelevant is then honest, not misleading.
 - Switching the demo to written answers is configuration: `Ai:Provider=Anthropic` with a key.
 - The answer eval runs against any provider with the same questions, so local models can be compared
   with numbers (see the README).
+
+## Addendum · 2026-10-14: which local model, measured
+
+Local models run in a container (`deploy/ollama/compose.yaml`; the evals start an identical one):
+image pinned to `ollama/ollama:0.40.4`, read-only root filesystem, all Linux capabilities dropped,
+`no-new-privileges`, 4 GB / 4 CPU / 512 processes, port bound to `127.0.0.1` only. Models live in a
+named volume and are downloaded once.
+
+Answer eval, same 54 questions, reasoning off, 4 CPUs:
+
+| Provider | cited the evidence | abstained (unanswerable) | false answers *with* a citation | latency p50 / p95 |
+|---|---:|---:|---:|---:|
+| Extractive (no model) | **80 %** | 20 % | — (quotes only) | **0.6 / 1.5 s** |
+| qwen3:0.6b | 48 % | 20 % | **2** | 28 / 55 s |
+| gemma3:1b | 2 % | 30 % | 0 | 30 / 49 s |
+| **qwen3:1.7b** | 48 % | **60 %** | **0** | 40 / 159 s |
+
+- **qwen3:1.7b** is the only small model worth running: it uses `NO_ANSWER` when it should, writes good
+  Spanish from English sources, and never put a citation on an invented answer. Its weakness is citation
+  discipline: it answers correctly *without* `[n]` about half the time (those answers are shown with
+  handoff offered).
+- **qwen3:0.6b** cited invented answers twice — worse than no model. **gemma3:1b** answered things like
+  "1" and almost never cited. Both discarded.
+- **Reasoning must be off for small models.** Measured on one question with qwen3:0.6b: reasoning off,
+  9 s and a correct citation; effort Low, 60 s and a malformed one. `Chat:ReasoningEffort` defaults to
+  `None`.
+- **The sentinel is matched case-insensitively** since gemma3:1b answered `No_ANSWER`.
+- Ollama returned HTTP 500 on one question in two different runs; the extractive fallback answered it
+  — the first time the fallback was exercised by a real failure rather than a test double.
+
+**Decision:** public demo in extractive mode (fastest, best citations, zero cost); qwen3:1.7b in the
+container for development and the demo video. Runtime alternative measured on the same day:
+`ghcr.io/ggml-org/llama.cpp:server-b11610` is 311 MB to download / 1.21 GB on disk versus Ollama's
+3.78 GB / 9.37 GB, behind an OpenAI-compatible API — a lighter option not adopted yet.

@@ -115,6 +115,8 @@ public sealed class AskQuestionTests
 	public static TheoryData<string[]> SentinelStreams =>
 	[
 		["NO_ANSWER"],
+		["No_ANSWER"],
+		["no_", "answer"],
 		["NO_", "ANS", "WER"],
 		["  NO_ANSWER\n"],
 	];

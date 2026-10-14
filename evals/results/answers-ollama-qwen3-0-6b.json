@@ -1,0 +1,503 @@
+{
+  "RanAt": "2026-10-14T19:51:27.5866934+00:00",
+  "Provider": "Ollama qwen3:0.6b",
+  "Metrics": {
+    "Provider": "Ollama qwen3:0.6b",
+    "Answerable": 44,
+    "AnsweredRate": 1,
+    "CitedEvidenceRate": 0.4772727272727273,
+    "Unanswerable": 10,
+    "AbstentionRate": 0.2,
+    "InvalidCitationRate": 0,
+    "LatencyP50Ms": 28064.7592,
+    "LatencyP95Ms": 54977.3834
+  },
+  "Results": [
+    {
+      "Id": "profile-01",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 47189.2651,
+      "Answer": "The information provided does not specify where Juan currently works. Therefore, I cannot provide a direct answer. No answer is given."
+    },
+    {
+      "Id": "profile-02",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 52801.8677,
+      "Answer": "\u003Cdocuments\u003E\n\u003Cdocument index=\u00222\u0022 title=\u0022juan-gomez-profile\u0022 section=\u0022Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Software Engineer at The Stepstone Group\u0022\u003E\n\u003C/document\u003E\n\u003C/documents\u003E"
+    },
+    {
+      "Id": "profile-03",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 92085.7423,
+      "Answer": "El sistema de catastro desarroll\u00F3 el informe sobre los tres tipos de telemetr\u00EDa, pero no se menciona cu\u00E1ntos municipios desarroll\u00F3. La respuesta es: NO_ANSWER."
+    },
+    {
+      "Id": "profile-04",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 54977.3834,
+      "Answer": "The documents do not provide specific information about deployment times. Therefore, I cannot determine the exact reduction in deployment times from the given information. The answer is: NO_ANSWER."
+    },
+    {
+      "Id": "profile-05",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 47005.458,
+      "Answer": "[1] Axxis-Systems us\u00F3 technologies como React, Next.js, TypeScript y Angular."
+    },
+    {
+      "Id": "profile-06",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 16461.9923,
+      "Answer": "[1] Juan maintained VB 6.0 systems in his previous experience."
+    },
+    {
+      "Id": "profile-07",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 61256.6177,
+      "Answer": "\u003Cdocument index=\u00223\u0022 title=\u0022juan-gomez-profile\u0022 section=\u0022Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Team Leader at INIFOM\u0022\u003E  \nYes, applications developed in VB 6.0 were migrated to .NET Core."
+    },
+    {
+      "Id": "mcp-01",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 24840.6732,
+      "Answer": "MCP uses a small client/server protocol (JSON-RPC under the hood) for connecting AI clients to your capabilities. [2]"
+    },
+    {
+      "Id": "mcp-02",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 32541.4753,
+      "Answer": "Para pruebar un servidor MCP sin conectar un cliente, puedes usar el **MCP Inspector**, un herramienta web que permite listar y ejecutar herramientas del servidor. Esto te permite ver c\u00F3mo funcionan los servicios y verificar si los m\u00E9todos funcionan correctamente. [1]"
+    },
+    {
+      "Id": "mcp-03",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 25802.2036,
+      "Answer": "The configuration file for Claude Desktop on Windows is located at \u0060C:/APPDATA/Claude/claude_desktop_config.json\u0060. [1]"
+    },
+    {
+      "Id": "mcp-04",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 30800.0857,
+      "Answer": "Un servidor MCP conviene cuando la aplicaci\u00F3n tiene m\u00FAltiples clientes (como Claude Desktop, Claude Code, o un agente de equipo) que necesiten utilizar el mismo conjunto de herramientas, sin que est\u00E9n reutilizadas en cada una de ellas. Esto permite la decodificaci\u00F3n de los herramientas en m\u00FAltiples contextos sin necesidad de reingeniar el c\u00F3digo de forma manual. El servidor MCP act\u00FAa como un enfoque de software compartido o en proceso individual, facilitando la evoluci\u00F3n de herramientas en cada entorno."
+    },
+    {
+      "Id": "mcp-05",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 30920.0233,
+      "Answer": "The HTTP transport in the MCP C# SDK 2.0 is stateless by default, and the \u0060McpServerToolType\u0060 JSON schema is generated from your signature, avoiding manual configuration. Therefore, the HTTP transport is stateless. [1]"
+    },
+    {
+      "Id": "aot-01",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 28276.9749,
+      "Answer": "Yes, you can use Entity Framework Core with Native AOT, but it is not AOT-compatible today. You should consider alternative approaches if your service is EF-heavy."
+    },
+    {
+      "Id": "aot-02",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 35828.3919,
+      "Answer": "[1] CreateSlimBuilder es un builder para construir una API minimal AOT, que no compila en tiempo de ejecuci\u00F3n. Se utiliza para configurar opciones como la serializaci\u00F3n de tipos y el manejo de la base de datos."
+    },
+    {
+      "Id": "aot-03",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 29097.5359,
+      "Answer": "A library author can declare AOT compatibility by setting the \u0060IsAotCompatible\u0060 property in the project\u0027s configuration file. This setting turns on trim, single-file, and AOT analyzers for the library automatically. This declaration allows the library to be tagged as AOT-compatible, which is part of the new features introduced in .NET 10. [1]"
+    },
+    {
+      "Id": "aot-04",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 24397.8383,
+      "Answer": "El uso de Native AOT vale la pena cuando el servicio se est\u00E9 operando en m\u00FAltiples replicas (por ejemplo, en contenedores) o cuando haya dependencias que no son AOT-compatible (como EF Core o reflexi\u00F3n). Native AOT tambi\u00E9n es ideal para servicios que no dependen de la asistencia de compresi\u00F3n de tiempo (JIT) y de generaci\u00F3n de c\u00F3digo din\u00E1mico."
+    },
+    {
+      "Id": "min-01",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 29384.0255,
+      "Answer": "To turn on DataAnnotations validation for Minimal APIs in .NET 10, you can add the \u0060AddValidation()\u0060 method to your project. This is done by using the \u0060builder.Services.AddValidation()\u0060 method, which sets up the validation setup for the API. This allows the system to validate the parameters as required by the API specification. [1]"
+    },
+    {
+      "Id": "min-02",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 28389.8714,
+      "Answer": "Para desactivar la validaci\u00F3n autom\u00E1tica en un endpoint, puedes usar la propiedad [DisableValidation()] en la clase de lugar donde se define la validaci\u00F3n. Ejemplo: \u0060public sealed class MyEndpoint { [DisableValidation()] ... }\u0060. Esto permite que la validaci\u00F3n no se ejecute en el endpoint."
+    },
+    {
+      "Id": "min-03",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 39730.4229,
+      "Answer": "The documents indicate that Microsoft.AspNetCore.OpenApi replaced Swashbuckle as the default OpenAPI generator in .NET 9 and .NET 10. Specifically, the document mentions: \u0022Microsoft.AspNetCore.OpenApi replaced Swashbuckle as the default in .NET 9, and .NET 10 sharpened it: OpenAPI 3.1 is now the default document version, YAML output works at runtime, and you can transform a single operation without touching the whole document.\u0022 Therefore, the answer is derived from document [1]."
+    },
+    {
+      "Id": "min-04",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 17921.9873,
+      "Answer": "[1] The default document version for .NET 10 is OpenAPI 3.1, with YAML output at runtime and no bundled UI."
+    },
+    {
+      "Id": "min-05",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 29656.6471,
+      "Answer": "Yes, it\u0027s recommended to version the entire API when one endpoint changes, as it helps in managing different versions of the service. Versioning allows you to track changes and maintain consistency across different versions of the API. This approach is especially useful when you have multiple endpoints, as it allows you to manage different endpoints separately. This practice helps in organizing and maintaining your API structure. [1]"
+    },
+    {
+      "Id": "min-06",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 28540.8203,
+      "Answer": "The order store is a ConcurrentDictionary because it is designed to handle concurrent requests efficiently and avoid data race conditions. It ensures thread safety by using a singleton and a concurrent collection, which means it can be modified by multiple threads without causing corruption. [1]"
+    },
+    {
+      "Id": "rmq-01",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 21688.2644,
+      "Answer": "No, a producer cannot publish directly to a RabbitMQ queue. Instead, they publish to an exchange, and the exchange handles routing based on the message\u0027s routing key. A queue is not the same as an exchange, and producers do not publish to queues directly."
+    },
+    {
+      "Id": "rmq-02",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 26672.4722,
+      "Answer": "La diferencia entre routing key y binding key es que el routing key es el valor usado para determinar qu\u00E9 cola se env\u00EDa, mientras que el binding key es el valor que se establece en la conexi\u00F3n entre una cola y un exchange, que gu\u00EDa c\u00F3mo se env\u00EDa el mensaje. El routing key se define por el mensaje, y el binding key se establece cuando se vincula una cola al exchange."
+    },
+    {
+      "Id": "rmq-03",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 21637.6006,
+      "Answer": "A fanout exchange ignores the routing key and copies each message to every bound queue, which is similar to a direct exchange but allows for multiple consumers to receive the same message. This is the \u0022order placed, four teams care\u0022 case, where each binding key corresponds to one queue."
+    },
+    {
+      "Id": "rmq-04",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 25859.254,
+      "Answer": "Un poison pill es un mensaje que falla en cada petici\u00F3n, como un payload rechazado, un identificador de fila deletado o un error en una coducci\u00F3n. Es un fallo estructural que no se puede resolver mediante retrying o el tiempo. En este contexto, se menciona que un poison pill no se resuelve mediante el tiempo, sino mediante la implementaci\u00F3n de tres pasos: [1], [3] y [5]."
+    },
+    {
+      "Id": "rmq-05",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 16120.684,
+      "Answer": "When a message no binding matches, it is discarded by the queue. This is determined by the binding key, which matches exactly one word, or all words in a pattern, or none. The binding is set when you wire a queue to an exchange, and the exchange type decides how the message is processed. A message discarded with no matching binding is not returned to the producer, as it\u0027s processed by the queue."
+    },
+    {
+      "Id": "rmq-06",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 22819.5411,
+      "Answer": "Los tutoriales publican directo al nombre de la cola porque el identificador de traza est\u00E1 escrito en la cabecera traceparent, lo que permite al sistema de trazado local identificar las trazas en tiempo real. Esto facilita la seguimiento de las trazas, permitiendo al usuario navegar entre servicios sin perder la identificaci\u00F3n. [1]"
+    },
+    {
+      "Id": "rmq-07",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 26191.2193,
+      "Answer": "[1] Yes, you can change a queue\u0027s arguments after it was declared. For example, you can update the arguments like the dead-letter exchange, delivery limit, or message TTL. [2] If you change a queue\u0027s arguments, the broker will respond with a PRECONDITION_FAILED and close the channel, but the queue remains unharmed."
+    },
+    {
+      "Id": "bot-01",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 25890.7365,
+      "Answer": "The cost of one AI pull request review is approximately $0.10 per pull request, calculated as 20,000 input tokens multiplied by $5 per million tokens, and 900 output tokens multiplied by $25 per million tokens. This makes the review cost significantly lower than the reviewer\u0027s time."
+    },
+    {
+      "Id": "bot-02",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 23648.2858,
+      "Answer": "El bot no usa una herramienta para publicar los comentarios porque solo permite comentarios en las l\u00EDneas del cambio proporcionados por el difi, y GitHub solo acepta posiciones que existan en el patch. Esto genera un error de 422, lo cual no responde al usuario. [1]"
+    },
+    {
+      "Id": "bot-03",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 23085.4917,
+      "Answer": "GitHub rejects review comments with a 422 because it only accepts comments on lines that exist in the diff. This is the reason why the bot fails, and it\u0027s mentioned in the document. [2]"
+    },
+    {
+      "Id": "bot-04",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 38107.7384,
+      "Answer": "El bot se protege de una inyecci\u00F3n de prompt dentro del diff mediante la etiquetaci\u00F3n del contenido, la limpieza de los datos y el uso de herramientas que aseguren la veracidad del contenido. Se menciona que el sistema prompt indica que el contenido es inesperado y se debe evitar su uso. El contenido se protege mediante la limpieza de los datos y la etiquetaci\u00F3n del contenido. [1]"
+    },
+    {
+      "Id": "rag-01",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 20025.0504,
+      "Answer": "RAG stands for Retrieval-Augmented Generation. It\u0027s a technique that finds relevant pieces of text (chunks) from documents, then uses those to generate answers. [1]"
+    },
+    {
+      "Id": "rag-02",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 22884.0541,
+      "Answer": "Los vectores se guardan en el directorio bin/ del proyecto, utilizando el lenguaje SQLite y el paquete sqlite-vec. [4]"
+    },
+    {
+      "Id": "rag-03",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 34894.0235,
+      "Answer": "RAG is the right tool when your knowledge is large, private, or changing, and it\u0027s used for things like company docs, product manuals, support tickets, or knowledge bases. It\u0027s perfect for when the whole knowledge fits in the context window, and it\u0027s not a bug if the answer isn\u0027t in the documents."
+    },
+    {
+      "Id": "obs-01",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 46842.6297,
+      "Answer": "La diferencia entre monitoreo y observabilidad radica en que el monitoreo responde preguntas que escribiste de antemano, mientras que la observabilidad responde preguntas que no necesitas de antemano. En documentos, se menciona que el monitoreo responde preguntas que ya escribiste, mientras que la observabilidad responde preguntas que no hayan sido escritas antes, lo cual implica un log de alerta. La diferencia es que el monitoreo no se centra en la observabilidad, sino en la capacidad de responder preguntas que ya hayan sido resueltas. [1][2]"
+    },
+    {
+      "Id": "obs-02",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 33115.2687,
+      "Answer": "The reason a SKU shouldn\u0027t be a metric label is that it\u0027s not a metric but a specific attribute of a product or service. Metrics typically represent measurable properties of a system, while SKUs (Stock Units for a Product) are specific product identifiers. Thus, they are not metric labels. [5]"
+    },
+    {
+      "Id": "obs-03",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 1542.9372,
+      "Answer": "This is the most relevant information I found in the documents: La respuesta es el muestreo, y la versi\u00F3n que conviene saber ahora es: muestrea trazas completas, nunca spans sueltos, o vas a terminar con \u00E1rboles incompletos. [1] Ese campo no lo escribes t\u00FA. @opentelemetry/instrumentation-pino, que getNodeAutoInstrumentations() activa por ti, agrega trace_id, span_id y trace_flags a toda l\u00EDnea de Pino emitida dentro de un span activo. [3] As\u00ED obtienes el 10% de las trazas enteras, y no el 10% de los spans repartidos entre todas. [4]"
+    },
+    {
+      "Id": "obs-04",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 41651.8733,
+      "Answer": "Las trazas te dicen d\u00F3nde se fue el tiempo, mientras que las m\u00E9tricas dicen con qu\u00E9 frecuencia y qu\u00E9 tan grave. Por lo tanto, las trazas no dicen lo mismo que las m\u00E9tricas."
+    },
+    {
+      "Id": "node-01",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 29787.0839,
+      "Answer": "Yes, Node 24 type-checkes TypeScript files. It does not require any additional configuration or options, and it uses process.features.typescript to strip types as needed, but this is not a feature that Node 24 itself handles. The type-checking process is handled by the underlying JavaScript engine and does not rely on TypeScript features like --experimental-strip-types."
+    },
+    {
+      "Id": "node-02",
+      "Answerable": true,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 21648.8196,
+      "Answer": "The decorators fail with Node\u0027s built-in TypeScript support because they are not syntactically supported by TypeScript. They are an exception to the rules and are not part of the standard TypeScript syntax. [2]"
+    },
+    {
+      "Id": "node-03",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 27997.7079,
+      "Answer": "El tsx arranca aproximadamente 3.7 veces m\u00E1s lento que node 24."
+    },
+    {
+      "Id": "node-04",
+      "Answerable": true,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 24897.1678,
+      "Answer": "To replace TypeScript alias paths in Node 24, you can modify the \u0060tsconfig.json\u0060 file. Specifically, change the \u0060package.json\u0060 file\u0027s \u0060dependencies\u0060 to point to the correct module path. For example, if your project uses a package named \u0060billing\u0060, update the \u0060npm install billing\u0060 line in your \u0060package.json\u0060 file to point to the correct module location. This should resolve the alias issues you\u0027re encountering."
+    },
+    {
+      "Id": "none-01",
+      "Answerable": false,
+      "Outcome": "AbstainedNoContext",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 90.8459,
+      "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?"
+    },
+    {
+      "Id": "none-02",
+      "Answerable": false,
+      "Outcome": "Answered",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 34719.1747,
+      "Answer": "El plan premium cuesta unos 25 ms, que es instanciar en WebAssembly el componente que borra los tipos, algo que antes no cargabas. [1]"
+    },
+    {
+      "Id": "none-03",
+      "Answerable": false,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 13012.1509,
+      "Answer": "The information provided does not mention anything about Kubernetes experience. Therefore, I cannot determine if Juan has Kubernetes experience based on the given documents. The answer is [NO_ANSWER]."
+    },
+    {
+      "Id": "none-04",
+      "Answerable": false,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 29735.8181,
+      "Answer": "La federaci\u00F3n de GraphQL se configura mediante la integraci\u00F3n de herramientas como el SDK de observabilidad (ej. Jaeger), que permite establecer una red de autenticaci\u00F3n en forma federada. Esto implica configurar variables de entorno como OTEL_FEDERATION_ID o OTEL_FEDERATION_SECRET, y usar un protocolo de autenticaci\u00F3n como HTTP o WebSocket para que los servicios operen en una federaci\u00F3n. El SDK permite que los servicios operen en un entorno federado, permitiendo la integraci\u00F3n de m\u00FAltiples sistemas de manera centralizada."
+    },
+    {
+      "Id": "none-05",
+      "Answerable": false,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 35214.1171,
+      "Answer": "To deploy a container to Google Cloud Run, you can use the \u0060gcloud run deployments update\u0060 command or the \u0060gcloud run customize\u0060 command. The process involves creating a deployment configuration file, setting the service name, and applying the configuration to the service. The exact steps depend on the specific container you\u0027re deploying, but generally, you need to configure the service, set the environment variables, and apply the configuration to the deployed service."
+    },
+    {
+      "Id": "none-06",
+      "Answerable": false,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 28064.7592,
+      "Answer": "El n\u00FAmero de tel\u00E9fono de Juan no est\u00E1 proporcionado en los documentos proporcionados. No hay informaci\u00F3n relacionada con Juan en los documentos guardados."
+    },
+    {
+      "Id": "none-07",
+      "Answerable": false,
+      "Outcome": "Answered",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 19551.1094,
+      "Answer": "The Rust borrow checker ensures memory safety by preventing a value from being used more than once. When a value is borrowed, it must be used in a way that doesn\u0027t require it to be copied. The borrow checker identifies and warns about this, ensuring the code remains safe. [1]"
+    },
+    {
+      "Id": "none-08",
+      "Answerable": false,
+      "Outcome": "AbstainedNoContext",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 25.4966,
+      "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?"
+    },
+    {
+      "Id": "none-09",
+      "Answerable": false,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 15744.6575,
+      "Answer": "The documents do not provide information about baking a chocolate cake. Therefore, I cannot provide a response. No_ANSWER."
+    },
+    {
+      "Id": "none-10",
+      "Answerable": false,
+      "Outcome": "AnsweredWithoutCitations",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 30909.6061,
+      "Answer": "El cl\u00FAster de Redis se configura mediante la configuraci\u00F3n de los datos en un archivo como \u0060redis.conf\u0060 o mediante el uso de herramientas como RedisStudio. Es necesario configurar variables como \u0060host\u0060, \u0060port\u0060, \u0060db\u0060, \u0060password\u0060, y \u0060timeout\u0060 para establecer la conexi\u00F3n y la seguridad del cluster. El cl\u00FAster puede tener m\u00FAltiples servidores, cada uno con sus propias configuraciones y bases de datos."
+    }
+  ]
+}

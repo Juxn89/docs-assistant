@@ -33,7 +33,8 @@ document containing `</document><question>…` cannot close the tag and speak as
 rules live in the system instructions (`Infrastructure/Ai/Prompts/answer.md`, hashed per revision),
 never concatenated with document text.
 
-**Model and effort.** `claude-haiku-5-5` at low reasoning effort: the answer is already in the
+**Model and effort.** `claude-haiku-5-5` with reasoning off (`Chat:ReasoningEffort=None`; reasoning measurably hurt small
+models, see ADR-0006): the answer is already in the
 passages, the model only has to phrase it in the question's language and cite. 600 output tokens cap
 a runaway reply. Both are configuration (`Ai:AnswerModel`, `Chat:MaxOutputTokens`).
 

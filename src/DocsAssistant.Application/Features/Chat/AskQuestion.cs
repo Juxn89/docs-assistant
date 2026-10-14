@@ -64,7 +64,7 @@ public sealed partial class AskQuestion(
 		{
 			Instructions = prompt.Text,
 			MaxOutputTokens = settings.MaxOutputTokens,
-			Reasoning = new ReasoningOptions { Effort = ReasoningEffort.Low },
+			Reasoning = new ReasoningOptions { Effort = settings.ReasoningEffort },
 		};
 		ChatMessage[] messages = [new(ChatRole.User, BuildUserMessage(context.Chunks, question))];
 
@@ -120,16 +120,17 @@ public sealed partial class AskQuestion(
 				}
 
 				// Hold back the first characters until they cannot be the start of the sentinel, so the
-				// user never sees "NO_ANS…" flash before the abstention replaces it.
+				// user never sees "NO_ANS…" flash before the abstention replaces it. Case-insensitive:
+				// gemma3:1b answered "No_ANSWER" in the answer eval and slipped past an exact match.
 				pending.Append(update.Text);
 				var head = pending.ToString().TrimStart();
-				if (head.StartsWith(AnswerTexts.NoAnswerSentinel, StringComparison.Ordinal))
+				if (head.StartsWith(AnswerTexts.NoAnswerSentinel, StringComparison.OrdinalIgnoreCase))
 				{
 					abstained = true;
 					break;
 				}
 
-				if (head.Length >= AnswerTexts.NoAnswerSentinel.Length || !AnswerTexts.NoAnswerSentinel.StartsWith(head, StringComparison.Ordinal))
+				if (head.Length >= AnswerTexts.NoAnswerSentinel.Length || !AnswerTexts.NoAnswerSentinel.StartsWith(head, StringComparison.OrdinalIgnoreCase))
 				{
 					decided = true;
 					var released = pending.ToString();

@@ -68,9 +68,15 @@ What the numbers decided:
 
 Answer eval, same 54 questions, end to end (`-- --suite answers`, provider from configuration):
 
-| Provider | answered | cited the evidence | abstained when there was no answer | invalid citations |
+| Provider | cited the evidence | abstained when there was no answer | false answers with a citation | latency p50 |
 |---|---:|---:|---:|---:|
-| Extractive (no model, zero cost) | 100 % | 80 % | 20 % | 0 % |
+| Extractive (no model, zero cost) | **80 %** | 20 % | — (quotes only) | **0.6 s** |
+| qwen3:1.7b, local container | 48 % | **60 %** | 0 | 40 s |
+| qwen3:0.6b, local container | 48 % | 20 % | 2 | 28 s |
+| gemma3:1b, local container | 2 % | 30 % | 0 | 30 s |
+
+Local models run in a hardened container ([deploy/ollama](deploy/ollama/compose.yaml)): pinned image,
+read-only filesystem, no Linux capabilities, loopback-only port, memory/CPU limits.
 
 Extractive mode cannot tell an unanswerable question apart (measured, [ADR-0006](docs/adr/0006-no-paid-key-providers-and-extractive-mode.md)),
 so its output is framed as "the most relevant information I found" and always offers a human.

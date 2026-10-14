@@ -50,31 +50,66 @@ internal static partial class AnswerEval
 		var provider = Describe(environment.Services.GetRequiredService<IOptions<AiOptions>>().Value);
 		Console.WriteLine($"Answering {golden.Count} questions with {provider}…");
 
-		var results = new List<AnswerItemResult>();
-		foreach (var item in golden)
+		// Checkpoint: every answered question is appended to a progress file as soon as it is scored, so
+		// an interrupted run (a laptop out of memory, a closed terminal) resumes where it stopped instead
+		// of repeating up to an hour of CPU inference.
+		var progressFile = Path.Combine(repo.ResultsDirectory, $"answers-{AnswerReport.Slug(provider)}.progress.jsonl");
+		var done = LoadProgress(progressFile);
+		if (done.Count > 0)
 		{
-			await using var scope = environment.Services.CreateAsyncScope();
-			var ask = scope.ServiceProvider.GetRequiredService<AskQuestion>();
-
-			var clock = Stopwatch.StartNew();
-			AnswerCompleted? done = null;
-			await foreach (var e in ask.HandleAsync(tenant, item.Question, ContentLanguage.English, CancellationToken.None))
-			{
-				done = e as AnswerCompleted ?? done;
-			}
-
-			clock.Stop();
-			var cited = item.Answerable && done!.Citations.Any(c =>
-				chunkText.TryGetValue(c.ChunkId, out var source)
-				&& source.Doc == item.Doc
-				&& Normalize(source.Text).Contains(Normalize(item.Evidence!), StringComparison.Ordinal));
-			results.Add(new AnswerItemResult(item.Id, item.Answerable, done!.Outcome.ToString(), cited, done.HadInvalidCitations, clock.Elapsed.TotalMilliseconds, done.Answer));
-			Console.Write('.');
+			Console.WriteLine($"Resuming: {done.Count} questions already answered in {Path.GetFileName(progressFile)}.");
 		}
 
+		Directory.CreateDirectory(repo.ResultsDirectory);
+		await using (var progress = new StreamWriter(progressFile, append: true))
+		{
+			foreach (var item in golden.Where(g => !done.ContainsKey(g.Id)))
+			{
+				var result = await AnswerAsync(environment, tenant, item, chunkText);
+				done[item.Id] = result;
+				await progress.WriteLineAsync(JsonSerializer.Serialize(result));
+				await progress.FlushAsync();
+				Console.Write('.');
+			}
+		}
+
+		var results = golden.Select(g => done[g.Id]).ToList();
+		File.Delete(progressFile);
 		Console.WriteLine();
 		return new AnswerReport(DateTimeOffset.UtcNow, provider, Score(provider, results), results);
 	}
+
+	private static async Task<AnswerItemResult> AnswerAsync(
+		EvalEnvironment environment,
+		TenantId tenant,
+		GoldenItem item,
+		Dictionary<Guid, (string Doc, string Text)> chunkText)
+	{
+		await using var scope = environment.Services.CreateAsyncScope();
+		var ask = scope.ServiceProvider.GetRequiredService<AskQuestion>();
+
+		var clock = Stopwatch.StartNew();
+		AnswerCompleted? completed = null;
+		await foreach (var e in ask.HandleAsync(tenant, item.Question, ContentLanguage.English, CancellationToken.None))
+		{
+			completed = e as AnswerCompleted ?? completed;
+		}
+
+		clock.Stop();
+		var cited = item.Answerable && completed!.Citations.Any(c =>
+			chunkText.TryGetValue(c.ChunkId, out var source)
+			&& source.Doc == item.Doc
+			&& Normalize(source.Text).Contains(Normalize(item.Evidence!), StringComparison.Ordinal));
+		return new AnswerItemResult(item.Id, item.Answerable, completed!.Outcome.ToString(), cited, completed.HadInvalidCitations, clock.Elapsed.TotalMilliseconds, completed.Answer);
+	}
+
+	private static Dictionary<string, AnswerItemResult> LoadProgress(string path) =>
+		!File.Exists(path)
+			? []
+			: File.ReadAllLines(path)
+				.Where(line => !string.IsNullOrWhiteSpace(line))
+				.Select(line => JsonSerializer.Deserialize<AnswerItemResult>(line)!)
+				.ToDictionary(r => r.Id);
 
 	private static AnswerMetrics Score(string provider, List<AnswerItemResult> results)
 	{
@@ -138,6 +173,8 @@ internal sealed record AnswerReport(DateTimeOffset RanAt, string Provider, Answe
 {
 	private static readonly JsonSerializerOptions Json = new() { WriteIndented = true };
 
+	public static string Slug(string provider) => Regex.Replace(provider.ToLowerInvariant(), "[^a-z0-9]+", "-").Trim('-');
+
 	public void Print()
 	{
 		Console.WriteLine($"Runtime: {CpuProfile.Describe()}");
@@ -147,7 +184,7 @@ internal sealed record AnswerReport(DateTimeOffset RanAt, string Provider, Answe
 	public async Task WriteAsync(string directory)
 	{
 		Directory.CreateDirectory(directory);
-		var slug = Regex.Replace(Provider.ToLowerInvariant(), "[^a-z0-9]+", "-").Trim('-');
+		var slug = Slug(Provider);
 		await File.WriteAllTextAsync(Path.Combine(directory, $"answers-{slug}.json"), JsonSerializer.Serialize(this, Json));
 
 		var markdown = new StringBuilder()
