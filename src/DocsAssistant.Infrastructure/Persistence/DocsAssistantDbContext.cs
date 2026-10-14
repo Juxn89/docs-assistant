@@ -1,6 +1,8 @@
 using DocsAssistant.Application.Abstractions;
 using DocsAssistant.Domain.Common;
+using DocsAssistant.Domain.Conversations;
 using DocsAssistant.Domain.Documents;
+using DocsAssistant.Domain.Handoff;
 using DocsAssistant.Domain.Tenants;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +17,12 @@ public sealed class DocsAssistantDbContext(
 	public DbSet<Document> Documents => Set<Document>();
 
 	public DbSet<Chunk> Chunks => Set<Chunk>();
+
+	public DbSet<Conversation> Conversations => Set<Conversation>();
+
+	public DbSet<ConversationMessage> Messages => Set<ConversationMessage>();
+
+	public DbSet<Lead> Leads => Set<Lead>();
 
 	internal DbSet<DocumentContent> DocumentContents => Set<DocumentContent>();
 
@@ -35,6 +43,9 @@ public sealed class DocsAssistantDbContext(
 		modelBuilder.Entity<Document>().HasQueryFilter(d => d.TenantId == CurrentTenantFilter);
 		modelBuilder.Entity<Chunk>().HasQueryFilter(c => c.TenantId == CurrentTenantFilter);
 		modelBuilder.Entity<DocumentContent>().HasQueryFilter(c => c.TenantId == CurrentTenantFilter);
+		modelBuilder.Entity<Conversation>().HasQueryFilter(c => c.TenantId == CurrentTenantFilter);
+		modelBuilder.Entity<ConversationMessage>().HasQueryFilter(m => m.TenantId == CurrentTenantFilter);
+		modelBuilder.Entity<Lead>().HasQueryFilter(l => l.TenantId == CurrentTenantFilter);
 	}
 
 	protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
@@ -44,6 +55,9 @@ public sealed class DocsAssistantDbContext(
 		configurationBuilder.Properties<TenantId>().HaveConversion<TenantIdConverter>();
 		configurationBuilder.Properties<DocumentId>().HaveConversion<DocumentIdConverter>();
 		configurationBuilder.Properties<ChunkId>().HaveConversion<ChunkIdConverter>();
+		configurationBuilder.Properties<ConversationId>().HaveConversion<ConversationIdConverter>();
+		configurationBuilder.Properties<MessageId>().HaveConversion<MessageIdConverter>();
+		configurationBuilder.Properties<LeadId>().HaveConversion<LeadIdConverter>();
 		configurationBuilder.Properties<ContentHash>().HaveConversion<ContentHashConverter>();
 	}
 }

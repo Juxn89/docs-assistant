@@ -24,3 +24,24 @@ public readonly record struct ChunkId(Guid Value)
 
 	public override string ToString() => Value.ToString();
 }
+
+public readonly record struct ConversationId(Guid Value)
+{
+	public static ConversationId New() => new(Guid.CreateVersion7());
+
+	public override string ToString() => Value.ToString();
+}
+
+public readonly record struct MessageId(Guid Value)
+{
+	public static MessageId New() => new(Guid.CreateVersion7());
+
+	public override string ToString() => Value.ToString();
+}
+
+public readonly record struct LeadId(Guid Value)
+{
+	public static LeadId New() => new(Guid.CreateVersion7());
+
+	public override string ToString() => Value.ToString();
+}

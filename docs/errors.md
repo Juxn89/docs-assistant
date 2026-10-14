@@ -22,8 +22,11 @@ ProblemDetails with a stable `code` extension. Clients should branch on `code`, 
 | <a id="url-bad_redirect"></a>`url.bad_redirect` | 502 | A redirect without a `Location` header. |
 | <a id="url-too_many_redirects"></a>`url.too_many_redirects` | 502 | More than `UrlFetch:MaxRedirects` hops. |
 | <a id="chat-question_required"></a>`chat.question_required` | 400 | The question is empty. |
-| <a id="chat-origin_not_allowed"></a>`chat.origin_not_allowed` | 403 | The request's `Origin` is not in the tenant's allowed origins. |
-
+| <a id="chat-origin_not_allowed"></a>`chat.origin_not_allowed` | 403 | The request's `Origin` is not in the tenant's allowed origins (chat and handoff). |
+| <a id="handoff-invalid_email"></a>`handoff.invalid_email` | 400 | The visitor's email is missing, not a plain address (`ana@example.com`, no display name), or contains a line break. |
+| <a id="handoff-invalid_name"></a>`handoff.invalid_name` | 400 | The name is longer than 100 characters or spans several lines. |
+| <a id="handoff-message_required"></a>`handoff.message_required` | 400 | The message for the team is empty. |
+| <a id="handoff-message_too_long"></a>`handoff.message_too_long` | 400 | The message is longer than 2000 characters. |
 | <a id="rate_limited"></a>`rate_limited` | 429 | Too many requests from this client or for this assistant; retry after the `Retry-After` header ([ADR-0007](adr/0007-rate-limiting.md)). |
 
 Requests to `/v1/admin/*` without a valid `X-Admin-Key` header get a 401 ProblemDetails.
@@ -35,7 +38,7 @@ Requests to `/v1/admin/*` without a valid `X-Admin-Key` header get a 401 Problem
 | Event | Data | When |
 |---|---|---|
 | `delta` | `{ "text": "…" }` | Zero or more times, as the answer is generated. |
-| `done` | `{ "outcome", "offerHandoff", "citations": [{ "number", "title", "source", "section", "excerpt" }] }` | Exactly once, last, when the answer completed. |
+| `done` | `{ "conversationId", "outcome", "offerHandoff", "citations": [{ "number", "title", "source", "section", "excerpt" }] }` | Exactly once, last, when the answer completed. Send `conversationId` back with the next question and with a handoff. |
 | `error` | `{ "code": "assistant.unavailable", "message" }` | Instead of `done`, when the model cannot be used (not configured, provider failure). |
 
 `outcome` is one of `Answered`, `AnsweredWithoutCitations`, `AnsweredExtractively`, `AbstainedNoContext`,
@@ -44,3 +47,12 @@ Requests to `/v1/admin/*` without a valid `X-Admin-Key` header get a 401 Problem
 [ADR-0008](adr/0008-prompt-injection-guardrails.md)). `RejectedByGuardrail` means the question tried to
 instruct the assistant, or the answer started reproducing its instructions; the streamed text is a
 fixed refusal (after any text already shown, if the answer was cut mid-stream) and `offerHandoff` is `true`.
+
+## Handoff
+
+`POST /v1/handoff/{publicKey}` with `{ "conversationId"?, "email", "name"?, "message" }` answers
+**202** `{ "leadId" }` as soon as the lead is stored; the email to the operator is sent in the
+background and retried if the mail server fails. Sending the same email and message again within ten
+minutes returns the same `leadId` instead of a second lead. A `conversationId` that is unknown or
+belongs to another assistant is ignored, not an error. Limited to 5 per hour per client
+([ADR-0009](adr/0009-human-handoff.md)).

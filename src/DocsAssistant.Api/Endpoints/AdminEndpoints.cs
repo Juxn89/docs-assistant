@@ -1,4 +1,5 @@
 using DocsAssistant.Api.Admin;
+using DocsAssistant.Application.Features.Handoff;
 using DocsAssistant.Application.Features.Ingest;
 using DocsAssistant.Application.Features.Tenants;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,8 @@ internal static class AdminEndpoints
 			.DisableAntiforgery()
 			.WithMetadata(new RequestSizeLimitAttribute(maxFileBytes + MultipartOverheadBytes));
 		documents.MapPost("/url", AddUrlAsync);
+
+		admin.MapGet("/tenants/{tenantId:guid}/leads", ListLeadsAsync);
 
 		return admin;
 	}
@@ -65,6 +68,9 @@ internal static class AdminEndpoints
 
 	private static async Task<IResult> AddUrlAsync(Guid tenantId, AddUrlBody body, AddUrlDocument useCase, CancellationToken cancellationToken) =>
 		(await useCase.HandleAsync(new AddUrlDocumentRequest(tenantId, body.Url, body.Title), cancellationToken)).ToHttp(Registered);
+
+	private static async Task<IResult> ListLeadsAsync(Guid tenantId, ListLeads useCase, CancellationToken cancellationToken) =>
+		(await useCase.HandleAsync(tenantId, cancellationToken)).ToHttp(Results.Ok);
 
 	/// <summary>202 for new work the worker has not finished; 200 when the content was already known.</summary>
 	private static IResult Registered(RegistrationResponse response) =>

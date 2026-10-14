@@ -26,6 +26,84 @@ namespace DocsAssistant.Infrastructure.Persistence.Migrations
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "vector");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("DocsAssistant.Domain.Conversations.Conversation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTimeOffset>("LastMessageAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("last_message_at");
+
+                    b.Property<DateTimeOffset>("StartedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("started_at");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tenant_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_conversations");
+
+                    b.HasIndex("TenantId", "LastMessageAt")
+                        .HasDatabaseName("ix_conversations_tenant_id_last_message_at");
+
+                    b.ToTable("conversations", (string)null);
+                });
+
+            modelBuilder.Entity("DocsAssistant.Domain.Conversations.ConversationMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Citations")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("citations");
+
+                    b.Property<Guid>("ConversationId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("conversation_id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Outcome")
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("outcome");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("role");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tenant_id");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(8000)
+                        .HasColumnType("character varying(8000)")
+                        .HasColumnName("text");
+
+                    b.HasKey("Id")
+                        .HasName("pk_messages");
+
+                    b.HasIndex("TenantId")
+                        .HasDatabaseName("ix_messages_tenant_id");
+
+                    b.HasIndex("ConversationId", "CreatedAt")
+                        .HasDatabaseName("ix_messages_conversation_id_created_at");
+
+                    b.ToTable("messages", (string)null);
+                });
+
             modelBuilder.Entity("DocsAssistant.Domain.Documents.Chunk", b =>
                 {
                     b.Property<Guid>("Id")
@@ -182,6 +260,94 @@ namespace DocsAssistant.Infrastructure.Persistence.Migrations
                     b.ToTable("documents", (string)null);
                 });
 
+            modelBuilder.Entity("DocsAssistant.Domain.Handoff.Lead", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<int>("Attempts")
+                        .HasColumnType("integer")
+                        .HasColumnName("attempts");
+
+                    b.Property<Guid?>("ConversationId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("conversation_id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("language");
+
+                    b.Property<string>("LastError")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("last_error");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("message");
+
+                    b.Property<DateTimeOffset>("NextAttemptAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("next_attempt_at");
+
+                    b.Property<DateTimeOffset?>("NotifiedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("notified_at");
+
+                    b.Property<DateTimeOffset?>("SendingStartedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("sending_started_at");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("status");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tenant_id");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
+                    b.Property<string>("VisitorEmail")
+                        .IsRequired()
+                        .HasMaxLength(320)
+                        .HasColumnType("character varying(320)")
+                        .HasColumnName("visitor_email");
+
+                    b.Property<string>("VisitorName")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("visitor_name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_leads");
+
+                    b.HasIndex("ConversationId")
+                        .HasDatabaseName("ix_leads_conversation_id");
+
+                    b.HasIndex("NextAttemptAt")
+                        .HasDatabaseName("ix_leads_next_attempt_at")
+                        .HasFilter("status = 'Pending'");
+
+                    b.HasIndex("TenantId", "CreatedAt")
+                        .HasDatabaseName("ix_leads_tenant_id_created_at");
+
+                    b.ToTable("leads", (string)null);
+                });
+
             modelBuilder.Entity("DocsAssistant.Domain.Tenants.Tenant", b =>
                 {
                     b.Property<Guid>("Id")
@@ -254,6 +420,26 @@ namespace DocsAssistant.Infrastructure.Persistence.Migrations
                     b.ToTable("document_contents", (string)null);
                 });
 
+            modelBuilder.Entity("DocsAssistant.Domain.Conversations.Conversation", b =>
+                {
+                    b.HasOne("DocsAssistant.Domain.Tenants.Tenant", null)
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_conversations_tenants_tenant_id");
+                });
+
+            modelBuilder.Entity("DocsAssistant.Domain.Conversations.ConversationMessage", b =>
+                {
+                    b.HasOne("DocsAssistant.Domain.Conversations.Conversation", null)
+                        .WithMany()
+                        .HasForeignKey("ConversationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_messages_conversations_conversation_id");
+                });
+
             modelBuilder.Entity("DocsAssistant.Domain.Documents.Chunk", b =>
                 {
                     b.HasOne("DocsAssistant.Domain.Documents.Document", null)
@@ -272,6 +458,22 @@ namespace DocsAssistant.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_documents_tenants_tenant_id");
+                });
+
+            modelBuilder.Entity("DocsAssistant.Domain.Handoff.Lead", b =>
+                {
+                    b.HasOne("DocsAssistant.Domain.Conversations.Conversation", null)
+                        .WithMany()
+                        .HasForeignKey("ConversationId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_leads_conversations_conversation_id");
+
+                    b.HasOne("DocsAssistant.Domain.Tenants.Tenant", null)
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_leads_tenants_tenant_id");
                 });
 
             modelBuilder.Entity("DocsAssistant.Infrastructure.Persistence.DocumentContent", b =>

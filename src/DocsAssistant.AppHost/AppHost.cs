@@ -30,6 +30,7 @@ builder.AddProject<Projects.DocsAssistant_Api>("api")
 	.WithEnvironment("Admin__ApiKey", adminKey)
 	.WaitFor(database)
 	.WaitFor(cache)
+	.WaitFor(mail)
 	.WithHttpHealthCheck("/health");
 
 await builder.Build().RunAsync();

@@ -71,6 +71,26 @@ public sealed class RateLimitingTests(PostgresFixture postgres) : IDisposable
 		Assert.Equal("rate_limited", problem.GetProperty("code").GetString());
 	}
 
+	/// <summary>Every handoff emails a person, so it has its own low limit, separate from the chat's.</summary>
+	[Fact]
+	public async Task Handoff_HasItsOwnLowerLimit_ThatChattingDoesNotSpend()
+	{
+		using var client = Client(new() { ["HandoffPerHourPerIp"] = "2", ["ChatPerMinutePerIp"] = "100" });
+		for (var i = 0; i < 5; i++)
+		{
+			await AskAsync(client, "pk_unknown");
+		}
+
+		var first = await client.PostAsJsonAsync("/v1/handoff/pk_unknown", new { email = "a@b.co", message = "hi" });
+		var second = await client.PostAsJsonAsync("/v1/handoff/pk_unknown", new { email = "a@b.co", message = "hi" });
+		var third = await client.PostAsJsonAsync("/v1/handoff/pk_unknown", new { email = "a@b.co", message = "hi" });
+
+		Assert.Equal(HttpStatusCode.NotFound, first.StatusCode);
+		Assert.Equal(HttpStatusCode.NotFound, second.StatusCode);
+		Assert.Equal(HttpStatusCode.TooManyRequests, third.StatusCode);
+		Assert.Equal(HttpStatusCode.NotFound, (await AskAsync(client, "pk_unknown")).StatusCode);
+	}
+
 	[Fact]
 	public async Task SpoofedForwardedFor_IsIgnoredWhenNotTrusted()
 	{

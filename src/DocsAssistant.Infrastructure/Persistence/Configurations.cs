@@ -1,4 +1,6 @@
+using DocsAssistant.Domain.Conversations;
 using DocsAssistant.Domain.Documents;
+using DocsAssistant.Domain.Handoff;
 using DocsAssistant.Domain.Tenants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -101,5 +103,65 @@ internal sealed class ChunkConfiguration : IEntityTypeConfiguration<Chunk>
 			.HasColumnName(PostgresNames.SearchVectorColumn)
 			.HasComputedColumnSql(PostgresNames.SearchVectorSql, stored: true);
 		builder.HasIndex("SearchVector").HasMethod("gin");
+	}
+}
+
+internal sealed class ConversationConfiguration : IEntityTypeConfiguration<Conversation>
+{
+	public void Configure(EntityTypeBuilder<Conversation> builder)
+	{
+		builder.HasKey(c => c.Id);
+		builder.HasOne<Tenant>().WithMany().HasForeignKey(c => c.TenantId).OnDelete(DeleteBehavior.Cascade);
+		builder.HasIndex(c => new { c.TenantId, c.LastMessageAt });
+	}
+}
+
+internal sealed class ConversationMessageConfiguration : IEntityTypeConfiguration<ConversationMessage>
+{
+	private const int OutcomeMaxLength = 40;
+
+	public void Configure(EntityTypeBuilder<ConversationMessage> builder)
+	{
+		builder.ToTable("messages");
+		builder.HasKey(m => m.Id);
+		builder.HasOne<Conversation>().WithMany().HasForeignKey(m => m.ConversationId).OnDelete(DeleteBehavior.Cascade);
+		builder.HasIndex(m => m.TenantId);
+
+		// The transcript reads the latest messages of one conversation.
+		builder.HasIndex(m => new { m.ConversationId, m.CreatedAt });
+
+		builder.Property(m => m.Role).HasConversion<string>();
+		builder.Property(m => m.Text).HasMaxLength(ConversationMessage.MaxTextLength);
+		builder.Property(m => m.Outcome).HasMaxLength(OutcomeMaxLength);
+		builder.Property(m => m.Citations)
+			.HasConversion(new CitationsConverter(), new CitationsComparer())
+			.HasColumnType("jsonb");
+	}
+}
+
+internal sealed class LeadConfiguration : IEntityTypeConfiguration<Lead>
+{
+	public void Configure(EntityTypeBuilder<Lead> builder)
+	{
+		builder.HasKey(l => l.Id);
+		builder.HasOne<Tenant>().WithMany().HasForeignKey(l => l.TenantId).OnDelete(DeleteBehavior.Cascade);
+
+		// A conversation can be deleted (data retention) without losing the lead that came from it.
+		builder.HasOne<Conversation>().WithMany().HasForeignKey(l => l.ConversationId).OnDelete(DeleteBehavior.SetNull);
+
+		builder.Property(l => l.VisitorEmail).HasMaxLength(Lead.EmailMaxLength);
+		builder.Property(l => l.VisitorName).HasMaxLength(Lead.NameMaxLength);
+		builder.Property(l => l.Message).HasMaxLength(Lead.MessageMaxLength);
+		builder.Property(l => l.LastError).HasMaxLength(Lead.ErrorMaxLength);
+		builder.Property(l => l.Language).HasConversion<string>();
+		builder.Property(l => l.Status).HasConversion<string>();
+
+		builder.HasIndex(l => new { l.TenantId, l.CreatedAt });
+
+		// The worker polls for due leads; a partial index keeps that scan tiny.
+		builder.HasIndex(l => l.NextAttemptAt).HasFilter("status = 'Pending'");
+
+		// Same as documents: two workers claiming the same lead cannot both win.
+		builder.Property<uint>(PostgresNames.RowVersionProperty).IsRowVersion();
 	}
 }

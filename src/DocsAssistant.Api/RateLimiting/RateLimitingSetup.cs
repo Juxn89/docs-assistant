@@ -25,6 +25,13 @@ public sealed class RateLimitingOptions
 	[Range(1, 10_000_000)]
 	public int ChatPerDayPerTenant { get; set; } = 2_000;
 
+	/// <summary>
+	/// Each handoff sends an email to a real person: low enough that the form cannot be used to flood
+	/// an operator's inbox, high enough for a visitor who rephrases.
+	/// </summary>
+	[Range(1, 10_000)]
+	public int HandoffPerHourPerIp { get; set; } = 5;
+
 	/// <summary>Slows down guessing the admin key; legitimate admin use is far below this.</summary>
 	[Range(1, 10_000)]
 	public int AdminPerMinutePerIp { get; set; } = 60;
@@ -43,9 +50,11 @@ internal static class RateLimitingSetup
 
 	private const string ChatPrefix = "/v1/chat/";
 	private const string AdminPrefix = "/v1/admin";
+	private const string HandoffPrefix = "/v1/handoff/";
 	private const string UnknownClient = "unknown";
 
 	private static readonly TimeSpan Minute = TimeSpan.FromMinutes(1);
+	private static readonly TimeSpan Hour = TimeSpan.FromHours(1);
 	private static readonly TimeSpan Day = TimeSpan.FromDays(1);
 
 	public static IServiceCollection AddDocsAssistantRateLimiting(this IServiceCollection services, IConfiguration configuration)
@@ -77,6 +86,7 @@ internal static class RateLimitingSetup
 				PerClient(ChatPrefix, limits.ChatPerMinutePerIp, Minute),
 				PerClient(ChatPrefix, limits.ChatPerDayPerIp, Day),
 				PerTenant(limits.ChatPerDayPerTenant, Day),
+				PerClient(HandoffPrefix, limits.HandoffPerHourPerIp, Hour),
 				PerClient(AdminPrefix, limits.AdminPerMinutePerIp, Minute));
 			limiter.OnRejected = RejectAsync;
 		});

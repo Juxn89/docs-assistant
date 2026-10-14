@@ -41,7 +41,8 @@ assistant is only useful if it **answers from your content, shows where the answ
 | Works with no paid model: Ollama locally, extractive mode (quotes with citations) for the demo and as automatic fallback | ✅ [ADR-0006](docs/adr/0006-no-paid-key-providers-and-extractive-mode.md) |
 | Rate limiting (per client, per assistant, admin key guessing; spoof-resistant, IPv6 /64) | ✅ [ADR-0007](docs/adr/0007-rate-limiting.md) |
 | Prompt-injection guardrails (question refusal, passage quarantine, prompt canary) with an attack eval and false-positive count | ✅ [ADR-0008](docs/adr/0008-prompt-injection-guardrails.md) |
-| Handoff, widget, admin panel, cost dashboard | ⏳ |
+| Human handoff: conversations recorded, lead stored first and emailed to the operator in the background with the transcript, retries with backoff, Reply-To the visitor | ✅ [ADR-0009](docs/adr/0009-human-handoff.md) |
+| Widget, admin panel, cost dashboard | ⏳ |
 | Live demo | ⏳ — will run on [juangomezb.com](https://juangomezb.com) |
 
 ## Measured, not claimed
@@ -133,6 +134,15 @@ extractive mode (quotes with citations); `Ai__Provider=Ollama` (with a local mod
 
 ```bash
 curl -N -X POST localhost:5010/v1/chat/$PK -H 'content-type: application/json' -d '{"question":"¿Hacen envíos gratis?"}'
+```
+
+The `done` event carries a `conversationId`; send it with the next question, and with a request
+for a person. The email lands in Mailpit (its UI is linked from the Aspire dashboard):
+
+```bash
+curl -s -X POST localhost:5010/v1/handoff/$PK -H 'content-type: application/json' \
+  -d '{"conversationId":"<from done>","email":"ana@example.com","name":"Ana","message":"I need a quote"}'
+curl -s localhost:5010/v1/admin/tenants/$TENANT/leads -H "X-Admin-Key: $KEY" | jq '.[] | {email, status, attempts}'
 ```
 
 Errors are ProblemDetails with a stable `code`, and the chat stream's events are documented too:
