@@ -43,4 +43,31 @@ public sealed class ReciprocalRankFusionTests
 	[Fact]
 	public void Fuse_EmptyRankings_ReturnsEmpty() =>
 		Assert.Empty(ReciprocalRankFusion.Fuse(Array.Empty<IReadOnlyList<string>>()));
+
+	[Fact]
+	public void Fuse_Weighted_StrongerRetrieverWinsTheTop()
+	{
+		IReadOnlyList<string> strong = ["a", "b"];
+		IReadOnlyList<string> weak = ["b", "a"];
+
+		var fused = ReciprocalRankFusion.Fuse([(strong, 1.0), (weak, 0.5)]);
+
+		Assert.Equal(["a", "b"], fused.Select(f => f.Key));
+	}
+
+	[Fact]
+	public void Fuse_Weighted_WeakRetrieverStillContributesItsOwnFinds()
+	{
+		IReadOnlyList<string> strong = ["a"];
+		IReadOnlyList<string> weak = ["z"];
+
+		var fused = ReciprocalRankFusion.Fuse([(strong, 1.0), (weak, 0.5)]);
+
+		Assert.Contains(fused, f => f.Key == "z");
+	}
+
+	[Fact]
+	public void Fuse_NegativeWeight_IsRejected() =>
+		Assert.Throws<ArgumentOutOfRangeException>(() =>
+			ReciprocalRankFusion.Fuse([((IReadOnlyList<string>)["a"], -1.0)]));
 }

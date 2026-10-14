@@ -66,6 +66,19 @@ public sealed class ExtractorTests
 		Assert.DoesNotContain(extracted.Blocks, b => b.Text.Contains("not a heading", StringComparison.Ordinal) && b.Kind == TextBlockKind.Heading);
 	}
 
+	[Theory]
+	[InlineData("Edit `claude_desktop_config.json` first.", "Edit claude_desktop_config.json first.")]
+	[InlineData("Set MAX_RETRIES to 3.", "Set MAX_RETRIES to 3.")]
+	[InlineData("This is **bold** and _italic_ and ***both***.", "This is bold and italic and both.")]
+	[InlineData("Use __init__ carefully.", "Use init carefully.")]
+	[InlineData("2*3*4 stays arithmetic.", "2*3*4 stays arithmetic.")]
+	public void Markdown_StripsEmphasisButKeepsIdentifiers(string markdown, string expected)
+	{
+		var extracted = new MarkdownTextExtractor().Extract(Encoding.UTF8.GetBytes(markdown));
+
+		Assert.Equal(expected, Assert.Single(extracted.Blocks).Text);
+	}
+
 	[Fact]
 	public void Html_ReadsContentAndDropsChrome()
 	{

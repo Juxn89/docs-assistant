@@ -1,0 +1,54 @@
+{"id":"profile-01","question":"Where does Juan currently work?","lang":"en","doc":"juan-gomez-profile.md","evidence":"The Stepstone Group"}
+{"id":"profile-02","question":"¿En qué empresa trabaja Juan actualmente?","lang":"es","doc":"juan-gomez-profile.md","evidence":"The Stepstone Group"}
+{"id":"profile-03","question":"¿Para cuántos municipios desarrolló el sistema de catastro?","lang":"es","doc":"juan-gomez-profile.md","evidence":"153 municipal governments"}
+{"id":"profile-04","question":"By how much did Juan reduce deployment times?","lang":"en","doc":"juan-gomez-profile.md","evidence":"Reduced deployment times by approximately 25%"}
+{"id":"profile-05","question":"¿Qué tecnologías de frontend usó en Axxis-Systems?","lang":"es","doc":"juan-gomez-profile.md","evidence":"ExtJS"}
+{"id":"profile-06","question":"Has Juan maintained Visual Basic 6 systems?","lang":"en","doc":"juan-gomez-profile.md","evidence":"VB 6.0"}
+{"id":"profile-07","question":"¿Ha migrado aplicaciones legacy a .NET Core?","lang":"es","doc":"juan-gomez-profile.md","evidence":"Migrated legacy ASP.NET applications to .NET Core"}
+{"id":"mcp-01","question":"What protocol does MCP use under the hood?","lang":"en","doc":"mcp-server-csharp.md","evidence":"JSON-RPC"}
+{"id":"mcp-02","question":"¿Cómo pruebo un servidor MCP sin conectar un cliente?","lang":"es","doc":"mcp-server-csharp.md","evidence":"MCP Inspector"}
+{"id":"mcp-03","question":"Where is the Claude Desktop configuration file on Windows?","lang":"en","doc":"mcp-server-csharp.md","evidence":"claude_desktop_config.json"}
+{"id":"mcp-04","question":"¿Cuándo conviene un servidor MCP en lugar de tool use dentro de la aplicación?","lang":"es","doc":"mcp-server-csharp.md","evidence":"the moment more than one client needs the same tools"}
+{"id":"mcp-05","question":"Is the HTTP transport stateful in the MCP C# SDK 2.0?","lang":"en","doc":"mcp-server-csharp.md","evidence":"stateless by default"}
+{"id":"aot-01","question":"Can I use Entity Framework Core with Native AOT?","lang":"en","doc":"native-aot-dotnet10.md","evidence":"not AOT-compatible today"}
+{"id":"aot-02","question":"¿Qué hace CreateSlimBuilder en la plantilla de Native AOT?","lang":"es","doc":"native-aot-dotnet10.md","evidence":"CreateSlimBuilder"}
+{"id":"aot-03","question":"How can a library author declare that it is AOT compatible?","lang":"en","doc":"native-aot-dotnet10.md","evidence":"IsAotCompatible"}
+{"id":"aot-04","question":"¿Cuándo vale la pena usar Native AOT?","lang":"es","doc":"native-aot-dotnet10.md","evidence":"many instances of the same service"}
+{"id":"min-01","question":"How do I turn on DataAnnotations validation for Minimal APIs in .NET 10?","lang":"en","doc":"minimal-apis-dotnet10.md","evidence":"AddValidation"}
+{"id":"min-02","question":"¿Cómo desactivo la validación automática en un endpoint?","lang":"es","doc":"minimal-apis-dotnet10.md","evidence":"DisableValidation"}
+{"id":"min-03","question":"What replaced Swashbuckle as the default OpenAPI generator?","lang":"en","doc":"minimal-apis-dotnet10.md","evidence":"Microsoft.AspNetCore.OpenApi"}
+{"id":"min-04","question":"¿Qué versión de OpenAPI genera .NET 10 por defecto?","lang":"es","doc":"minimal-apis-dotnet10.md","evidence":"OpenAPI 3.1"}
+{"id":"min-05","question":"Should I version the whole API when one endpoint changes?","lang":"en","doc":"minimal-apis-dotnet10.md","evidence":"you version the endpoints that broke"}
+{"id":"min-06","question":"Why is the order store a ConcurrentDictionary?","lang":"en","doc":"minimal-apis-dotnet10.md","evidence":"ConcurrentDictionary"}
+{"id":"rmq-01","question":"Can a producer publish directly to a RabbitMQ queue?","lang":"en","doc":"rabbitmq-part-1.md","evidence":"never publishes to a queue"}
+{"id":"rmq-02","question":"¿Cuál es la diferencia entre routing key y binding key?","lang":"es","doc":"rabbitmq-part-1.md","evidence":"routing key is set by the producer"}
+{"id":"rmq-03","question":"What does a fanout exchange do with the routing key?","lang":"en","doc":"rabbitmq-part-1.md","evidence":"ignores the routing key completely"}
+{"id":"rmq-04","question":"¿Qué es un poison pill en una cola?","lang":"es","doc":"rabbitmq-part-1.md","evidence":"fails every single time"}
+{"id":"rmq-05","question":"What happens to a message that no binding matches?","lang":"en","doc":"rabbitmq-part-1.md","evidence":"Unroutable messages vanish"}
+{"id":"rmq-06","question":"¿Por qué los tutoriales publican directo al nombre de la cola?","lang":"es","doc":"rabbitmq-part-1.md","evidence":"default exchange"}
+{"id":"rmq-07","question":"Can I change a queue's arguments after it was declared?","lang":"en","doc":"rabbitmq-part-1.md","evidence":"cannot change a queue's arguments in place"}
+{"id":"bot-01","question":"How much does one AI pull request review cost?","lang":"en","doc":"claude-pr-review-bot.md","evidence":"per pull request"}
+{"id":"bot-02","question":"¿Por qué el bot no usa una herramienta para publicar los comentarios?","lang":"es","doc":"claude-pr-review-bot.md","evidence":"If the model doesn't need to decide, don't give it a tool"}
+{"id":"bot-03","question":"Why does GitHub reject some review comments with a 422?","lang":"en","doc":"claude-pr-review-bot.md","evidence":"lines that are in the diff"}
+{"id":"bot-04","question":"¿Cómo se protege el bot de una inyección de prompt dentro del diff?","lang":"es","doc":"claude-pr-review-bot.md","evidence":"prompt injection"}
+{"id":"rag-01","question":"What does RAG stand for?","lang":"en","doc":"local-rag-dotnet.md","evidence":"Retrieval-Augmented Generation"}
+{"id":"rag-02","question":"¿Dónde se guardan los vectores en el RAG local con .NET?","lang":"es","doc":"local-rag-dotnet.md","evidence":"sqlite-vec"}
+{"id":"rag-03","question":"When is RAG the right tool?","lang":"en","doc":"local-rag-dotnet.md","evidence":"large, private, or changing"}
+{"id":"obs-01","question":"¿Cuál es la diferencia entre monitoreo y observabilidad?","lang":"es","doc":"logs-metricas-trazas.md","evidence":"preguntas que no pensaste de antemano"}
+{"id":"obs-02","question":"Why shouldn't a SKU be a metric label?","lang":"en","doc":"logs-metricas-trazas.md","evidence":"Un campo es gratis en un span y carísimo en una métrica"}
+{"id":"obs-03","question":"Should I sample individual spans or whole traces?","lang":"en","doc":"logs-metricas-trazas.md","evidence":"muestrea trazas completas"}
+{"id":"obs-04","question":"¿Qué te dicen las trazas que no te dicen las métricas?","lang":"es","doc":"logs-metricas-trazas.md","evidence":"a dónde se fue el tiempo"}
+{"id":"node-01","question":"Does Node 24 type-check TypeScript files?","lang":"en","doc":"node24-typescript.md","evidence":"No verifica tipos"}
+{"id":"node-02","question":"Why do decorators fail with Node's built-in TypeScript support?","lang":"en","doc":"node24-typescript.md","evidence":"Decoradores, sin ninguna explicación"}
+{"id":"node-03","question":"¿Cuánto más lento arranca tsx que node?","lang":"es","doc":"node24-typescript.md","evidence":"3.7 veces más lento"}
+{"id":"node-04","question":"How do I replace tsconfig path aliases when running TypeScript in Node 24?","lang":"en","doc":"node24-typescript.md","evidence":"el campo imports del package.json"}
+{"id":"none-01","question":"What is the capital of France?","lang":"en","doc":null,"evidence":null}
+{"id":"none-02","question":"¿Cuánto cuesta el plan premium?","lang":"es","doc":null,"evidence":null}
+{"id":"none-03","question":"Does Juan have Kubernetes experience?","lang":"en","doc":null,"evidence":null}
+{"id":"none-04","question":"¿Cómo configuro una federación de GraphQL?","lang":"es","doc":null,"evidence":null}
+{"id":"none-05","question":"How do I deploy a container to Google Cloud Run?","lang":"en","doc":null,"evidence":null}
+{"id":"none-06","question":"¿Cuál es el número de teléfono de Juan?","lang":"es","doc":null,"evidence":null}
+{"id":"none-07","question":"Explain Rust's borrow checker.","lang":"en","doc":null,"evidence":null}
+{"id":"none-08","question":"¿Quién ganó el Mundial de 2022?","lang":"es","doc":null,"evidence":null}
+{"id":"none-09","question":"How do I bake a chocolate cake?","lang":"en","doc":null,"evidence":null}
+{"id":"none-10","question":"¿Cómo configuro un clúster de Redis?","lang":"es","doc":null,"evidence":null}

@@ -21,19 +21,33 @@ public static class ReciprocalRankFusion
 		where TKey : notnull
 	{
 		ArgumentNullException.ThrowIfNull(rankings);
+		return Fuse(rankings.Select(ranking => (ranking, 1.0)), k);
+	}
+
+	/// <summary>
+	/// Weighted RRF: score(d) = Σ wᵢ / (k + rankᵢ(d)). A weaker retriever still contributes the documents
+	/// only it finds, but cannot outvote the stronger one on the order of the top results.
+	/// </summary>
+	public static IReadOnlyList<FusedResult<TKey>> Fuse<TKey>(
+		IEnumerable<(IReadOnlyList<TKey> Ranking, double Weight)> rankings,
+		int k = DefaultK)
+		where TKey : notnull
+	{
+		ArgumentNullException.ThrowIfNull(rankings);
 		ArgumentOutOfRangeException.ThrowIfNegativeOrZero(k);
 
 		var scores = new Dictionary<TKey, double>();
 		var firstSeen = new Dictionary<TKey, int>();
 		var order = 0;
 
-		foreach (var ranking in rankings)
+		foreach (var (ranking, weight) in rankings)
 		{
+			ArgumentOutOfRangeException.ThrowIfNegative(weight);
 			for (var index = 0; index < ranking.Count; index++)
 			{
 				var key = ranking[index];
 				var rank = index + 1;
-				scores[key] = scores.GetValueOrDefault(key) + (1.0 / (k + rank));
+				scores[key] = scores.GetValueOrDefault(key) + (weight / (k + rank));
 				firstSeen.TryAdd(key, order++);
 			}
 		}

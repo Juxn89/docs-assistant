@@ -1,4 +1,5 @@
 using DocsAssistant.Application.Abstractions;
+using DocsAssistant.Application.Features.Chat;
 using DocsAssistant.Application.Features.Ingest;
 using DocsAssistant.Application.Features.Tenants;
 using DocsAssistant.Infrastructure.Ai.Embeddings;
@@ -33,11 +34,13 @@ public static class DependencyInjection
 		AddOptions<IngestionOptions>(services, configuration, IngestionOptions.SectionName);
 		AddOptions<UrlFetchOptions>(services, configuration, UrlFetchOptions.SectionName);
 		AddOptions<EmbeddingModelOptions>(services, configuration, EmbeddingModelOptions.SectionName);
+		AddOptions<RetrievalOptions>(services, configuration, RetrievalOptions.SectionName);
 
 		// Persistence
 		services.AddScoped<ITenantRepository, TenantRepository>();
 		services.AddScoped<IDocumentRepository, DocumentRepository>();
 		services.AddScoped<IPendingDocumentSource, PendingDocumentSource>();
+		services.AddScoped<IChunkSearch, PgChunkSearch>();
 
 		// Extraction: one per format, selected by DocumentSourceType.
 		services.AddSingleton<ITextExtractor, PdfTextExtractor>();
@@ -65,6 +68,7 @@ public static class DependencyInjection
 		services.AddScoped<AddUrlDocument>();
 		services.AddScoped<ListDocuments>();
 		services.AddScoped<ProcessDocument>();
+		services.AddScoped<RetrieveContext>();
 
 		return services;
 	}

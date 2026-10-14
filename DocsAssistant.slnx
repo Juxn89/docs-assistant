@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/evals/">
+    <Project Path="evals/DocsAssistant.Evals/DocsAssistant.Evals.csproj" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/DocsAssistant.Api/DocsAssistant.Api.csproj" />
     <Project Path="src/DocsAssistant.AppHost/DocsAssistant.AppHost.csproj" />

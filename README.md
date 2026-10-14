@@ -20,9 +20,10 @@ assistant is only useful if it **answers from your content, shows where the answ
 1. Your documents (PDF, DOCX, Markdown, web pages) are split along their structure and indexed twice:
    as vectors (meaning) and as full text (exact words), in Postgres.
 2. A question searches both, and the two rankings are fused with Reciprocal Rank Fusion.
-3. If nothing relevant enough comes back, it **abstains without calling the model** — zero cost, zero
-   invention — and offers to hand off to a person.
-4. Otherwise Claude answers using only those passages, citing them as `[1]`, `[2]`.
+3. If even the best passage is below a measured similarity floor, it **abstains without calling the
+   model** — zero cost, zero invention — and offers to hand off to a person.
+4. Otherwise Claude answers using only those passages, citing them as `[1]`, `[2]`, and still says
+   "I don't know" when the passages do not contain the answer.
 
 ## Status
 
@@ -35,10 +36,33 @@ assistant is only useful if it **answers from your content, shows where the answ
 | In-process multilingual embeddings, verified against the Python reference | ✅ [ADR-0003](docs/adr/0003-in-process-embeddings.md) |
 | URL ingestion hardened against SSRF (connect-time IP checks, redirects re-checked) | ✅ |
 | Admin API (tenants, documents) | ✅ |
-| Hybrid retrieval + evals | ⏳ |
+| Hybrid retrieval (pgvector + full text, RRF) with a retrieval eval gating CI | ✅ [results](evals/results/retrieval.md) |
 | Streaming answers with citations, abstention, guardrails | ⏳ |
 | Handoff, widget, admin panel, cost dashboard | ⏳ |
 | Live demo | ⏳ — will run on [juangomezb.com](https://juangomezb.com) |
+
+## Measured, not claimed
+
+Retrieval eval over a fixed bilingual corpus (9 real technical articles and a profile, 158 chunks) and
+54 questions — 44 with a known answer passage, 21 of them asked in the other language, and 10 with no
+answer in the corpus. No language model involved: it measures whether the passage with the answer
+reaches the top 5. Reproduce with `dotnet run --project evals/DocsAssistant.Evals`.
+
+| Mode | hit@1 | hit@5 | MRR | cross-lingual hit@5 |
+|---|---:|---:|---:|---:|
+| **Hybrid (shipped)** | 55 % | **93 %** | 0.720 | **86 %** |
+| Vector only | 66 % | 91 % | 0.766 | 86 % |
+| Full text only | 36 % | 84 % | 0.544 | 71 % |
+
+What the numbers decided:
+
+- **Hybrid, equal weights.** Down-weighting full text improves the first rank but loses answers
+  (hit@5 93 % → 89 % at weight 0.3). The model reads all five passages, so recall wins.
+- **Similarity alone cannot tell answerable from unanswerable.** Answerable questions scored 0.79–0.90,
+  unanswerable ones up to 0.85: the ranges overlap, and the best single cut-off is only 82 % accurate.
+  So the threshold is a *floor* (0.79, the lowest answerable score) that never refuses a real question
+  and catches the clearly off-topic ones for free; everything above it goes to the grounded answer.
+- **The misses are listed**, not hidden: [evals/results/retrieval.md](evals/results/retrieval.md).
 
 ## Run it
 

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<!--
+		Evaluation harness: an executable, not a test project. It produces measurements (written to
+		evals/results) and exits non-zero when one falls below evals/thresholds.json, so CI can gate on it.
+	-->
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<NoWarn>$(NoWarn);CA1515</NoWarn>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\DocsAssistant.Infrastructure\DocsAssistant.Infrastructure.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Testcontainers.PostgreSql" />
+	</ItemGroup>
+</Project>

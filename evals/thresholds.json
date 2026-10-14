@@ -1,0 +1,7 @@
+{
+  "retrieval": {
+    "hybrid.hitAt5": 0.90,
+    "hybrid.crossLingualHitAt5": 0.85,
+    "hybrid.mrr": 0.70
+  }
+}

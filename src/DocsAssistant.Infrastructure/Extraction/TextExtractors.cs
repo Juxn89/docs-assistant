@@ -126,7 +126,12 @@ internal sealed partial class MarkdownTextExtractor : ITextExtractor
 	[GeneratedRegex(@"\[([^\]]+)\]\([^)]*\)")]
 	private static partial Regex Link();
 
-	[GeneratedRegex(@"[*_`~]{1,3}")]
+	/// <summary>
+	/// Backticks and tildes always go. Asterisks and underscores go only when they act as emphasis
+	/// delimiters — not between two letters or digits — so identifiers like claude_desktop_config.json
+	/// or MAX_RETRIES survive intact, which is exactly what full-text search needs to match.
+	/// </summary>
+	[GeneratedRegex(@"[`~]+|(?<![\p{L}\p{N}])[*_]{1,3}|[*_]{1,3}(?![\p{L}\p{N}])")]
 	private static partial Regex Emphasis();
 }
 

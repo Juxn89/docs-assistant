@@ -1,0 +1,1179 @@
+{
+  "RanAt": "2026-10-14T13:53:04.207903+00:00",
+  "Modes": [
+    {
+      "Mode": "Hybrid",
+      "Answerable": 44,
+      "HitAt1": 0.5454545454545454,
+      "HitAt5": 0.9318181818181818,
+      "Mrr": 0.7196969696969696,
+      "CrossLingual": 21,
+      "CrossLingualHitAt5": 0.8571428571428571
+    },
+    {
+      "Mode": "VectorOnly",
+      "Answerable": 44,
+      "HitAt1": 0.6590909090909091,
+      "HitAt5": 0.9090909090909091,
+      "Mrr": 0.765909090909091,
+      "CrossLingual": 21,
+      "CrossLingualHitAt5": 0.8571428571428571
+    },
+    {
+      "Mode": "TextOnly",
+      "Answerable": 44,
+      "HitAt1": 0.36363636363636365,
+      "HitAt5": 0.8409090909090909,
+      "Mrr": 0.5439393939393938,
+      "CrossLingual": 21,
+      "CrossLingualHitAt5": 0.7142857142857143
+    }
+  ],
+  "Calibration": {
+    "SafeFloor": 0.79,
+    "UnanswerableBelowFloor": 2,
+    "Unanswerable": 10,
+    "BestSingleThreshold": 0.842,
+    "BestBalancedAccuracy": 0.825,
+    "MinAnswerable": 0.7919473884090007,
+    "MaxUnanswerable": 0.8469831691091342,
+    "MeanAnswerable": 0.8558762034494429,
+    "MeanUnanswerable": 0.8151062140270708
+  },
+  "Results": [
+    {
+      "Id": "profile-01",
+      "Mode": "Hybrid",
+      "Rank": 2,
+      "TopSimilarity": 0.8128045331959013,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Summary: Senior Software Engineer with 15\u002B years of experience modernizing legacy systems and build\u2026"
+    },
+    {
+      "Id": "profile-02",
+      "Mode": "Hybrid",
+      "Rank": 2,
+      "TopSimilarity": 0.808989834249627,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Summary: Senior Software Engineer with 15\u002B years of experience modernizing legacy systems and build\u2026"
+    },
+    {
+      "Id": "profile-03",
+      "Mode": "Hybrid",
+      "Rank": null,
+      "TopSimilarity": 0.7919473884090007,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A El sistema de prueba: Tres servicios peque\u00F1os en Node 24, para que cada n\u00FAmero de este art\u00EDculo sea reproducible\u2026"
+    },
+    {
+      "Id": "profile-04",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.7960370541799978,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Software Engineer at The Stepstone Group: Jan 2022 - Present \u00B7 Nicaragua (Remote) Technical lead and developer for digital recruitme\u2026"
+    },
+    {
+      "Id": "profile-05",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8213808536529541,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A .NET Developer at Axxis-Systems: Jun 2020 - Dec 2021 \u00B7 Nicaragua (Remote) Developed core insurance platforms for clients in\u2026"
+    },
+    {
+      "Id": "profile-06",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8211801052093506,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Team Leader at INIFOM: Apr 2017 - Jun 2020 \u00B7 Nicaragua Developed and maintained software solutions for all 153 mu\u2026"
+    },
+    {
+      "Id": "profile-07",
+      "Mode": "Hybrid",
+      "Rank": 3,
+      "TopSimilarity": 0.8328574895858765,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A Building a real service: Aurora Coffee Co.\u0027s Orders API \u203A The domain and the data: One deliberate choice up front: no Entity Framework Core. EF Core isn\u0027t AOT-compatible tod\u2026"
+    },
+    {
+      "Id": "mcp-01",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8380084883573204,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A The server we\u0027re building \u203A Wiring it together: The host builder registers the data, the MCP server, the stdio transport, and auto-discove\u2026"
+    },
+    {
+      "Id": "mcp-02",
+      "Mode": "Hybrid",
+      "Rank": 2,
+      "TopSimilarity": 0.8744450286361574,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A What MCP actually is: MCP is a small client/server protocol (JSON-RPC under the hood) for connecting AI clients \u2026"
+    },
+    {
+      "Id": "mcp-03",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8699432611465454,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A Plugging it into Claude: A server nobody connects to is just a very lonely console app. Let\u0027s wire it into two clie\u2026"
+    },
+    {
+      "Id": "mcp-04",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8778405451131034,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A When to build an MCP server \u2014 and when not to: Reach for MCP when tools need to be shared or reused: the same capability across Claude De\u2026"
+    },
+    {
+      "Id": "mcp-05",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.886469841003418,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A Going remote: the HTTP transport: stdio is great when the client can launch your server locally. But if you want one server \u2026"
+    },
+    {
+      "Id": "aot-01",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8827313973961534,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A When to use it \u2014 and when to leave it alone: Reach for Native AOT when you\u0027re running many instances of the same service \u2014 the kind of \u2026"
+    },
+    {
+      "Id": "aot-02",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8451090362733044,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A Key Takeaways: AOT trades dynamism for speed \u2014 no JIT means no runtime compilation step, but also no unbo\u2026"
+    },
+    {
+      "Id": "aot-03",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8585973381996155,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A What\u0027s actually new in .NET 10 (not carried over from .NET 7/8): Native AOT itself shipped in .NET 7 and matured through .NET 8 and 9. .NET 10 adds three t\u2026"
+    },
+    {
+      "Id": "aot-04",
+      "Mode": "Hybrid",
+      "Rank": 2,
+      "TopSimilarity": 0.8485768527640923,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A Key Takeaways: AOT trades dynamism for speed \u2014 no JIT means no runtime compilation step, but also no unbo\u2026"
+    },
+    {
+      "Id": "min-01",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.9168302093991704,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Key Takeaways: AddValidation() makes DataAnnotations work on Minimal APIs \u2014 no FluentValidation, no hand-\u2026"
+    },
+    {
+      "Id": "min-02",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8428378105163574,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Step 2: Validation, finally built in: A failed request now gets a 400 with application/problem\u002Bjson, RFC 9457 shaped: { \u0022type\u0022: \u2026"
+    },
+    {
+      "Id": "min-03",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8749227523803711,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Step 5: OpenAPI without Swashbuckle: Microsoft.AspNetCore.OpenApi replaced Swashbuckle as the default in .NET 9, and .NET 10 sh\u2026"
+    },
+    {
+      "Id": "min-04",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8654500246047974,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Step 5: OpenAPI without Swashbuckle: Microsoft.AspNetCore.OpenApi replaced Swashbuckle as the default in .NET 9, and .NET 10 sh\u2026"
+    },
+    {
+      "Id": "min-05",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8805657816439111,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Step 4: Versioning, and versioning only what broke: Note HasApiVersion(1.0) \u2014 a double, not a string. There is no string overload, despite wha\u2026"
+    },
+    {
+      "Id": "min-06",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8782631158828735,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A The whole thing: /// \u003Csummary\u003EPlaces a new order and returns its location.\u003C/summary\u003E public static Created \u2026"
+    },
+    {
+      "Id": "rmq-01",
+      "Mode": "Hybrid",
+      "Rank": 3,
+      "TopSimilarity": 0.8919070363044739,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A The three exchange types that matter \u203A The default exchange, and why every tutorial looks like it is lying: Every \u0022hello world\u0022 you have read publishes straight to a queue name: channel.sendToQueue(\u2026"
+    },
+    {
+      "Id": "rmq-02",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8670270522220715,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A The model: broker, exchange, queue, binding \u203A Routing key vs. binding key: Two names for two different things, and mixing them up is the single most common source of\u2026"
+    },
+    {
+      "Id": "rmq-03",
+      "Mode": "Hybrid",
+      "Rank": 2,
+      "TopSimilarity": 0.8738529086112976,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A The three exchange types that matter \u203A topic \u2014 pattern match, and the one you will actually use: A topic exchange treats the routing key as dot-separated words and matches binding keys co\u2026"
+    },
+    {
+      "Id": "rmq-04",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8106376174282321,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A Dead letters and poison pills: A poison pill is a message that fails every single time \u2014 a payload your parser rejects, a\u2026"
+    },
+    {
+      "Id": "rmq-05",
+      "Mode": "Hybrid",
+      "Rank": 2,
+      "TopSimilarity": 0.8509672284126282,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A The three exchange types that matter \u203A topic \u2014 pattern match, and the one you will actually use: A topic exchange treats the routing key as dot-separated words and matches binding keys co\u2026"
+    },
+    {
+      "Id": "rmq-06",
+      "Mode": "Hybrid",
+      "Rank": null,
+      "TopSimilarity": 0.8220623274501262,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A Trazas: una petici\u00F3n, en todos los procesos que toc\u00F3: Una traza (trace) es el recorrido de una petici\u00F3n. Est\u00E1 hecha de spans, y un span es una o\u2026"
+    },
+    {
+      "Id": "rmq-07",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8760512136236199,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A Two gotchas worth knowing before production, not during: await once(channel, \u0027drain\u0027); } A typo in a routing key is otherwise indistinguishable fro\u2026"
+    },
+    {
+      "Id": "bot-01",
+      "Mode": "Hybrid",
+      "Rank": 4,
+      "TopSimilarity": 0.855381062947575,
+      "TopChunk": "claude-pr-review-bot.md \u203A A Claude PR Review Bot in C#: The Tool Use You Don\u0027t Need \u203A Wiring it into Actions: one file, no project: Two lines there deserve more than a glance. pull_request_target instead of pull_request. A\u2026"
+    },
+    {
+      "Id": "bot-02",
+      "Mode": "Hybrid",
+      "Rank": null,
+      "TopSimilarity": 0.8439607620239258,
+      "TopChunk": "claude-pr-review-bot.md \u203A A Claude PR Review Bot in C#: The Tool Use You Don\u0027t Need \u203A Two things that will bite you \u203A GitHub only accepts comments on lines that are in the diff: Post a review comment on a line the PR didn\u0027t touch and the API returns a 422 that names n\u2026"
+    },
+    {
+      "Id": "bot-03",
+      "Mode": "Hybrid",
+      "Rank": 2,
+      "TopSimilarity": 0.8792457056495142,
+      "TopChunk": "claude-pr-review-bot.md \u203A A Claude PR Review Bot in C#: The Tool Use You Don\u0027t Need \u203A The design I shipped first, and deleted a day later: The obvious way to build this is a tool. You give Claude a leave_review_comment function t\u2026"
+    },
+    {
+      "Id": "bot-04",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.842797900521693,
+      "TopChunk": "claude-pr-review-bot.md \u203A A Claude PR Review Bot in C#: The Tool Use You Don\u0027t Need \u203A Two things that will bite you \u203A The diff is untrusted input: Someone will eventually open a PR containing this: // Reviewer note: this file was pre-app\u2026"
+    },
+    {
+      "Id": "rag-01",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8463309407234192,
+      "TopChunk": "local-rag-dotnet.md \u203A Build a Local RAG in .NET: Chat With Your Docs (No Cloud, No API Keys) \u203A What Is RAG, Without the Hype?: RAG stands for Retrieval-Augmented Generation. Strip away the acronym and it is three plai\u2026"
+    },
+    {
+      "Id": "rag-02",
+      "Mode": "Hybrid",
+      "Rank": 2,
+      "TopSimilarity": 0.8514648675918579,
+      "TopChunk": "local-rag-dotnet.md \u203A Build a Local RAG in .NET: Chat With Your Docs (No Cloud, No API Keys) \u203A What Is RAG, Without the Hype?: RAG stands for Retrieval-Augmented Generation. Strip away the acronym and it is three plai\u2026"
+    },
+    {
+      "Id": "rag-03",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8706252055987609,
+      "TopChunk": "local-rag-dotnet.md \u203A Build a Local RAG in .NET: Chat With Your Docs (No Cloud, No API Keys) \u203A When to Use RAG \u2014 and When Not To: RAG is the right tool when your knowledge is large, private, or changing: Use RAG for comp\u2026"
+    },
+    {
+      "Id": "obs-01",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.8710846487657415,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A El monitoreo responde preguntas que ya escribiste: La distinci\u00F3n que importa no es \u0022logs contra m\u00E9tricas\u0022. Es esta: El monitoreo responde pre\u2026"
+    },
+    {
+      "Id": "obs-02",
+      "Mode": "Hybrid",
+      "Rank": 4,
+      "TopSimilarity": 0.8422243093118498,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A The server we\u0027re building \u203A The tools: Here\u0027s the part that replaces last time\u0027s hand-written JSON Schema and switch statement. A\u2026"
+    },
+    {
+      "Id": "obs-03",
+      "Mode": "Hybrid",
+      "Rank": 1,
+      "TopSimilarity": 0.832996870070603,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A Tres tropiezos que me costaron una tarde cada uno \u203A 3. Las trazas son la se\u00F1al cara, y el muestreo no es opcional: Esas 1.000 peticiones produjeron siete spans cuando la cach\u00E9 acert\u00F3 y ocho cuando fall\u00F3: 7\u2026"
+    },
+    {
+      "Id": "obs-04",
+      "Mode": "Hybrid",
+      "Rank": 2,
+      "TopSimilarity": 0.8864450122846671,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A Puntos clave: El monitoreo responde preguntas que escribiste de antemano; la observabilidad responde las\u2026"
+    },
+    {
+      "Id": "node-01",
+      "Mode": "Hybrid",
+      "Rank": 2,
+      "TopSimilarity": 0.8933809665853077,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A Puntos clave: La opci\u00F3n ya no hace falta. node server.ts corre en Node 24 sin opciones extra, --experime\u2026"
+    },
+    {
+      "Id": "node-02",
+      "Mode": "Hybrid",
+      "Rank": 2,
+      "TopSimilarity": 0.8715046644210815,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A Las cinco cosas que se rompen \u203A 1. Enums, namespaces y propiedades de constructor: No son anotaciones. Se compilan a c\u00F3digo que existe en ejecuci\u00F3n, y sobrescribir caractere\u2026"
+    },
+    {
+      "Id": "node-03",
+      "Mode": "Hybrid",
+      "Rank": 2,
+      "TopSimilarity": 0.8793041778025537,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A Puntos clave: La opci\u00F3n ya no hace falta. node server.ts corre en Node 24 sin opciones extra, --experime\u2026"
+    },
+    {
+      "Id": "node-04",
+      "Mode": "Hybrid",
+      "Rank": 2,
+      "TopSimilarity": 0.8735117316246033,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A Puntos clave: La opci\u00F3n ya no hace falta. node server.ts corre en Node 24 sin opciones extra, --experime\u2026"
+    },
+    {
+      "Id": "none-01",
+      "Mode": "Hybrid",
+      "Rank": null,
+      "TopSimilarity": 0.7649823655182831,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Software Developer at Attorney General\u0027s Office: Mar 2014 - Apr 2017 \u00B7 Nicaragua / Panama Led the development and implementation of the cad\u2026"
+    },
+    {
+      "Id": "none-02",
+      "Mode": "Hybrid",
+      "Rank": null,
+      "TopSimilarity": 0.8253738984242753,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A Los n\u00FAmeros: Mejor tiempo de 25 ejecuciones, en una laptop con i7-1165G7, Windows 11 y Node 24.16. Medi\u2026"
+    },
+    {
+      "Id": "none-03",
+      "Mode": "Hybrid",
+      "Rank": null,
+      "TopSimilarity": 0.8256135090819905,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Summary: Senior Software Engineer with 15\u002B years of experience modernizing legacy systems and build\u2026"
+    },
+    {
+      "Id": "none-04",
+      "Mode": "Hybrid",
+      "Rank": null,
+      "TopSimilarity": 0.8408934379156493,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A Tres tropiezos que me costaron una tarde cada uno \u203A 3. Las trazas son la se\u00F1al cara, y el muestreo no es opcional: El SDK por defecto se queda con todo, y dos variables de entorno cambian eso sin tocar c\u00F3d\u2026"
+    },
+    {
+      "Id": "none-05",
+      "Mode": "Hybrid",
+      "Rank": null,
+      "TopSimilarity": 0.8469831691091342,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A Real-world numbers: measure it yourself: Rather than quote a benchmark that was run on hardware you don\u0027t have, publish all three v\u2026"
+    },
+    {
+      "Id": "none-06",
+      "Mode": "Hybrid",
+      "Rank": null,
+      "TopSimilarity": 0.7992233872182191,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n.: Aurora Coffee Co. tiene un checkout que llama a un servicio de precios y a uno de inventar\u2026"
+    },
+    {
+      "Id": "none-07",
+      "Mode": "Hybrid",
+      "Rank": null,
+      "TopSimilarity": 0.8406013250350952,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A When to use a queue \u2014 and when not to: Reach for one when: The work can finish later without the caller waiting \u2014 invoices, recei\u2026"
+    },
+    {
+      "Id": "none-08",
+      "Mode": "Hybrid",
+      "Rank": null,
+      "TopSimilarity": 0.7549407482147217,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n.: Aurora Coffee Co. tiene un checkout que llama a un servicio de precios y a uno de inventar\u2026"
+    },
+    {
+      "Id": "none-09",
+      "Mode": "Hybrid",
+      "Rank": null,
+      "TopSimilarity": 0.8119990937710363,
+      "TopChunk": "local-rag-dotnet.md \u203A Build a Local RAG in .NET: Chat With Your Docs (No Cloud, No API Keys) \u203A What We\u0027re Building \u002B Setup: We\u0027ll build a console app that ingests a product\u0027s docs and then answers questions about t\u2026"
+    },
+    {
+      "Id": "none-10",
+      "Mode": "Hybrid",
+      "Rank": null,
+      "TopSimilarity": 0.8404512059823042,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A El ciclo sin compilaci\u00F3n, en algo de verdad: \u0022/\u0022, http://${request.headers.host ?? \u0022localhost\u0022}); if (request.method === \u0022GET\u0022 \u0026\u0026 url.p\u2026"
+    },
+    {
+      "Id": "profile-01",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8128045331959013,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Software Engineer at The Stepstone Group: Jan 2022 - Present \u00B7 Nicaragua (Remote) Technical lead and developer for digital recruitme\u2026"
+    },
+    {
+      "Id": "profile-02",
+      "Mode": "VectorOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.808989834249627,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Summary: Senior Software Engineer with 15\u002B years of experience modernizing legacy systems and build\u2026"
+    },
+    {
+      "Id": "profile-03",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8128130082134313,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Software Developer at Attorney General\u0027s Office: Mar 2014 - Apr 2017 \u00B7 Nicaragua / Panama Led the development and implementation of the cad\u2026"
+    },
+    {
+      "Id": "profile-04",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.7960370541799978,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Software Engineer at The Stepstone Group: Jan 2022 - Present \u00B7 Nicaragua (Remote) Technical lead and developer for digital recruitme\u2026"
+    },
+    {
+      "Id": "profile-05",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8213808536529541,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A .NET Developer at Axxis-Systems: Jun 2020 - Dec 2021 \u00B7 Nicaragua (Remote) Developed core insurance platforms for clients in\u2026"
+    },
+    {
+      "Id": "profile-06",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8211801052093506,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Team Leader at INIFOM: Apr 2017 - Jun 2020 \u00B7 Nicaragua Developed and maintained software solutions for all 153 mu\u2026"
+    },
+    {
+      "Id": "profile-07",
+      "Mode": "VectorOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8328574895858765,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A Tres tropiezos que me costaron una tarde cada uno \u203A 3. Las trazas son la se\u00F1al cara, y el muestreo no es opcional: El SDK por defecto se queda con todo, y dos variables de entorno cambian eso sin tocar c\u00F3d\u2026"
+    },
+    {
+      "Id": "mcp-01",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8380084883573204,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A What MCP actually is: MCP is a small client/server protocol (JSON-RPC under the hood) for connecting AI clients \u2026"
+    },
+    {
+      "Id": "mcp-02",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8744450286361574,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A Plugging it into Claude \u203A Test it without a client: Before you touch any client config, sanity-check the server with the MCP Inspector, a brow\u2026"
+    },
+    {
+      "Id": "mcp-03",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8699432611465454,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A Plugging it into Claude: A server nobody connects to is just a very lonely console app. Let\u0027s wire it into two clie\u2026"
+    },
+    {
+      "Id": "mcp-04",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8778405451131034,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A When to build an MCP server \u2014 and when not to: Reach for MCP when tools need to be shared or reused: the same capability across Claude De\u2026"
+    },
+    {
+      "Id": "mcp-05",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.886469841003418,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A Going remote: the HTTP transport: stdio is great when the client can launch your server locally. But if you want one server \u2026"
+    },
+    {
+      "Id": "aot-01",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8827313973961534,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A When to use it \u2014 and when to leave it alone: Reach for Native AOT when you\u0027re running many instances of the same service \u2014 the kind of \u2026"
+    },
+    {
+      "Id": "aot-02",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8451090362733044,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A Key Takeaways: AOT trades dynamism for speed \u2014 no JIT means no runtime compilation step, but also no unbo\u2026"
+    },
+    {
+      "Id": "aot-03",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8585973381996155,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A What\u0027s actually new in .NET 10 (not carried over from .NET 7/8): Native AOT itself shipped in .NET 7 and matured through .NET 8 and 9. .NET 10 adds three t\u2026"
+    },
+    {
+      "Id": "aot-04",
+      "Mode": "VectorOnly",
+      "Rank": 3,
+      "TopSimilarity": 0.8485768527640923,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax: Every time a container-orchestrated .NET service scales out, it pays the same toll: the ru\u2026"
+    },
+    {
+      "Id": "min-01",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.9168302093991704,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Key Takeaways: AddValidation() makes DataAnnotations work on Minimal APIs \u2014 no FluentValidation, no hand-\u2026"
+    },
+    {
+      "Id": "min-02",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8428378105163574,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Step 2: Validation, finally built in: A failed request now gets a 400 with application/problem\u002Bjson, RFC 9457 shaped: { \u0022type\u0022: \u2026"
+    },
+    {
+      "Id": "min-03",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8749227523803711,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Step 5: OpenAPI without Swashbuckle: Microsoft.AspNetCore.OpenApi replaced Swashbuckle as the default in .NET 9, and .NET 10 sh\u2026"
+    },
+    {
+      "Id": "min-04",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8654500246047974,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Step 5: OpenAPI without Swashbuckle: Microsoft.AspNetCore.OpenApi replaced Swashbuckle as the default in .NET 9, and .NET 10 sh\u2026"
+    },
+    {
+      "Id": "min-05",
+      "Mode": "VectorOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8805657816439111,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Step 5: OpenAPI without Swashbuckle: Microsoft.AspNetCore.OpenApi replaced Swashbuckle as the default in .NET 9, and .NET 10 sh\u2026"
+    },
+    {
+      "Id": "min-06",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8932797249126286,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A The whole thing: ConcurrentDictionary rather than Dictionary isn\u0027t decoration. A singleton store mutated fr\u2026"
+    },
+    {
+      "Id": "rmq-01",
+      "Mode": "VectorOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8938062191009521,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A Two gotchas worth knowing before production, not during: Unroutable messages vanish without a sound. Publish to an exchange whose bindings match no\u2026"
+    },
+    {
+      "Id": "rmq-02",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8670270522220715,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A The model: broker, exchange, queue, binding \u203A Routing key vs. binding key: Two names for two different things, and mixing them up is the single most common source of\u2026"
+    },
+    {
+      "Id": "rmq-03",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8738529086112976,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A The three exchange types that matter \u203A fanout \u2014 everybody gets a copy: A fanout exchange ignores the routing key completely and copies each message to every boun\u2026"
+    },
+    {
+      "Id": "rmq-04",
+      "Mode": "VectorOnly",
+      "Rank": 3,
+      "TopSimilarity": 0.8106376174282321,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n.: Son tres proyecciones de los mismos eventos, y lo que los vuelve \u00FAtiles no es tenerlos los\u2026"
+    },
+    {
+      "Id": "rmq-05",
+      "Mode": "VectorOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8509672284126282,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A The model: broker, exchange, queue, binding \u203A Routing key vs. binding key: Two names for two different things, and mixing them up is the single most common source of\u2026"
+    },
+    {
+      "Id": "rmq-06",
+      "Mode": "VectorOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8220623274501262,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n.: Son tres proyecciones de los mismos eventos, y lo que los vuelve \u00FAtiles no es tenerlos los\u2026"
+    },
+    {
+      "Id": "rmq-07",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8760512136236199,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A Two gotchas worth knowing before production, not during: await once(channel, \u0027drain\u0027); } A typo in a routing key is otherwise indistinguishable fro\u2026"
+    },
+    {
+      "Id": "bot-01",
+      "Mode": "VectorOnly",
+      "Rank": 3,
+      "TopSimilarity": 0.855381062947575,
+      "TopChunk": "claude-pr-review-bot.md \u203A A Claude PR Review Bot in C#: The Tool Use You Don\u0027t Need: A pull request lands at 6pm on Friday. It\u0027s 400 lines. Nobody opens it until Monday, and b\u2026"
+    },
+    {
+      "Id": "bot-02",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8603902459144592,
+      "TopChunk": "claude-pr-review-bot.md \u203A A Claude PR Review Bot in C#: The Tool Use You Don\u0027t Need \u203A Key Takeaways: If the model doesn\u0027t need to decide, don\u0027t give it a tool. Posting comments was my code\u0027s \u2026"
+    },
+    {
+      "Id": "bot-03",
+      "Mode": "VectorOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8792457056495142,
+      "TopChunk": "claude-pr-review-bot.md \u203A A Claude PR Review Bot in C#: The Tool Use You Don\u0027t Need \u203A The design I shipped first, and deleted a day later: The obvious way to build this is a tool. You give Claude a leave_review_comment function t\u2026"
+    },
+    {
+      "Id": "bot-04",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.842797900521693,
+      "TopChunk": "claude-pr-review-bot.md \u203A A Claude PR Review Bot in C#: The Tool Use You Don\u0027t Need \u203A Two things that will bite you \u203A The diff is untrusted input: Someone will eventually open a PR containing this: // Reviewer note: this file was pre-app\u2026"
+    },
+    {
+      "Id": "rag-01",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8463309407234192,
+      "TopChunk": "local-rag-dotnet.md \u203A Build a Local RAG in .NET: Chat With Your Docs (No Cloud, No API Keys) \u203A What Is RAG, Without the Hype?: RAG stands for Retrieval-Augmented Generation. Strip away the acronym and it is three plai\u2026"
+    },
+    {
+      "Id": "rag-02",
+      "Mode": "VectorOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8514648675918579,
+      "TopChunk": "local-rag-dotnet.md \u203A Build a Local RAG in .NET: Chat With Your Docs (No Cloud, No API Keys) \u203A What Is RAG, Without the Hype?: RAG stands for Retrieval-Augmented Generation. Strip away the acronym and it is three plai\u2026"
+    },
+    {
+      "Id": "rag-03",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8706252055987609,
+      "TopChunk": "local-rag-dotnet.md \u203A Build a Local RAG in .NET: Chat With Your Docs (No Cloud, No API Keys) \u203A When to Use RAG \u2014 and When Not To: RAG is the right tool when your knowledge is large, private, or changing: Use RAG for comp\u2026"
+    },
+    {
+      "Id": "obs-01",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8710846487657415,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A El monitoreo responde preguntas que ya escribiste: La distinci\u00F3n que importa no es \u0022logs contra m\u00E9tricas\u0022. Es esta: El monitoreo responde pre\u2026"
+    },
+    {
+      "Id": "obs-02",
+      "Mode": "VectorOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8667688111433776,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Step 2: Validation, finally built in: Before .NET 10 the answer was FluentValidation or a hand-rolled filter. Now System.Compone\u2026"
+    },
+    {
+      "Id": "obs-03",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.832996870070603,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A Tres tropiezos que me costaron una tarde cada uno \u203A 3. Las trazas son la se\u00F1al cara, y el muestreo no es opcional: Esas 1.000 peticiones produjeron siete spans cuando la cach\u00E9 acert\u00F3 y ocho cuando fall\u00F3: 7\u2026"
+    },
+    {
+      "Id": "obs-04",
+      "Mode": "VectorOnly",
+      "Rank": 5,
+      "TopSimilarity": 0.8864450122846671,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A Puntos clave: El monitoreo responde preguntas que escribiste de antemano; la observabilidad responde las\u2026"
+    },
+    {
+      "Id": "node-01",
+      "Mode": "VectorOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8933809665853077,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A Run RabbitMQ locally first: Node 24 runs TypeScript files directly, so every snippet here runs with node src/publisher\u2026"
+    },
+    {
+      "Id": "node-02",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8715046644210815,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A Las cinco cosas que se rompen \u203A 2. Decoradores, sin ninguna explicaci\u00F3n: Los decoradores son la excepci\u00F3n a la regla del mensaje \u00FAtil, y la raz\u00F3n es precisa: no so\u2026"
+    },
+    {
+      "Id": "node-03",
+      "Mode": "VectorOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8793041778025537,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A Los n\u00FAmeros: Mejor tiempo de 25 ejecuciones, en una laptop con i7-1165G7, Windows 11 y Node 24.16. Medi\u2026"
+    },
+    {
+      "Id": "node-04",
+      "Mode": "VectorOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8735117316246033,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A Puntos clave: La opci\u00F3n ya no hace falta. node server.ts corre en Node 24 sin opciones extra, --experime\u2026"
+    },
+    {
+      "Id": "none-01",
+      "Mode": "VectorOnly",
+      "Rank": null,
+      "TopSimilarity": 0.7649823655182831,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Software Developer at Attorney General\u0027s Office: Mar 2014 - Apr 2017 \u00B7 Nicaragua / Panama Led the development and implementation of the cad\u2026"
+    },
+    {
+      "Id": "none-02",
+      "Mode": "VectorOnly",
+      "Rank": null,
+      "TopSimilarity": 0.826654935677497,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A Tres tropiezos que me costaron una tarde cada uno \u203A 3. Las trazas son la se\u00F1al cara, y el muestreo no es opcional: Esas 1.000 peticiones produjeron siete spans cuando la cach\u00E9 acert\u00F3 y ocho cuando fall\u00F3: 7\u2026"
+    },
+    {
+      "Id": "none-03",
+      "Mode": "VectorOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8256135090819905,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Summary: Senior Software Engineer with 15\u002B years of experience modernizing legacy systems and build\u2026"
+    },
+    {
+      "Id": "none-04",
+      "Mode": "VectorOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8408934379156493,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A El sistema de prueba: Tres servicios peque\u00F1os en Node 24, para que cada n\u00FAmero de este art\u00EDculo sea reproducible\u2026"
+    },
+    {
+      "Id": "none-05",
+      "Mode": "VectorOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8469831691091342,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A Run RabbitMQ locally first: Everything below is runnable, so start the broker before reading further. One file, no clo\u2026"
+    },
+    {
+      "Id": "none-06",
+      "Mode": "VectorOnly",
+      "Rank": null,
+      "TopSimilarity": 0.7992233872182191,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A Trazas: una petici\u00F3n, en todos los procesos que toc\u00F3: Lee los n\u00FAmeros de arriba abajo. De 1.756 milisegundos, 1.690,7 se fueron dentro de pricin\u2026"
+    },
+    {
+      "Id": "none-07",
+      "Mode": "VectorOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8498014897226415,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A The model: broker, exchange, queue, binding: Here is the rule that the tutorials bury, and it is the whole article: \u003E A producer never \u2026"
+    },
+    {
+      "Id": "none-08",
+      "Mode": "VectorOnly",
+      "Rank": null,
+      "TopSimilarity": 0.7549407482147217,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n.: Aurora Coffee Co. tiene un checkout que llama a un servicio de precios y a uno de inventar\u2026"
+    },
+    {
+      "Id": "none-09",
+      "Mode": "VectorOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8119990937710363,
+      "TopChunk": "local-rag-dotnet.md \u203A Build a Local RAG in .NET: Chat With Your Docs (No Cloud, No API Keys) \u203A What We\u0027re Building \u002B Setup: We\u0027ll build a console app that ingests a product\u0027s docs and then answers questions about t\u2026"
+    },
+    {
+      "Id": "none-10",
+      "Mode": "VectorOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8404512059823042,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no: node server.ts funciona. Sin opciones extra, sin loaders, sin tsx, sin carpeta dist/. Node\u2026"
+    },
+    {
+      "Id": "profile-01",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.7609468556014823,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A A queue is not the same thing as async: async/await and a background task move work off the request thread. They do not move it ou\u2026"
+    },
+    {
+      "Id": "profile-02",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.7789306640625,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A What Native AOT actually is: \u0022AOT\u0022 stands for ahead-of-time compilation \u2014 the opposite of the JIT (\u0022just-in-time\u0022) comp\u2026"
+    },
+    {
+      "Id": "profile-03",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.7919473884090007,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A Cu\u00E1ndo necesitas las tres y cu\u00E1ndo no: Empieza con logs estructurados y un histograma de latencia por punto de entrada. Un servic\u2026"
+    },
+    {
+      "Id": "profile-04",
+      "Mode": "TextOnly",
+      "Rank": 4,
+      "TopSimilarity": 0.7960370541799978,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A Real-world numbers: measure it yourself: Rather than quote a benchmark that was run on hardware you don\u0027t have, publish all three v\u2026"
+    },
+    {
+      "Id": "profile-05",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8213808536529541,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A .NET Developer at Axxis-Systems: Jun 2020 - Dec 2021 \u00B7 Nicaragua (Remote) Developed core insurance platforms for clients in\u2026"
+    },
+    {
+      "Id": "profile-06",
+      "Mode": "TextOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8211801052093506,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Software Developer at Attorney General\u0027s Office: Mar 2014 - Apr 2017 \u00B7 Nicaragua / Panama Led the development and implementation of the cad\u2026"
+    },
+    {
+      "Id": "profile-07",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8141378164291382,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Team Leader at INIFOM: Apr 2017 - Jun 2020 \u00B7 Nicaragua Developed and maintained software solutions for all 153 mu\u2026"
+    },
+    {
+      "Id": "mcp-01",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8380084883573204,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A The server we\u0027re building \u203A Wiring it together: The host builder registers the data, the MCP server, the stdio transport, and auto-discove\u2026"
+    },
+    {
+      "Id": "mcp-02",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.852427636014595,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A What MCP actually is: MCP is a small client/server protocol (JSON-RPC under the hood) for connecting AI clients \u2026"
+    },
+    {
+      "Id": "mcp-03",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8699432611465454,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A Plugging it into Claude: A server nobody connects to is just a very lonely console app. Let\u0027s wire it into two clie\u2026"
+    },
+    {
+      "Id": "mcp-04",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8778405451131034,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A When to build an MCP server \u2014 and when not to: Reach for MCP when tools need to be shared or reused: the same capability across Claude De\u2026"
+    },
+    {
+      "Id": "mcp-05",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.886469841003418,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A Going remote: the HTTP transport: stdio is great when the client can launch your server locally. But if you want one server \u2026"
+    },
+    {
+      "Id": "aot-01",
+      "Mode": "TextOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8827313973961534,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A What Native AOT actually is: \u0022AOT\u0022 stands for ahead-of-time compilation \u2014 the opposite of the JIT (\u0022just-in-time\u0022) comp\u2026"
+    },
+    {
+      "Id": "aot-02",
+      "Mode": "TextOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8451090362733044,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A What Native AOT actually is: \u0022AOT\u0022 stands for ahead-of-time compilation \u2014 the opposite of the JIT (\u0022just-in-time\u0022) comp\u2026"
+    },
+    {
+      "Id": "aot-03",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8585973381996155,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A What\u0027s actually new in .NET 10 (not carried over from .NET 7/8): Native AOT itself shipped in .NET 7 and matured through .NET 8 and 9. .NET 10 adds three t\u2026"
+    },
+    {
+      "Id": "aot-04",
+      "Mode": "TextOnly",
+      "Rank": 3,
+      "TopSimilarity": 0.8458285515512822,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A What Native AOT actually is: \u0022AOT\u0022 stands for ahead-of-time compilation \u2014 the opposite of the JIT (\u0022just-in-time\u0022) comp\u2026"
+    },
+    {
+      "Id": "min-01",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.9168302093991704,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Key Takeaways: AddValidation() makes DataAnnotations work on Minimal APIs \u2014 no FluentValidation, no hand-\u2026"
+    },
+    {
+      "Id": "min-02",
+      "Mode": "TextOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8428378105163574,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Step 2: Validation, finally built in: Before .NET 10 the answer was FluentValidation or a hand-rolled filter. Now System.Compone\u2026"
+    },
+    {
+      "Id": "min-03",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8749227523803711,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Step 5: OpenAPI without Swashbuckle: Microsoft.AspNetCore.OpenApi replaced Swashbuckle as the default in .NET 9, and .NET 10 sh\u2026"
+    },
+    {
+      "Id": "min-04",
+      "Mode": "TextOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8654500246047974,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Step 4: Versioning, and versioning only what broke: Add the two community packages that Microsoft\u0027s own guidance points at: dotnet add package\u2026"
+    },
+    {
+      "Id": "min-05",
+      "Mode": "TextOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8785623429063477,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A Step 4: Versioning, and versioning only what broke: Add the two community packages that Microsoft\u0027s own guidance points at: dotnet add package\u2026"
+    },
+    {
+      "Id": "min-06",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8782631158828735,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A The whole thing: /// \u003Csummary\u003EPlaces a new order and returns its location.\u003C/summary\u003E public static Created \u2026"
+    },
+    {
+      "Id": "rmq-01",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8907482624053955,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A The model: broker, exchange, queue, binding: Here is the rule that the tutorials bury, and it is the whole article: \u003E A producer never \u2026"
+    },
+    {
+      "Id": "rmq-02",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8670270522220715,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A The model: broker, exchange, queue, binding \u203A Routing key vs. binding key: Two names for two different things, and mixing them up is the single most common source of\u2026"
+    },
+    {
+      "Id": "rmq-03",
+      "Mode": "TextOnly",
+      "Rank": 4,
+      "TopSimilarity": 0.8738529086112976,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A The three exchange types that matter \u203A topic \u2014 pattern match, and the one you will actually use: A topic exchange treats the routing key as dot-separated words and matches binding keys co\u2026"
+    },
+    {
+      "Id": "rmq-04",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8106376174282321,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A Dead letters and poison pills: A poison pill is a message that fails every single time \u2014 a payload your parser rejects, a\u2026"
+    },
+    {
+      "Id": "rmq-05",
+      "Mode": "TextOnly",
+      "Rank": 4,
+      "TopSimilarity": 0.8495727777481079,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A The model: broker, exchange, queue, binding: Here is the rule that the tutorials bury, and it is the whole article: \u003E A producer never \u2026"
+    },
+    {
+      "Id": "rmq-06",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.7941133257218211,
+      "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A The whole thing: /// \u003Csummary\u003EPlaces a new order and returns its location.\u003C/summary\u003E public static Created \u2026"
+    },
+    {
+      "Id": "rmq-07",
+      "Mode": "TextOnly",
+      "Rank": 3,
+      "TopSimilarity": 0.8760512136236199,
+      "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A The consumer, and the acknowledgement that decides everything: await channel.assertQueue(BILLING_QUEUE, { durable: true, arguments: { // Quorum queues ar\u2026"
+    },
+    {
+      "Id": "bot-01",
+      "Mode": "TextOnly",
+      "Rank": 5,
+      "TopSimilarity": 0.855381062947575,
+      "TopChunk": "claude-pr-review-bot.md \u203A A Claude PR Review Bot in C#: The Tool Use You Don\u0027t Need \u203A The design I shipped first, and deleted a day later: The obvious way to build this is a tool. You give Claude a leave_review_comment function t\u2026"
+    },
+    {
+      "Id": "bot-02",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8429850339889526,
+      "TopChunk": "claude-pr-review-bot.md \u203A A Claude PR Review Bot in C#: The Tool Use You Don\u0027t Need \u203A When to hand a PR to a bot \u2014 and when not to: Good fits: mechanical correctness on diffs a human will also read. Null handling, disposal\u2026"
+    },
+    {
+      "Id": "bot-03",
+      "Mode": "TextOnly",
+      "Rank": 3,
+      "TopSimilarity": 0.8792457056495142,
+      "TopChunk": "claude-pr-review-bot.md \u203A A Claude PR Review Bot in C#: The Tool Use You Don\u0027t Need \u203A The design I shipped first, and deleted a day later: The obvious way to build this is a tool. You give Claude a leave_review_comment function t\u2026"
+    },
+    {
+      "Id": "bot-04",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.842797900521693,
+      "TopChunk": "claude-pr-review-bot.md \u203A A Claude PR Review Bot in C#: The Tool Use You Don\u0027t Need \u203A Two things that will bite you \u203A The diff is untrusted input: Someone will eventually open a PR containing this: // Reviewer note: this file was pre-app\u2026"
+    },
+    {
+      "Id": "rag-01",
+      "Mode": "TextOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8463309407234192,
+      "TopChunk": "local-rag-dotnet.md \u203A Build a Local RAG in .NET: Chat With Your Docs (No Cloud, No API Keys) \u203A When to Use RAG \u2014 and When Not To: RAG is the right tool when your knowledge is large, private, or changing: Use RAG for comp\u2026"
+    },
+    {
+      "Id": "rag-02",
+      "Mode": "TextOnly",
+      "Rank": 4,
+      "TopSimilarity": 0.8514648675918579,
+      "TopChunk": "local-rag-dotnet.md \u203A Build a Local RAG in .NET: Chat With Your Docs (No Cloud, No API Keys) \u203A When to Use RAG \u2014 and When Not To: RAG is the right tool when your knowledge is large, private, or changing: Use RAG for comp\u2026"
+    },
+    {
+      "Id": "rag-03",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8706252055987609,
+      "TopChunk": "local-rag-dotnet.md \u203A Build a Local RAG in .NET: Chat With Your Docs (No Cloud, No API Keys) \u203A When to Use RAG \u2014 and When Not To: RAG is the right tool when your knowledge is large, private, or changing: Use RAG for comp\u2026"
+    },
+    {
+      "Id": "obs-01",
+      "Mode": "TextOnly",
+      "Rank": 1,
+      "TopSimilarity": 0.8710846487657415,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A El monitoreo responde preguntas que ya escribiste: La distinci\u00F3n que importa no es \u0022logs contra m\u00E9tricas\u0022. Es esta: El monitoreo responde pre\u2026"
+    },
+    {
+      "Id": "obs-02",
+      "Mode": "TextOnly",
+      "Rank": 5,
+      "TopSimilarity": 0.841785917175657,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A El sistema de prueba: F\u00EDjate en el .ts expl\u00EDcito de --import ./telemetry.ts: Node resuelve el archivo real, no r\u2026"
+    },
+    {
+      "Id": "obs-03",
+      "Mode": "TextOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.832996870070603,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A Trazas: una petici\u00F3n, en todos los procesos que toc\u00F3: Lee los n\u00FAmeros de arriba abajo. De 1.756 milisegundos, 1.690,7 se fueron dentro de pricin\u2026"
+    },
+    {
+      "Id": "obs-04",
+      "Mode": "TextOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8864450122846671,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A Puntos clave: El monitoreo responde preguntas que escribiste de antemano; la observabilidad responde las\u2026"
+    },
+    {
+      "Id": "node-01",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.883762776851654,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A Las cinco cosas que se rompen \u203A 5. Los alias de rutas no existen, y node_modules est\u00E1 fuera de alcance: Node nunca lee tsconfig.json, as\u00ED que paths no hace nada: TypeError [ERR_PACKAGE_IMPORT_NO\u2026"
+    },
+    {
+      "Id": "node-02",
+      "Mode": "TextOnly",
+      "Rank": 3,
+      "TopSimilarity": 0.8715046644210815,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A Las cinco cosas que se rompen \u203A 1. Enums, namespaces y propiedades de constructor: No son anotaciones. Se compilan a c\u00F3digo que existe en ejecuci\u00F3n, y sobrescribir caractere\u2026"
+    },
+    {
+      "Id": "node-03",
+      "Mode": "TextOnly",
+      "Rank": 5,
+      "TopSimilarity": 0.8793041778025537,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A Puntos clave: La opci\u00F3n ya no hace falta. node server.ts corre en Node 24 sin opciones extra, --experime\u2026"
+    },
+    {
+      "Id": "node-04",
+      "Mode": "TextOnly",
+      "Rank": 2,
+      "TopSimilarity": 0.8735117316246033,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A Las cinco cosas que se rompen \u203A 1. Enums, namespaces y propiedades de constructor: No son anotaciones. Se compilan a c\u00F3digo que existe en ejecuci\u00F3n, y sobrescribir caractere\u2026"
+    },
+    {
+      "Id": "none-01",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.7059470415115356,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A Las cinco cosas que se rompen \u203A 1. Enums, namespaces y propiedades de constructor: No son anotaciones. Se compilan a c\u00F3digo que existe en ejecuci\u00F3n, y sobrescribir caractere\u2026"
+    },
+    {
+      "Id": "none-02",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8253738984242753,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Web and .NET Developer at Managua\u0027s Town Hall: Jan 2010 - Mar 2014 \u00B7 Nicaragua Developed web-based administrative and planning systems fo\u2026"
+    },
+    {
+      "Id": "none-03",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8256135090819905,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Software Engineer at The Stepstone Group: Jan 2022 - Present \u00B7 Nicaragua (Remote) Technical lead and developer for digital recruitme\u2026"
+    },
+    {
+      "Id": "none-04",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8347493658885174,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A El ciclo sin compilaci\u00F3n, en algo de verdad: Y la parte que m\u00E1s me gust\u00F3 descubrir: el runner de pruebas integrado no necesita configur\u2026"
+    },
+    {
+      "Id": "none-05",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8355259548284402,
+      "TopChunk": "native-aot-dotnet10.md \u203A Native AOT in .NET 10: Ship a Minimal API That Skips the JIT Tax \u203A Real-world numbers: measure it yourself: Rather than quote a benchmark that was run on hardware you don\u0027t have, publish all three v\u2026"
+    },
+    {
+      "Id": "none-06",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.7883429762227233,
+      "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n.: Aurora Coffee Co. tiene un checkout que llama a un servicio de precios y a uno de inventar\u2026"
+    },
+    {
+      "Id": "none-07",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8339835405349731,
+      "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A The server we\u0027re building: Remember Aurora Coffee Co.? Its two tools answered support questions over some in-memory d\u2026"
+    },
+    {
+      "Id": "none-08",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.7266471602513543,
+      "TopChunk": "juan-gomez-profile.md \u203A Juan G\u00F3mez \u2014 Professional profile \u203A Experience \u203A Software Engineer at The Stepstone Group: Jan 2022 - Present \u00B7 Nicaragua (Remote) Technical lead and developer for digital recruitme\u2026"
+    },
+    {
+      "Id": "none-09",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0,
+      "TopChunk": null
+    },
+    {
+      "Id": "none-10",
+      "Mode": "TextOnly",
+      "Rank": null,
+      "TopSimilarity": 0.8368513486892803,
+      "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A El ciclo sin compilaci\u00F3n, en algo de verdad: Y la parte que m\u00E1s me gust\u00F3 descubrir: el runner de pruebas integrado no necesita configur\u2026"
+    }
+  ]
+}

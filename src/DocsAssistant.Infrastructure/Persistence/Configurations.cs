@@ -1,6 +1,7 @@
 using DocsAssistant.Domain.Documents;
 using DocsAssistant.Domain.Tenants;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NpgsqlTypes;
 
@@ -80,9 +81,14 @@ internal sealed class ChunkConfiguration : IEntityTypeConfiguration<Chunk>
 
 		builder.Property(c => c.Language).HasConversion<string>();
 
+		// A comparer by content: without it EF compares array references and cannot tell whether an
+		// embedding changed.
 		builder.Property(c => c.Embedding)
 			.HasColumnName(PostgresNames.EmbeddingColumn)
-			.HasConversion<EmbeddingConverter>()
+			.HasConversion(new EmbeddingConverter(), new ValueComparer<float[]>(
+				(left, right) => left!.SequenceEqual(right!),
+				vector => vector.Length == 0 ? 0 : HashCode.Combine(vector.Length, vector[0], vector[vector.Length - 1]),
+				vector => vector.ToArray()))
 			.HasColumnType($"vector({PostgresNames.EmbeddingDimensions})");
 
 		// HNSW over cosine distance: e5 embeddings are compared by cosine similarity.
