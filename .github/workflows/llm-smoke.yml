@@ -1,0 +1,24 @@
+name: LLM provider smoke test
+
+# Manual check that the free CI provider (GitHub Models, authenticated with the workflow's own
+# GITHUB_TOKEN — no secret) answers. Used to tell a provider outage from a code regression.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  models: read
+
+jobs:
+  github-models:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call GitHub Models
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -s -i https://models.github.ai/inference/chat/completions \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"model":"openai/gpt-4.1-mini","messages":[{"role":"user","content":"Reply with exactly: ok"}],"max_tokens":5}' \
+            | grep -iE '^HTTP|x-ratelimit|content-type|"content"'
