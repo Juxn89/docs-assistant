@@ -14,6 +14,8 @@
 		<PackageVersion Include="Microsoft.Extensions.AI" Version="10.10.0" />
 		<!-- Official Anthropic SDK (MIT). Implements IChatClient. -->
 		<PackageVersion Include="Anthropic" Version="12.55.0" />
+		<!-- Offline provider: a local model through Ollama, also an IChatClient (MIT). -->
+		<PackageVersion Include="OllamaSharp" Version="5.5.0" />
 		<!-- In-process embeddings: multilingual-e5-small as ONNX. No embedding API, no sidecar. -->
 		<PackageVersion Include="Microsoft.ML.OnnxRuntime" Version="1.31.0" />
 		<PackageVersion Include="Microsoft.ML.Tokenizers" Version="2.0.0" />

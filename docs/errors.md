@@ -21,5 +21,20 @@ ProblemDetails with a stable `code` extension. Clients should branch on `code`, 
 | <a id="url-http_error"></a>`url.http_error` | 502 | The site answered with a non-success status. |
 | <a id="url-bad_redirect"></a>`url.bad_redirect` | 502 | A redirect without a `Location` header. |
 | <a id="url-too_many_redirects"></a>`url.too_many_redirects` | 502 | More than `UrlFetch:MaxRedirects` hops. |
+| <a id="chat-question_required"></a>`chat.question_required` | 400 | The question is empty. |
+| <a id="chat-origin_not_allowed"></a>`chat.origin_not_allowed` | 403 | The request's `Origin` is not in the tenant's allowed origins. |
 
 Requests to `/v1/admin/*` without a valid `X-Admin-Key` header get a 401 ProblemDetails.
+
+## Chat stream events
+
+`POST /v1/chat/{publicKey}` answers with `text/event-stream`:
+
+| Event | Data | When |
+|---|---|---|
+| `delta` | `{ "text": "…" }` | Zero or more times, as the answer is generated. |
+| `done` | `{ "outcome", "offerHandoff", "citations": [{ "number", "title", "source", "section", "excerpt" }] }` | Exactly once, last, when the answer completed. |
+| `error` | `{ "code": "assistant.unavailable", "message" }` | Instead of `done`, when the model cannot be used (not configured, provider failure). |
+
+`outcome` is one of `Answered`, `AnsweredWithoutCitations`, `AbstainedNoContext`, `AbstainedByModel`
+([ADR-0005](adr/0005-grounded-answers-and-abstention.md)).

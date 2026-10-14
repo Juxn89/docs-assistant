@@ -2,11 +2,13 @@ using DocsAssistant.Application.Abstractions;
 using DocsAssistant.Application.Features.Chat;
 using DocsAssistant.Application.Features.Ingest;
 using DocsAssistant.Application.Features.Tenants;
+using DocsAssistant.Infrastructure.Ai;
 using DocsAssistant.Infrastructure.Ai.Embeddings;
 using DocsAssistant.Infrastructure.Extraction;
 using DocsAssistant.Infrastructure.Ingestion;
 using DocsAssistant.Infrastructure.Persistence;
 using DocsAssistant.Infrastructure.Web;
+using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -35,6 +37,8 @@ public static class DependencyInjection
 		AddOptions<UrlFetchOptions>(services, configuration, UrlFetchOptions.SectionName);
 		AddOptions<EmbeddingModelOptions>(services, configuration, EmbeddingModelOptions.SectionName);
 		AddOptions<RetrievalOptions>(services, configuration, RetrievalOptions.SectionName);
+		AddOptions<ChatAnswerOptions>(services, configuration, ChatAnswerOptions.SectionName);
+		AddOptions<AiOptions>(services, configuration, AiOptions.SectionName);
 
 		// Persistence
 		services.AddScoped<ITenantRepository, TenantRepository>();
@@ -56,6 +60,10 @@ public static class DependencyInjection
 				client.Timeout = provider.GetRequiredService<IOptions<EmbeddingModelOptions>>().Value.DownloadTimeout);
 		services.AddSingleton<IEmbedder, OnnxEmbedder>();
 
+		// Language model
+		services.AddSingleton<IPromptLibrary, PromptLibrary>();
+		services.AddSingleton(provider => ChatClientSetup.Create(provider.GetRequiredService<IOptions<AiOptions>>().Value));
+
 		// Ingestion pipeline
 		services.AddSingleton<ChannelIngestionQueue>();
 		services.AddSingleton<IIngestionQueue>(provider => provider.GetRequiredService<ChannelIngestionQueue>());
@@ -69,6 +77,7 @@ public static class DependencyInjection
 		services.AddScoped<ListDocuments>();
 		services.AddScoped<ProcessDocument>();
 		services.AddScoped<RetrieveContext>();
+		services.AddScoped<AskQuestion>();
 
 		return services;
 	}

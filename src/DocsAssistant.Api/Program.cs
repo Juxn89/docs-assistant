@@ -22,7 +22,14 @@ builder.Services.AddSingleton<AdminKeyFilter>();
 
 var app = builder.Build();
 
-app.UseExceptionHandler();
+// A malformed request (bad JSON, invalid UTF-8, wrong content type) is the client's error. Minimal
+// APIs throw BadHttpRequestException for it in Development; without this the handler reports a 500.
+app.UseExceptionHandler(new ExceptionHandlerOptions
+{
+	StatusCodeSelector = exception => exception is BadHttpRequestException badRequest
+		? badRequest.StatusCode
+		: StatusCodes.Status500InternalServerError,
+});
 app.UseStatusCodePages();
 
 if (app.Environment.IsDevelopment())
@@ -31,6 +38,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapDefaultEndpoints();
+app.MapChatEndpoints();
 app.MapAdminEndpoints(app.Services.GetRequiredService<IOptions<IngestionOptions>>().Value.MaxFileBytes);
 
 await app.RunAsync();

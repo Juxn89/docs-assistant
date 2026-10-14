@@ -37,7 +37,8 @@ assistant is only useful if it **answers from your content, shows where the answ
 | URL ingestion hardened against SSRF (connect-time IP checks, redirects re-checked) | ✅ |
 | Admin API (tenants, documents) | ✅ |
 | Hybrid retrieval (pgvector + full text, RRF) with a retrieval eval gating CI | ✅ [results](evals/results/retrieval.md) |
-| Streaming answers with citations, abstention, guardrails | ⏳ |
+| Streaming answers (SSE) with validated citations and three-level abstention | ✅ [ADR-0005](docs/adr/0005-grounded-answers-and-abstention.md) — answer eval with Claude pending |
+| Guardrails, semantic cache, rate limiting, spend cap | ⏳ |
 | Handoff, widget, admin panel, cost dashboard | ⏳ |
 | Live demo | ⏳ — will run on [juangomezb.com](https://juangomezb.com) |
 
@@ -89,13 +90,23 @@ With the AppHost running (local admin key in `src/DocsAssistant.AppHost/appsetti
 
 ```bash
 KEY=local-dev-admin-key-not-a-secret-0123456789
-TENANT=$(curl -s -X POST localhost:5010/v1/admin/tenants -H "X-Admin-Key: $KEY" -H 'content-type: application/json' \
-  -d '{"name":"Acme","handoffEmail":"help@acme.test","defaultLanguage":"Spanish","allowedOrigins":[]}' | jq -r .id)
+CREATED=$(curl -s -X POST localhost:5010/v1/admin/tenants -H "X-Admin-Key: $KEY" -H 'content-type: application/json' \
+  -d '{"name":"Acme","handoffEmail":"help@acme.test","defaultLanguage":"Spanish","allowedOrigins":[]}')
+TENANT=$(echo "$CREATED" | jq -r .id)
+PK=$(echo "$CREATED" | jq -r .publicKey)   # what the widget embeds
 curl -s -X POST localhost:5010/v1/admin/tenants/$TENANT/documents -H "X-Admin-Key: $KEY" -F file=@faq.pdf
 curl -s localhost:5010/v1/admin/tenants/$TENANT/documents -H "X-Admin-Key: $KEY" | jq '.[] | {title, status, chunkCount}'
 ```
 
-Errors are ProblemDetails with a stable `code`: see [docs/errors.md](docs/errors.md).
+Then ask — the answer streams as Server-Sent Events (needs `ANTHROPIC_API_KEY`, or
+`Ai__Provider=Ollama` with a local model):
+
+```bash
+curl -N -X POST localhost:5010/v1/chat/$PK -H 'content-type: application/json' -d '{"question":"¿Hacen envíos gratis?"}'
+```
+
+Errors are ProblemDetails with a stable `code`, and the chat stream's events are documented too:
+see [docs/errors.md](docs/errors.md).
 
 ## Architecture
 

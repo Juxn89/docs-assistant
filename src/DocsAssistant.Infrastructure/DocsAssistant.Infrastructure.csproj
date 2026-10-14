@@ -13,6 +13,7 @@
 		<PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" />
 		<PackageReference Include="Microsoft.Extensions.AI" />
 		<PackageReference Include="Anthropic" />
+		<PackageReference Include="OllamaSharp" />
 		<PackageReference Include="Microsoft.ML.OnnxRuntime" />
 		<PackageReference Include="Microsoft.ML.Tokenizers" />
 		<PackageReference Include="PdfPig" />
@@ -20,6 +21,9 @@
 		<PackageReference Include="DocumentFormat.OpenXml" />
 		<PackageReference Include="StackExchange.Redis" />
 		<PackageReference Include="MailKit" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Ai\Prompts\*.md" />
 	</ItemGroup>
 	<ItemGroup>
 		<InternalsVisibleTo Include="DocsAssistant.Integration.Tests" />
