@@ -6,6 +6,7 @@ using DocsAssistant.Application.Abstractions;
 using DocsAssistant.Domain.Common;
 using DocsAssistant.Domain.Documents;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace DocsAssistant.Application.Features.Chat;
@@ -16,12 +17,18 @@ namespace DocsAssistant.Application.Features.Chat;
 /// Three ways to say "I don't know", from cheapest to most expensive: retrieval below the similarity
 /// floor (no model call), the model replying with the no-answer sentinel after reading the passages,
 /// and an answer that cites nothing valid (shown, but flagged for handoff).
+///
+/// When the model cannot be used — none configured, provider down, timeout — and nothing has been
+/// streamed yet, the answer falls back to quoting the most relevant sentences (extractive). A model
+/// failure after the first words were shown cannot be papered over and ends as an error event.
 /// </summary>
 public sealed partial class AskQuestion(
 	RetrieveContext retrieve,
 	IChatClient chat,
+	ExtractiveAnswerer extractive,
 	IPromptLibrary prompts,
-	IOptions<ChatAnswerOptions> options)
+	IOptions<ChatAnswerOptions> options,
+	ILogger<AskQuestion> logger)
 {
 	public async IAsyncEnumerable<AnswerEvent> HandleAsync(
 		TenantId tenantId,
@@ -65,40 +72,89 @@ public sealed partial class AskQuestion(
 		var pending = new StringBuilder();
 		var decided = false;
 		var abstained = false;
+		Exception? modelFailure = null;
 		UsageDetails? usage = null;
 
-		await foreach (var update in chat.GetStreamingResponseAsync(messages, chatOptions, cancellationToken).ConfigureAwait(false))
+		IAsyncEnumerator<ChatResponseUpdate>? stream = null;
+		try
 		{
-			usage = Accumulate(usage, update);
-			if (string.IsNullOrEmpty(update.Text))
+			try
 			{
-				continue;
+				stream = chat.GetStreamingResponseAsync(messages, chatOptions, cancellationToken).GetAsyncEnumerator(cancellationToken);
+			}
+			catch (Exception exception) when (CanFallBack(exception, settings))
+			{
+				modelFailure = exception;
 			}
 
-			if (decided)
+			while (stream is not null)
 			{
-				answer.Append(update.Text);
-				yield return new AnswerDelta(update.Text);
-				continue;
+				bool moved;
+				try
+				{
+					moved = await stream.MoveNextAsync().ConfigureAwait(false);
+				}
+				catch (Exception exception) when (answer.Length == 0 && CanFallBack(exception, settings))
+				{
+					modelFailure = exception;
+					break;
+				}
+
+				if (!moved)
+				{
+					break;
+				}
+
+				var update = stream.Current;
+				usage = Accumulate(usage, update);
+				if (string.IsNullOrEmpty(update.Text))
+				{
+					continue;
+				}
+
+				if (decided)
+				{
+					answer.Append(update.Text);
+					yield return new AnswerDelta(update.Text);
+					continue;
+				}
+
+				// Hold back the first characters until they cannot be the start of the sentinel, so the
+				// user never sees "NO_ANS…" flash before the abstention replaces it.
+				pending.Append(update.Text);
+				var head = pending.ToString().TrimStart();
+				if (head.StartsWith(AnswerTexts.NoAnswerSentinel, StringComparison.Ordinal))
+				{
+					abstained = true;
+					break;
+				}
+
+				if (head.Length >= AnswerTexts.NoAnswerSentinel.Length || !AnswerTexts.NoAnswerSentinel.StartsWith(head, StringComparison.Ordinal))
+				{
+					decided = true;
+					var released = pending.ToString();
+					answer.Append(released);
+					yield return new AnswerDelta(released);
+				}
+			}
+		}
+		finally
+		{
+			if (stream is not null)
+			{
+				await stream.DisposeAsync().ConfigureAwait(false);
+			}
+		}
+
+		if (modelFailure is not null)
+		{
+			LogFallback(logger, modelFailure);
+			await foreach (var fallback in AnswerExtractivelyAsync(question, context, sources, spanish, prompt.Hash, cancellationToken).ConfigureAwait(false))
+			{
+				yield return fallback;
 			}
 
-			// Hold back the first characters until they cannot be the start of the sentinel, so the
-			// user never sees "NO_ANS…" flash before the abstention replaces it.
-			pending.Append(update.Text);
-			var head = pending.ToString().TrimStart();
-			if (head.StartsWith(AnswerTexts.NoAnswerSentinel, StringComparison.Ordinal))
-			{
-				abstained = true;
-				break;
-			}
-
-			if (head.Length >= AnswerTexts.NoAnswerSentinel.Length || !AnswerTexts.NoAnswerSentinel.StartsWith(head, StringComparison.Ordinal))
-			{
-				decided = true;
-				var released = pending.ToString();
-				answer.Append(released);
-				yield return new AnswerDelta(released);
-			}
+			yield break;
 		}
 
 		if (!decided && !abstained && pending.Length > 0)
@@ -131,6 +187,41 @@ public sealed partial class AskQuestion(
 			prompt.Hash,
 			tokens);
 	}
+
+	private async IAsyncEnumerable<AnswerEvent> AnswerExtractivelyAsync(
+		string question,
+		RetrievalResult context,
+		IReadOnlyList<AnswerSource> sources,
+		bool spanish,
+		string promptHash,
+		[EnumeratorCancellation] CancellationToken cancellationToken)
+	{
+		var sentences = await extractive.SelectAsync(question, context.Chunks, cancellationToken).ConfigureAwait(false);
+		if (sentences.Count == 0)
+		{
+			var none = AnswerTexts.NoInformation(spanish);
+			yield return new AnswerDelta(none);
+			yield return new AnswerCompleted(none, AnswerOutcome.AbstainedNoContext, [], false, context.TopSimilarity, promptHash, Usage: null);
+			yield break;
+		}
+
+		var text = $"{AnswerTexts.ExtractiveLeadIn(spanish)} {ExtractiveAnswerer.Compose(sentences)}";
+		yield return new AnswerDelta(text);
+		yield return new AnswerCompleted(
+			text,
+			AnswerOutcome.AnsweredExtractively,
+			[.. sentences.Select(s => s.Citation).Distinct().Order().Select(n => sources[n - 1])],
+			HadInvalidCitations: false,
+			context.TopSimilarity,
+			promptHash,
+			Usage: null);
+	}
+
+	private static bool CanFallBack(Exception exception, ChatAnswerOptions settings) =>
+		settings.ExtractiveFallback && exception is not OperationCanceledException;
+
+	[LoggerMessage(Level = LogLevel.Warning, Message = "Language model unavailable; answering extractively")]
+	private static partial void LogFallback(ILogger logger, Exception exception);
 
 	/// <summary>
 	/// Passages are data, not instructions: each one is wrapped and its text escaped, so a document that

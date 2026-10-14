@@ -38,6 +38,7 @@ public static class DependencyInjection
 		AddOptions<EmbeddingModelOptions>(services, configuration, EmbeddingModelOptions.SectionName);
 		AddOptions<RetrievalOptions>(services, configuration, RetrievalOptions.SectionName);
 		AddOptions<ChatAnswerOptions>(services, configuration, ChatAnswerOptions.SectionName);
+		AddOptions<ExtractiveOptions>(services, configuration, ExtractiveOptions.SectionName);
 		AddOptions<AiOptions>(services, configuration, AiOptions.SectionName);
 
 		// Persistence
@@ -77,6 +78,7 @@ public static class DependencyInjection
 		services.AddScoped<ListDocuments>();
 		services.AddScoped<ProcessDocument>();
 		services.AddScoped<RetrieveContext>();
+		services.AddScoped<ExtractiveAnswerer>();
 		services.AddScoped<AskQuestion>();
 
 		return services;

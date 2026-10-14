@@ -15,6 +15,9 @@ public enum AnswerOutcome
 
 	/// <summary>The model read the passages and said they do not contain the answer.</summary>
 	AbstainedByModel = 3,
+
+	/// <summary>No model was available: the most relevant sentences, quoted verbatim with citations.</summary>
+	AnsweredExtractively = 4,
 }
 
 /// <summary>A passage the answer may cite, numbered as the model saw it.</summary>
@@ -36,7 +39,10 @@ public sealed record AnswerCompleted(
 	string PromptHash,
 	TokenUsage? Usage) : AnswerEvent
 {
-	/// <summary>Every outcome but a cited answer is a moment to offer a human.</summary>
+	/// <summary>
+	/// Every outcome but a written, cited answer is a moment to offer a human — including quoted
+	/// (extractive) answers: they cannot tell whether what they quote actually answers the question.
+	/// </summary>
 	public bool OfferHandoff => Outcome != AnswerOutcome.Answered;
 }
 
@@ -54,6 +60,12 @@ public sealed class ChatAnswerOptions
 
 	[Range(1, 4000)]
 	public int MaxQuestionLength { get; set; } = 1000;
+
+	/// <summary>
+	/// When the model cannot be used and nothing was streamed yet, answer by quoting the passages
+	/// instead of failing. Off only where an error is preferable to a quoted answer.
+	/// </summary>
+	public bool ExtractiveFallback { get; set; } = true;
 }
 
 /// <summary>Fixed, user-facing answers the system gives on its own, in both supported languages.</summary>
@@ -64,4 +76,13 @@ public static class AnswerTexts
 	public static string NoInformation(bool spanish) => spanish
 		? "No encuentro esa información en los documentos que tengo. ¿Quieres que le pase tu pregunta a una persona?"
 		: "I can't find that in the documents I have. Would you like me to pass your question to a person?";
+
+	/// <summary>
+	/// Frames quoted sentences as what they are. Measured on the evals: neither passage nor sentence
+	/// similarity can tell an unanswerable question apart, so extractive mode must not present its
+	/// quotes as "the answer".
+	/// </summary>
+	public static string ExtractiveLeadIn(bool spanish) => spanish
+		? "Esto es lo más relacionado que encontré en los documentos:"
+		: "This is the most relevant information I found in the documents:";
 }

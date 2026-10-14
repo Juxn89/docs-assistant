@@ -40,13 +40,14 @@ public sealed class ChatApiTests : IDisposable
 		}
 	}
 
-	private HttpClient Client(IChatClient model)
+	private HttpClient Client(IChatClient model, bool extractiveFallback = true)
 	{
 		var factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
 		{
 			builder.UseSetting($"ConnectionStrings:{DependencyInjection.DatabaseConnectionName}", _postgres.ConnectionString);
 			builder.UseSetting($"{AdminOptions.SectionName}:ApiKey", AdminKey);
 			builder.UseSetting("Ingestion:SweepInterval", "00:00:01");
+			builder.UseSetting("Chat:ExtractiveFallback", extractiveFallback.ToString());
 			builder.ConfigureTestServices(services => services.AddSingleton(model));
 		});
 		_factories.Add(factory);
@@ -123,9 +124,27 @@ public sealed class ChatApiTests : IDisposable
 	}
 
 	[Fact]
-	public async Task NoModelConfigured_EndsTheStreamWithATypedError()
+	public async Task NoModelConfigured_AnswersByQuotingThePassages()
 	{
 		using var client = Client(new UnconfiguredChatClient());
+		var key = await SeedTenantAsync(client, "# Returns\n\nReturns are accepted within 30 days of delivery with the original receipt.");
+
+		var events = await AskAsync(client, key, "How many days do I have to return a product?", AllowedOrigin);
+
+		var done = Assert.Single(events, e => e.Name == "done").Data;
+		Assert.Equal("AnsweredExtractively", done.GetProperty("outcome").GetString());
+		var answer = string.Concat(events.Where(e => e.Name == "delta").Select(e => e.Data.GetProperty("text").GetString()));
+		Assert.Equal(
+			"This is the most relevant information I found in the documents: Returns are accepted within 30 days of delivery with the original receipt. [1]",
+			answer);
+		Assert.True(done.GetProperty("offerHandoff").GetBoolean());
+		Assert.DoesNotContain(events, e => e.Name == "error");
+	}
+
+	[Fact]
+	public async Task NoModelAndFallbackDisabled_EndsTheStreamWithATypedError()
+	{
+		using var client = Client(new UnconfiguredChatClient(), extractiveFallback: false);
 		var key = await SeedTenantAsync(client, "# Returns\n\nReturns are accepted within 30 days of delivery with the original receipt.");
 
 		var events = await AskAsync(client, key, "How many days do I have to return a product?", AllowedOrigin);

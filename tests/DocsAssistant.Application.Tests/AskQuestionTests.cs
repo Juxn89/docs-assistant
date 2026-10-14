@@ -3,6 +3,7 @@ using DocsAssistant.Application.Abstractions;
 using DocsAssistant.Application.Features.Chat;
 using DocsAssistant.Domain.Common;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 
 namespace DocsAssistant.Application.Tests;
@@ -15,17 +16,22 @@ public sealed class AskQuestionTests
 	private readonly ScriptedSearch _search = new();
 	private readonly FakeChatClient _chat = new();
 
-	private AskQuestion Ask()
+	private readonly ChatAnswerOptions _answerOptions = new();
+
+	private AskQuestion Ask(IChatClient? model = null)
 	{
-		var retrieve = new RetrieveContext(new TenantContext(), new FakeEmbedder(), _search, Options.Create(new RetrievalOptions { MinSimilarity = 0.8 }));
-		return new AskQuestion(retrieve, _chat, new FixedPrompts(), Options.Create(new ChatAnswerOptions()));
+		var embedder = new FakeEmbedder();
+		var retrieve = new RetrieveContext(new TenantContext(), embedder, _search, Options.Create(new RetrievalOptions { MinSimilarity = 0.8 }));
+		var extractive = new ExtractiveAnswerer(embedder, Options.Create(new ExtractiveOptions()));
+		return new AskQuestion(
+			retrieve, model ?? _chat, extractive, new FixedPrompts(), Options.Create(_answerOptions), NullLogger<AskQuestion>.Instance);
 	}
 
-	private async Task<(string Streamed, AnswerCompleted Done)> RunAsync(string question = EnglishQuestion)
+	private async Task<(string Streamed, AnswerCompleted Done)> RunAsync(string question = EnglishQuestion, IChatClient? model = null)
 	{
 		var streamed = new System.Text.StringBuilder();
 		AnswerCompleted? done = null;
-		await foreach (var e in Ask().HandleAsync(TenantId.New(), question, ContentLanguage.English, CancellationToken.None))
+		await foreach (var e in Ask(model).HandleAsync(TenantId.New(), question, ContentLanguage.English, CancellationToken.None))
 		{
 			switch (e)
 			{
@@ -168,8 +174,83 @@ public sealed class AskQuestionTests
 		Assert.Equal(FixedPrompts.Hash, done.PromptHash);
 	}
 
+	[Fact]
+	public async Task NoModel_FallsBackToQuotingThePassages_WithCitations()
+	{
+		_search.Add("Returns are accepted within 30 days of delivery. Keep the original receipt for the refund.", 0.9, title: "Returns");
+		_search.Add("Our offices are open Monday to Friday from nine to five.", 0.85, title: "Hours");
+
+		var (streamed, done) = await RunAsync(model: new FailingModel(failAfterChunks: 0));
+
+		Assert.Equal(AnswerOutcome.AnsweredExtractively, done.Outcome);
+		Assert.True(done.OfferHandoff);
+		Assert.Equal(streamed, done.Answer);
+		Assert.NotEmpty(done.Citations);
+		Assert.All(done.Citations, c => Assert.Contains($"[{c.Number}]", streamed, StringComparison.Ordinal));
+
+		// Quotes are framed as related information, never presented as "the answer".
+		var leadIn = AnswerTexts.ExtractiveLeadIn(spanish: false);
+		Assert.StartsWith(leadIn, streamed, StringComparison.Ordinal);
+		streamed = streamed[leadIn.Length..].TrimStart();
+
+		// Every quoted sentence is verbatim text from a passage. Which sentences win depends on real
+		// embeddings, so that is tested with the real model (Integration.Tests/ExtractiveAnswererTests).
+		string[] passageSentences =
+		[
+			"Returns are accepted within 30 days of delivery.",
+			"Keep the original receipt for the refund.",
+			"Our offices are open Monday to Friday from nine to five.",
+		];
+		var quoted = System.Text.RegularExpressions.Regex.Split(streamed, @"\s*\[\d+\]\s*").Where(q => q.Length > 0);
+		Assert.All(quoted, q => Assert.Contains(q, passageSentences));
+	}
+
+	[Fact]
+	public async Task ModelFailingAfterTheFirstWords_IsNotPaperedOver()
+	{
+		_search.Add("Returns are accepted within 30 days of delivery.", 0.9);
+
+		await Assert.ThrowsAsync<HttpRequestException>(() => RunAsync(model: new FailingModel(failAfterChunks: 1)));
+	}
+
+	[Fact]
+	public async Task FallbackDisabled_TheFailureSurfaces()
+	{
+		_search.Add("Returns are accepted within 30 days of delivery.", 0.9);
+		_answerOptions.ExtractiveFallback = false;
+
+		await Assert.ThrowsAsync<HttpRequestException>(() => RunAsync(model: new FailingModel(failAfterChunks: 0)));
+	}
+
 	private static int CountOf(string text, string value) =>
 		(text.Length - text.Replace(value, string.Empty, StringComparison.Ordinal).Length) / value.Length;
+
+	/// <summary>Streams a few words, then fails like an unreachable provider would.</summary>
+	private sealed class FailingModel(int failAfterChunks) : IChatClient
+	{
+		public Task<ChatResponse> GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default) =>
+			throw new NotSupportedException();
+
+		public async IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(
+			IEnumerable<ChatMessage> messages,
+			ChatOptions? options = null,
+			[EnumeratorCancellation] CancellationToken cancellationToken = default)
+		{
+			for (var i = 0; i < failAfterChunks; i++)
+			{
+				await Task.Yield();
+				yield return new ChatResponseUpdate(ChatRole.Assistant, "Partial answer that is long enough to be shown ");
+			}
+
+			throw new HttpRequestException("connection refused");
+		}
+
+		public object? GetService(Type serviceType, object? serviceKey = null) => null;
+
+		public void Dispose()
+		{
+		}
+	}
 
 	private sealed class FixedPrompts : IPromptLibrary
 	{

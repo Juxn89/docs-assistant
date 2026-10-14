@@ -37,7 +37,8 @@ assistant is only useful if it **answers from your content, shows where the answ
 | URL ingestion hardened against SSRF (connect-time IP checks, redirects re-checked) | ✅ |
 | Admin API (tenants, documents) | ✅ |
 | Hybrid retrieval (pgvector + full text, RRF) with a retrieval eval gating CI | ✅ [results](evals/results/retrieval.md) |
-| Streaming answers (SSE) with validated citations and three-level abstention | ✅ [ADR-0005](docs/adr/0005-grounded-answers-and-abstention.md) — answer eval with Claude pending |
+| Streaming answers (SSE) with validated citations and three-level abstention | ✅ [ADR-0005](docs/adr/0005-grounded-answers-and-abstention.md) |
+| Works with no paid model: Ollama locally, extractive mode (quotes with citations) for the demo and as automatic fallback | ✅ [ADR-0006](docs/adr/0006-no-paid-key-providers-and-extractive-mode.md) |
 | Guardrails, semantic cache, rate limiting, spend cap | ⏳ |
 | Handoff, widget, admin panel, cost dashboard | ⏳ |
 | Live demo | ⏳ — will run on [juangomezb.com](https://juangomezb.com) |
@@ -64,6 +65,15 @@ What the numbers decided:
   So the threshold is a *floor* (0.79, the lowest answerable score) that never refuses a real question
   and catches the clearly off-topic ones for free; everything above it goes to the grounded answer.
 - **The misses are listed**, not hidden: [evals/results/retrieval.md](evals/results/retrieval.md).
+
+Answer eval, same 54 questions, end to end (`-- --suite answers`, provider from configuration):
+
+| Provider | answered | cited the evidence | abstained when there was no answer | invalid citations |
+|---|---:|---:|---:|---:|
+| Extractive (no model, zero cost) | 100 % | 80 % | 20 % | 0 % |
+
+Extractive mode cannot tell an unanswerable question apart (measured, [ADR-0006](docs/adr/0006-no-paid-key-providers-and-extractive-mode.md)),
+so its output is framed as "the most relevant information I found" and always offers a human.
 
 ## Run it
 
@@ -98,8 +108,9 @@ curl -s -X POST localhost:5010/v1/admin/tenants/$TENANT/documents -H "X-Admin-Ke
 curl -s localhost:5010/v1/admin/tenants/$TENANT/documents -H "X-Admin-Key: $KEY" | jq '.[] | {title, status, chunkCount}'
 ```
 
-Then ask — the answer streams as Server-Sent Events (needs `ANTHROPIC_API_KEY`, or
-`Ai__Provider=Ollama` with a local model):
+Then ask — the answer streams as Server-Sent Events. Without any model configured it answers in
+extractive mode (quotes with citations); `Ai__Provider=Ollama` (with a local model) or
+`ANTHROPIC_API_KEY` give written answers:
 
 ```bash
 curl -N -X POST localhost:5010/v1/chat/$PK -H 'content-type: application/json' -d '{"question":"¿Hacen envíos gratis?"}'

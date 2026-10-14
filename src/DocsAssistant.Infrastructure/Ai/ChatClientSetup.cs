@@ -12,6 +12,9 @@ public enum ChatProvider
 
 	/// <summary>Offline: a local model through Ollama. No key, no cost, lower quality.</summary>
 	Ollama = 1,
+
+	/// <summary>No language model: answers quote the most relevant sentences (extractive). Zero cost.</summary>
+	None = 2,
 }
 
 /// <summary>Bound from "Ai". Model ids are configuration, never literals in use cases.</summary>
@@ -47,6 +50,7 @@ internal static class ChatClientSetup
 		IChatClient inner = options.Provider switch
 		{
 			ChatProvider.Ollama => new OllamaApiClient(options.OllamaEndpoint, options.OllamaModel),
+			ChatProvider.None => new UnconfiguredChatClient(),
 			_ => CreateAnthropic(options),
 		};
 
@@ -71,7 +75,7 @@ internal static class ChatClientSetup
 internal sealed class UnconfiguredChatClient : IChatClient
 {
 	private const string Message =
-		"No language model is configured. Set Ai:AnthropicApiKey (or ANTHROPIC_API_KEY), or Ai:Provider=Ollama.";
+		"No language model is configured (Ai:Provider=None, or Anthropic without a key). Answers fall back to extractive mode.";
 
 	public Task<ChatResponse> GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default) =>
 		throw new AssistantUnavailableException(Message);

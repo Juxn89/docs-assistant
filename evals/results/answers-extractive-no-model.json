@@ -1,0 +1,503 @@
+{
+  "RanAt": "2026-10-14T16:27:08.4211063+00:00",
+  "Provider": "extractive (no model)",
+  "Metrics": {
+    "Provider": "extractive (no model)",
+    "Answerable": 44,
+    "AnsweredRate": 1,
+    "CitedEvidenceRate": 0.7954545454545454,
+    "Unanswerable": 10,
+    "AbstentionRate": 0.2,
+    "InvalidCitationRate": 0,
+    "LatencyP50Ms": 631.3781,
+    "LatencyP95Ms": 1500.6574
+  },
+  "Results": [
+    {
+      "Id": "profile-01",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 736.475,
+      "Answer": "This is the most relevant information I found in the documents: Jan 2022 - Present \u00B7 Nicaragua (Remote) Technical lead and developer for digital recruitment platforms across 6 international brands (Europe, Central America, and the Caribbean), impacting millions of users and thousands of companies. [2] Implemented modern architectures with microfrontends, microservices, and messaging queues, improving system scalability and maintainability Reduced deployment times by approximately 25% through automation and migration to microservices Enhanced user experience and updated the look \u0026 feel for several brands, receiving positive feedback from users and stakeholders Resolved critical bugs, delivered new business-driven features, and updated pricing models to align with company strategy Ensured high availability and performance of services on AWS Build user interfaces using ReactJS as a front-end developer Develop microservices using .NET as a back-end developer for the company\u0027s different brands Create applications to help jobseekers find better jobs in various regions, such as the UK, Germany, Ireland, Central America, and others Technologies: ReactJS, .NET, Microservices, Microfrontends, AWS, Messaging Queues. [2] A modest window keeps consumers evenly // loaded while still pipelining. await channel.prefetch(20); await channel.consume(BILLING_QUEUE, (message) =\u003E { // null arrives when the consumer is cancelled server-side; there is nothing to ack. if (message === null) return; void handle(channel, message); }); console.log([billing] consuming ${BILLING_QUEUE}); for (const signal of [\u0027SIGINT\u0027, \u0027SIGTERM\u0027] as const) { process.once(signal, () =\u003E { // Closing the channel requeues anything still unacknowledged, so a rolling deploy // hands in-flight work to the next pod instead of losing it. void channel .close() .then(() =\u003E connection.close()) .then(() =\u003E process.exit(0)); }); } The acknowledgement is the entire contract, and it has exactly three moves: ack(message) \u2014 done, delete it. [5]"
+    },
+    {
+      "Id": "profile-02",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 470.1758,
+      "Answer": "This is the most relevant information I found in the documents: Un servicio solo con una base de datos ya obtiene con eso casi todo el valor. [4] Dos servicios y una cola ya bastan. [4] D\u00E9jalo en paz cuando el sistema es un cron, una CLI, o cualquier cosa donde la ejecuci\u00F3n es la unidad de trabajo y la salida est\u00E1ndar ya cuenta la historia completa. [4]"
+    },
+    {
+      "Id": "profile-03",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 982.566,
+      "Answer": "This is the most relevant information I found in the documents: Sin cuenta, sin API key y sin capa gratuita que se venza: # docker-compose.yml services: jaeger: image: jaegertracing/jaeger:2.21.0 container_name: aurora-jaeger ports: \u002216686:16686\u0022 # la interfaz de trazas que vas a abrir \u00224318:4318\u0022 # OTLP sobre HTTP \u2014 a donde los servicios env\u00EDan los spans prometheus: image: prom/prometheus:v3.15.0 container_name: aurora-prometheus ports: \u00229090:9090\u0022 volumes: ./prometheus.yml:/etc/prometheus/prometheus.yml:ro extra_hosts: # Prometheus consulta. [1] Hay una cach\u00E9, funciona, y 977 de las 1.000 peticiones dieron con ella. [3] Vuelvo a esto // m\u00E1s abajo. register(\u0027@opentelemetry/instrumentation/hook.mjs\u0027, import.meta.url); import { NodeSDK } from \u0027@opentelemetry/sdk-node\u0027; import { getNodeAutoInstrumentations } from \u0027@opentelemetry/auto-instrumentations-node\u0027; import { OTLPTraceExporter } from \u0027@opentelemetry/exporter-trace-otlp-http\u0027; import { PrometheusExporter } from \u0027@opentelemetry/exporter-prometheus\u0027; [4]"
+    },
+    {
+      "Id": "profile-04",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 727.8395,
+      "Answer": "This is the most relevant information I found in the documents: Implemented modern architectures with microfrontends, microservices, and messaging queues, improving system scalability and maintainability Reduced deployment times by approximately 25% through automation and migration to microservices Enhanced user experience and updated the look \u0026 feel for several brands, receiving positive feedback from users and stakeholders Resolved critical bugs, delivered new business-driven features, and updated pricing models to align with company strategy Ensured high availability and performance of services on AWS Build user interfaces using ReactJS as a front-end developer Develop microservices using .NET as a back-end developer for the company\u0027s different brands Create applications to help jobseekers find better jobs in various regions, such as the UK, Germany, Ireland, Central America, and others Technologies: ReactJS, .NET, Microservices, Microfrontends, AWS, Messaging Queues. [1] Improved operational efficiency by approximately 15% and significantly reduced manual processes through automation and system enhancements Enhanced platform usability and reduced load times by around 20% using ExtJS and performance optimization techniques Responsible for bug fixing and the development of new business-critical features, ensuring system reliability and continuous improvement Designed and implemented calculations for insurance policies, handling large datasets and complex business rules Collaborated with cross-functional teams to deliver scalable, user-friendly solutions aligned with client needs Technologies: ExtJS, JavaScript, .NET, Performance Optimization, Automation. [2] Reach for Native AOT when you\u0027re running many instances of the same service \u2014 the kind of workload where shaving startup time and memory off one replica pays for itself a hundredfold across a fleet: containerized microservices, serverless functions, anything an autoscaler spins up and down under load. [5]"
+    },
+    {
+      "Id": "profile-05",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 560.7462,
+      "Answer": "This is the most relevant information I found in the documents: Frontend: Modern web applications with React, Next.js, TypeScript, and Angular. [2] Esta es la estructura que uso ahora para servicios peque\u00F1os: cuatro archivos, sin herramientas de build y sin nada instalado en tiempo de ejecuci\u00F3n. [3] Sin cuenta, sin API key y sin capa gratuita que se venza: # docker-compose.yml services: jaeger: image: jaegertracing/jaeger:2.21.0 container_name: aurora-jaeger ports: \u002216686:16686\u0022 # la interfaz de trazas que vas a abrir \u00224318:4318\u0022 # OTLP sobre HTTP \u2014 a donde los servicios env\u00EDan los spans prometheus: image: prom/prometheus:v3.15.0 container_name: aurora-prometheus ports: \u00229090:9090\u0022 volumes: ./prometheus.yml:/etc/prometheus/prometheus.yml:ro extra_hosts: # Prometheus consulta. [4]"
+    },
+    {
+      "Id": "profile-06",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 294.5868,
+      "Answer": "This is the most relevant information I found in the documents: Led the implementation of Team Foundation Server (TFS) as the version control system, improving collaboration and code management Managed servers and infrastructure, including IIS, SQL Server, Reporting Services, and TFS administration Migrated legacy ASP.NET applications to .NET Core, enhancing performance, security, and maintainability Provided ongoing support and updates for legacy systems built in VB 6.0, ensuring business continuity and gradual modernization Technologies: .NET, .NET Core, ASP.NET, VB 6.0, TFS, IIS, SQL Server. [1] Jan 2010 - Mar 2014 \u00B7 Nicaragua Developed web-based administrative and planning systems for municipal government operations. [2] Developed the Strategic Planning System as a web application using ASP MVC, enabling centralized and accessible management and monitoring of institutional plans Led the development and implementation of the Project Formulation System on a web platform (ASP MVC), streamlining the creation, evaluation, and monitoring of institutional projects Managed the successful migration of the Project Formulation System from a desktop environment to a web-based solution, enhancing accessibility, collaboration, and scalability for users Technologies: ASP MVC, .NET, Web Development. [2]"
+    },
+    {
+      "Id": "profile-07",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 618.2239,
+      "Answer": "This is the most relevant information I found in the documents: Led the implementation of Team Foundation Server (TFS) as the version control system, improving collaboration and code management Managed servers and infrastructure, including IIS, SQL Server, Reporting Services, and TFS administration Migrated legacy ASP.NET applications to .NET Core, enhancing performance, security, and maintainability Provided ongoing support and updates for legacy systems built in VB 6.0, ensuring business continuity and gradual modernization Technologies: .NET, .NET Core, ASP.NET, VB 6.0, TFS, IIS, SQL Server. [3] Sin esta l\u00EDnea el SDK arranca igual y exporta // igual: simplemente nunca ve node:http y nada queda correlacionado. [4] Vuelvo a esto // m\u00E1s abajo. register(\u0027@opentelemetry/instrumentation/hook.mjs\u0027, import.meta.url); import { NodeSDK } from \u0027@opentelemetry/sdk-node\u0027; import { getNodeAutoInstrumentations } from \u0027@opentelemetry/auto-instrumentations-node\u0027; import { OTLPTraceExporter } from \u0027@opentelemetry/exporter-trace-otlp-http\u0027; import { PrometheusExporter } from \u0027@opentelemetry/exporter-prometheus\u0027; [4]"
+    },
+    {
+      "Id": "mcp-01",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 483.5023,
+      "Answer": "This is the most relevant information I found in the documents: Read that logging line again, because it\u0027s the single biggest footgun in stdio MCP: stdout carries the JSON-RPC messages. [1] MCP is a small client/server protocol (JSON-RPC under the hood) for connecting AI clients to your capabilities. [2]"
+    },
+    {
+      "Id": "mcp-02",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 461.7733,
+      "Answer": "This is the most relevant information I found in the documents: MCP is a small client/server protocol (JSON-RPC under the hood) for connecting AI clients to your capabilities. [1] Before you touch any client config, sanity-check the server with the MCP Inspector, a browser UI that speaks the protocol so you can list and invoke tools by hand: npx @modelcontextprotocol/inspector dotnet run --project ./AuroraCoffee.Mcp It launches your server, lists get_order_status and check_stock, and lets you fire test calls. [2] Add your server under mcpServers: { \u0022mcpServers\u0022: { \u0022aurora-coffee\u0022: { \u0022command\u0022: \u0022dotnet\u0022, \u0022args\u0022: [\u0022run\u0022, \u0022--project\u0022, \u0022C:/src/AuroraCoffee.Mcp\u0022] } } } The client runs that command, speaks stdio to the child process, and your tools show up. [5]"
+    },
+    {
+      "Id": "mcp-03",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 551.0935,
+      "Answer": "This is the most relevant information I found in the documents: Claude Desktop reads a JSON config file (claude_desktop_config.json, in %APPDATA%\\Claude\\ on Windows or /Library/Application Support/Claude/ on macOS). [1]"
+    },
+    {
+      "Id": "mcp-04",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 503.2915,
+      "Answer": "Esto es lo m\u00E1s relacionado que encontr\u00E9 en los documentos: Reach for MCP when tools need to be shared or reused: the same capability across Claude Desktop and Claude Code, a server your whole team points at, or tools you want decoupled from any single app and free to evolve on their own release cadence. [1] Rule of thumb: in-app tool use when one app owns the model and the tools; an MCP server the moment more than one client needs the same tools. --- [1] MCP decouples tools from clients \u2014 write a tool once as a server and every MCP client (Claude Desktop, Claude Code, your own agent) can use it, instead of re-implementing it in each app. [3]"
+    },
+    {
+      "Id": "mcp-05",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 505.5747,
+      "Answer": "This is the most relevant information I found in the documents: One note if you\u0027re on SDK 2.0 (shipped July 28, 2026, implementing the 2026-07-28 spec revision): the HTTP transport is stateless by default \u2014 HttpServerTransportOptions.Stateless defaults to true, the initialize handshake is gone, and the Mcp-Session-Id header went away. [1]"
+    },
+    {
+      "Id": "aot-01",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 468.0018,
+      "Answer": "This is the most relevant information I found in the documents: Leave it alone when your stack leans on the dynamic features it can\u0027t do: EF Core (not AOT-compatible today), reflection-heavy libraries that haven\u0027t added source generators, MVC, Blazor Server, full SignalR, or Session \u2014 all either unsupported or only partially supported under Native AOT as of .NET 10. [1] Rule of thumb: Native AOT when instance count is high and your dependencies are AOT-clean; stick with JIT (optionally trimmed) when EF Core or reflection-heavy libraries are load-bearing. [1] EF Core isn\u0027t AOT-compatible today \u2014 its query pipeline leans on runtime code generation that Native AOT can\u0027t produce. [5]"
+    },
+    {
+      "Id": "aot-02",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 533.9295,
+      "Answer": "This is the most relevant information I found in the documents: CreateSlimBuilder \u002B source-generated JSON is the shape of an AOT Minimal API \u2014 dotnet new webapiaot scaffolds both correctly; skipping the JsonSerializerContext is the single most common way to break one. [1]"
+    },
+    {
+      "Id": "aot-03",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 489.1772,
+      "Answer": "This is the most relevant information I found in the documents: Library authors can now declare AOT compatibility explicitly: \u003CPropertyGroup\u003E \u003CIsAotCompatible\u003Etrue\u003C/IsAotCompatible\u003E \u003C/PropertyGroup\u003E Setting it turns on trim, single-file, and AOT analyzers for that library automatically. [1]"
+    },
+    {
+      "Id": "aot-04",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 438.937,
+      "Answer": "This is the most relevant information I found in the documents: Reach for Native AOT when you\u0027re running many instances of the same service \u2014 the kind of workload where shaving startup time and memory off one replica pays for itself a hundredfold across a fleet: containerized microservices, serverless functions, anything an autoscaler spins up and down under load. [2] Rule of thumb: Native AOT when instance count is high and your dependencies are AOT-clean; stick with JIT (optionally trimmed) when EF Core or reflection-heavy libraries are load-bearing. [2] Native AOT exists to skip that toll entirely \u2014 no JIT, no warm-up, just native machine code that starts running immediately. [3]"
+    },
+    {
+      "Id": "min-01",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 551.1699,
+      "Answer": "This is the most relevant information I found in the documents: AddValidation() makes DataAnnotations work on Minimal APIs \u2014 no FluentValidation, no hand-rolled filter, no package reference in a web project. [1] Now System.ComponentModel.DataAnnotations works on Minimal API parameters directly, wired up by a source generator: builder.Services.AddProblemDetails(); builder.Services.AddValidation(); That\u0027s the whole setup. [2]"
+    },
+    {
+      "Id": "min-02",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 750.2108,
+      "Answer": "This is the most relevant information I found in the documents: Leave it off and your validation silently does nothing \u2014 the worst possible failure mode, since the endpoint keeps returning 201 and you only find out from a support ticket. [2] AddValidation() makes DataAnnotations work on Minimal APIs \u2014 no FluentValidation, no hand-rolled filter, no package reference in a web project. [4] Misma carga, mismo c\u00F3digo, esto es lo que sale: con el hook del cargador sin \u00E9l ------------------------------------------------------------------ checkout 1 identificador checkout su propio identificador pricing el mismo pricing uno distinto inventory el mismo inventory ning\u00FAn span 8 spans en un solo \u00E1rbol dos fragmentos sin relaci\u00F3n trace_id en cada l\u00EDnea de log ninguna l\u00EDnea con trace_id La instrumentaci\u00F3n autom\u00E1tica funciona reescribiendo m\u00F3dulos cuando se cargan. [5]"
+    },
+    {
+      "Id": "min-03",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 710.8923,
+      "Answer": "This is the most relevant information I found in the documents: Microsoft.AspNetCore.OpenApi replaced Swashbuckle as the default in .NET 9, and .NET 10 sharpened it: OpenAPI 3.1 is now the default document version, YAML output works at runtime, and you can transform a single operation without touching the whole document. [1]"
+    },
+    {
+      "Id": "min-04",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 553.3852,
+      "Answer": "This is the most relevant information I found in the documents: Microsoft.AspNetCore.OpenApi replaced Swashbuckle as the default in .NET 9, and .NET 10 sharpened it: OpenAPI 3.1 is now the default document version, YAML output works at runtime, and you can transform a single operation without touching the whole document. [1] Add the two community packages that Microsoft\u0027s own guidance points at: dotnet add package Asp.Versioning.Http dotnet add package Asp.Versioning.OpenApi builder.Services.AddApiVersioning(options =\u003E { options.DefaultApiVersion = new ApiVersion(1, 0); options.AssumeDefaultVersionWhenUnspecified = true; options.ReportApiVersions = true; options.ApiVersionReader = ApiVersionReader.Combine( new UrlSegmentApiVersionReader(), new HeaderApiVersionReader(\u0022X-Api-Version\u0022)); }) .AddApiExplorer(options =\u003E { options.GroupNameFormat = \u0022\u0027v\u0027VVV\u0022; // v1, v1.1, v2 options.SubstituteApiVersionInUrl = true; // required for URL-segment versioning }) .AddOpenApi(); ReportApiVersions makes every response carry api-supported-versions and api-deprecated-versions headers, which is how a client discovers a deprecation without reading your changelog. [2] If a downstream code generator chokes, drop back with options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_0 inside AddOpenApi(). [4]"
+    },
+    {
+      "Id": "min-05",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 607.1938,
+      "Answer": "This is the most relevant information I found in the documents: Here\u0027s the part most versioning tutorials get wrong: you version the endpoints that broke, not the whole API. [1] Because we\u0027re versioned, the per-version documents come from Asp.Versioning.OpenApi: if (app.Environment.IsDevelopment()) { app.MapOpenApi().WithDocumentPerVersion(); // /openapi/v1.json and /openapi/v2.json app.MapScalarApiReference(); // interactive UI at /scalar } Without versioning it\u0027s just builder.Services.AddOpenApi() plus app.MapOpenApi(), serving /openapi/v1.json. [4] Without versioning it\u0027s just builder.Services.AddOpenApi() plus app.MapOpenApi(), serving /openapi/v1.json. [5]"
+    },
+    {
+      "Id": "min-06",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 532.5291,
+      "Answer": "This is the most relevant information I found in the documents: /// \u003Csummary\u003EPlaces a new order and returns its location.\u003C/summary\u003E public static Created PlaceOrder(PlaceOrderRequest request, OrdersStore store, HttpContext http) { var order = store.Place(request.Sku, request.Quantity); return TypedResults.Created($\u0022{http.Request.Path}/{order.Id}\u0022); } } And the store, thread-safe because a singleton serving concurrent requests has no other option: using System.Collections.Concurrent; public sealed class OrdersStore { private readonly ConcurrentDictionary\u003Cstring, Order\u003E orders = new() { [\u0022A-2001\u0022] = new(\u0022A-2001\u0022, \u0022ETH-250\u0022, 2, \u0022processing\u0022, DateTimeOffset.UtcNow), [\u0022A-2002\u0022] = new(\u0022A-2002\u0022, \u0022COL-1KG\u0022, 1, \u0022shipped\u0022, DateTimeOffset.UtcNow), }; // Starts past the seeded IDs so the first generated order is A-2003. private int nextOrderId = 2002; public Order? [1] For a real service you\u0027d reach for Dapper or raw ADO.NET instead; for this example, an injectable in-memory store makes the same point without a database dependency: using System.Collections.Concurrent; public sealed record Order(string Id, string Sku, int Quantity, string Status); public sealed class OrdersStore { // Registered as a singleton and written from concurrent requests, so a plain // Dictionary would be a data race \u2014 it can corrupt its buckets during a resize. private readonly ConcurrentDictionary\u003Cstring, Order\u003E orders = new() { [\u0022A-2001\u0022] = new(\u0022A-2001\u0022, \u0022ETH-250\u0022, 2, \u0022processing\u0022), [\u0022A-2002\u0022] = new(\u0022A-2002\u0022, \u0022COL-1KG\u0022, 1, \u0022shipped\u0022), }; // Starts past the seeded IDs so the first generated order is A-2003. private int nextOrderId = 2002; public Order? [2]"
+    },
+    {
+      "Id": "rmq-01",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 573.0064,
+      "Answer": "This is the most relevant information I found in the documents: Producers publish to exchanges, never to queues. sendToQueue is the nameless default exchange doing it for you, and it quietly hardcodes the consumer\u0027s queue name into the producer. [2] Here is the rule that the tutorials bury, and it is the whole article: \u003E A producer never publishes to a queue. [3] The producer hands the message to RabbitMQ and gets an acknowledgement that RabbitMQ now owns it. [4]"
+    },
+    {
+      "Id": "rmq-02",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 432.4075,
+      "Answer": "This is the most relevant information I found in the documents: The binding key is set on the binding, once, when you wire a queue to an exchange. [1] The routing key comes from the message; the binding key comes from the binding. [3] A direct exchange delivers to the queues whose binding key equals the routing key, character for character: await channel.assertExchange(\u0027receipts\u0027, \u0027direct\u0027, { durable: true }); await channel.assertQueue(\u0027receipts.email\u0027, { durable: true }); await channel.assertQueue(\u0027receipts.sms\u0027, { durable: true }); await channel.bindQueue(\u0027receipts.email\u0027, \u0027receipts\u0027, \u0027email\u0027); await channel.bindQueue(\u0027receipts.sms\u0027, \u0027receipts\u0027, \u0027sms\u0027); // Lands in receipts.email only. receipts.sms never sees it. channel.publish(\u0027receipts\u0027, \u0027email\u0027, payload, { persistent: true }); Worth knowing: nothing stops two queues from sharing a binding key on a direct exchange, and if they do, both get a copy. [4]"
+    },
+    {
+      "Id": "rmq-03",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 480.6043,
+      "Answer": "This is the most relevant information I found in the documents: A fanout exchange ignores the routing key completely and copies each message to every bound queue. [2] Fanout, direct and topic exchanges side by side, showing how each one compares the routing key --- [5]"
+    },
+    {
+      "Id": "rmq-04",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 1010.5237,
+      "Answer": "This is the most relevant information I found in the documents: A poison pill is a message that fails every single time \u2014 a payload your parser rejects, a reference to a row someone deleted, a bug on one specific code path. [1] La soluci\u00F3n de verdad es decidir despu\u00E9s de que la traza est\u00E9 completa, no antes de que empiece: muestreo de cola, que implica un OpenTelemetry Collector entre tus servicios y Jaeger, conservando el 100% de las trazas que pasan de cierta latencia y el 100% de las que tienen error, m\u00E1s un porcentaje del resto. [3]"
+    },
+    {
+      "Id": "rmq-05",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 631.3781,
+      "Answer": "This is the most relevant information I found in the documents: Publish to an exchange whose bindings match nothing and RabbitMQ discards the message with the serene confidence of a system that did precisely what you asked. channel.publish still returns true. [2] Zero matching bindings means zero copies, and the message is discarded. [4] A # binding makes it behave like a fanout, so you keep the option to narrow a consumer later without recreating the exchange. durable and persistent are two different settings \u2014 one keeps the queue across a restart, the other keeps the messages. [5]"
+    },
+    {
+      "Id": "rmq-06",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 591.7064,
+      "Answer": "Esto es lo m\u00E1s relacionado que encontr\u00E9 en los documentos: Un histograma de latencia: una barra muy alta a la izquierda, luego una cola larga y baja, con el promedio marcado en el hueco vac\u00EDo entre las dos, donde casi no cae ninguna petici\u00F3n [2] La soluci\u00F3n de verdad es decidir despu\u00E9s de que la traza est\u00E9 completa, no antes de que empiece: muestreo de cola, que implica un OpenTelemetry Collector entre tus servicios y Jaeger, conservando el 100% de las trazas que pasan de cierta latencia y el 100% de las que tienen error, m\u00E1s un porcentaje del resto. [4]"
+    },
+    {
+      "Id": "rmq-07",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 757.9591,
+      "Answer": "This is the most relevant information I found in the documents: You cannot change a queue\u0027s arguments in place. assertQueue is idempotent only while the arguments match. [1]"
+    },
+    {
+      "Id": "bot-01",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 643.1813,
+      "Answer": "This is the most relevant information I found in the documents: Two lines there deserve more than a glance. pull_request_target instead of pull_request. [1] A pull_request run triggered from a fork gets a read-only token and no secrets \u2014 meaning no API key, and no permission to post the review even if it had one. pull_request_target gets both, because it runs in the context of the base repository. [1] This post assumes them and spends its time on the part that surprised me: how much of that machinery a review bot turns out not to need. --- [2]"
+    },
+    {
+      "Id": "bot-02",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 578.1394,
+      "Answer": "Esto es lo m\u00E1s relacionado que encontr\u00E9 en los documentos: It\u0027s the single most common way this bot fails, and the model isn\u0027t at fault: Claude is answering about file line numbers, while GitHub only accepts positions that exist in the patch. [1] This post assumes them and spends its time on the part that surprised me: how much of that machinery a review bot turns out not to need. --- [2] The bot\u0027s only capability is posting comments. [5]"
+    },
+    {
+      "Id": "bot-03",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 674.3788,
+      "Answer": "This is the most relevant information I found in the documents: When request five of seven times out, GitHub already has four comments on the PR from a review that never finished. [1] Post a review comment on a line the PR didn\u0027t touch and the API returns a 422 that names no line and explains nothing. [2]"
+    },
+    {
+      "Id": "bot-04",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 654.1625,
+      "Answer": "Esto es lo m\u00E1s relacionado que encontr\u00E9 en los documentos: That\u0027s a prompt injection with a straight face, and it will work on a naive bot. [1] The diff goes in the user turn wrapped in \u003Cfile path=\u0022...\u0022\u003E tags and introduced as untrusted content, and the system prompt says so outright: const string SystemPrompt = \u0022\u0022\u0022 You review pull requests for the Aurora Coffee Co. orders API (C# / .NET 10). [1] The workflow that runs it: name: Claude review on: pull_request_target: types: [opened, synchronize] permissions: contents: read pull-requests: write jobs: review: runs-on: ubuntu-latest steps: uses: actions/checkout@v4 # the bot\u0027s own code, not the PR\u0027s uses: actions/setup-dotnet@v4 with: dotnet-version: \u002710.0.x\u0027 run: dotnet run review.cs env: ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }} GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} PR_NUMBER: ${{ github.event.number }} Two lines there deserve more than a glance. [5]"
+    },
+    {
+      "Id": "rag-01",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 547.9951,
+      "Answer": "This is the most relevant information I found in the documents: RAG stands for Retrieval-Augmented Generation. [1] RAG is the right tool when your knowledge is large, private, or changing: Use RAG for company docs, product manuals, support tickets, a knowledge base \u2014 anything the base model never saw and that updates often. [2] RAG is three steps, not magic \u2014 retrieve relevant chunks, augment the prompt, generate the answer. [4]"
+    },
+    {
+      "Id": "rag-02",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 803.3682,
+      "Answer": "Esto es lo m\u00E1s relacionado que encontr\u00E9 en los documentos: RAG is three steps, not magic \u2014 retrieve relevant chunks, augment the prompt, generate the answer. [2] In this tutorial we build a small RAG system in .NET 10 that answers questions about a product\u0027s documentation, and we do it 100% locally: no cloud, no API keys, no invoice at the end of the month. [3] The \u002Bsource and \u002Bchunk columns ride along as plain text so we can read the original text back after a search. using Microsoft.Data.Sqlite; using System.Text.Json; sealed class VectorStore(string path) : IDisposable { private readonly SqliteConnection connection = new($\u0022Data Source={path}\u0022); public void Initialize() { connection.Open(); connection.LoadExtension(\u0022vec0\u0022); // loads the sqlite-vec native library using var command = connection.CreateCommand(); command.CommandText = \u0022\u0022\u0022 CREATE VIRTUAL TABLE IF NOT EXISTS vec_chunks USING vec0( embedding float[768] distance_metric=cosine, \u002Bsource text, \u002Bchunk text ); \u0022\u0022\u0022; command.ExecuteNonQuery(); } public void Add(DocChunk chunk, float[] embedding) { using var command = connection.CreateCommand(); command.CommandText = \u0022\u0022\u0022 INSERT INTO vec_chunks(embedding, source, chunk) VALUES ($embedding, $source, $chunk); \u0022\u0022\u0022; command.Parameters.AddWithValue(\u0022$embedding\u0022, JsonSerializer.Serialize(embedding)); command.Parameters.AddWithValue(\u0022$source\u0022, chunk.Source); command.Parameters.AddWithValue(\u0022$chunk\u0022, chunk.Text); command.ExecuteNonQuery(); } public void Dispose() =\u003E connection.Dispose(); } [5]"
+    },
+    {
+      "Id": "rag-03",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 582.3842,
+      "Answer": "This is the most relevant information I found in the documents: RAG is the right tool when your knowledge is large, private, or changing: Use RAG for company docs, product manuals, support tickets, a knowledge base \u2014 anything the base model never saw and that updates often. [1]"
+    },
+    {
+      "Id": "obs-01",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 772.2633,
+      "Answer": "This is the most relevant information I found in the documents: La observabilidad es poder responder preguntas que no pensaste de antemano, sin desplegar c\u00F3digo nuevo para averiguarlo. [1] El monitoreo responde preguntas que escribiste de antemano; la observabilidad responde las que no. [2]"
+    },
+    {
+      "Id": "obs-02",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 1500.6574,
+      "Answer": "This is the most relevant information I found in the documents: ETH-250\u0022)] string sku) =\u003E data.Stock.TryGetValue(sku, out var quantity) ? $\u0022SKU {sku}: {quantity} units in stock.\u0022 : \u0022Unknown SKU.\u0022; } Those [Description] attributes are not decoration \u2014 they\u0027re the same load-bearing docstrings from the last article, just written in a nicer place. [1]"
+    },
+    {
+      "Id": "obs-03",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 845.1924,
+      "Answer": "This is the most relevant information I found in the documents: La respuesta es el muestreo, y la versi\u00F3n que conviene saber ahora es: muestrea trazas completas, nunca spans sueltos, o vas a terminar con \u00E1rboles incompletos. [1] Ese campo no lo escribes t\u00FA. @opentelemetry/instrumentation-pino, que getNodeAutoInstrumentations() activa por ti, agrega trace_id, span_id y trace_flags a toda l\u00EDnea de Pino emitida dentro de un span activo. [3] As\u00ED obtienes el 10% de las trazas enteras, y no el 10% de los spans repartidos entre todas. [4]"
+    },
+    {
+      "Id": "obs-04",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 1027.0012,
+      "Answer": "This is the most relevant information I found in the documents: Las m\u00E9tricas dicen con qu\u00E9 frecuencia y qu\u00E9 tan grave, las trazas dicen d\u00F3nde, los logs dicen por qu\u00E9. [1] M\u00E9tricas sin trazas te deja un n\u00FAmero sobre el que no puedes actuar. [2] Las m\u00E9tricas se quedan al 100%, que es la otra mitad de por qu\u00E9 las quieres: tu p99 sigue siendo exacto aunque hayas perdido el 90% de las trazas. [5]"
+    },
+    {
+      "Id": "node-01",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 784.1427,
+      "Answer": "This is the most relevant information I found in the documents: Node 24 runs TypeScript files directly, so every snippet here runs with node src/publisher.ts \u2014 no build step and no tsx. [5]"
+    },
+    {
+      "Id": "node-02",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 632.4823,
+      "Answer": "This is the most relevant information I found in the documents: Los decoradores son la excepci\u00F3n a la regla del mensaje \u00FAtil, y la raz\u00F3n es precisa: no son sintaxis exclusiva de TypeScript. [2] Se rompen cinco cosas: enums, namespaces y propiedades de constructor (con un error claro), decoradores (con un SyntaxError: Invalid or unexpected token a secas), imports que nombran archivos .js inexistentes, los alias de rutas del tsconfig, y cualquier archivo .ts instalado dentro de node_modules. [3] Sin dependencias y con una pieza menos entre tu editor y el proceso. tsx: decoradores, enums o propiedades de constructor que no vas a reescribir; alias de rutas que no puedes convertir; dependencias en CommonJS con interoperabilidad inc\u00F3moda; un proyecto donde todos los imports terminan en .js y la migraci\u00F3n no entra en este trimestre. [5]"
+    },
+    {
+      "Id": "node-03",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 849.0923,
+      "Answer": "This is the most relevant information I found in the documents: Presupuesta unos 25 ms m\u00E1s 0.26 ms por KB de c\u00F3digo \u2014 cerca de 3.7 veces m\u00E1s r\u00E1pido de arrancar que tsx sobre los mismos archivos, raz\u00F3n suficiente para usar node pelado por omisi\u00F3n y tsx a prop\u00F3sito. [1] Medir solo el arranque en una laptop es ruidoso, as\u00ED que la columna honesta es el m\u00EDnimo; dejo la mediana al lado para que veas la dispersi\u00F3n. | Qu\u00E9 se ejecuta | M\u00EDnimo | Mediana | | --- | --- | --- | | archivo .js de 20 bytes | 66 ms | 94 ms | | el mismo archivo como .ts | 90 ms | 114 ms | | 109 KB de .js ya emitido | 69 ms | 75 ms | | los 229 KB de .ts de donde sali\u00F3 | 153 ms | 191 ms | | servicio de cuatro m\u00F3dulos, compilado | 100 ms | 118 ms | | servicio de cuatro m\u00F3dulos, con borrado de tipos | 130 ms | 176 ms | | servicio de cuatro m\u00F3dulos, con tsx | 486 ms | 590 ms | De esa tabla salen dos conclusiones. [2] El costo sigue el tama\u00F1o del c\u00F3digo fuente, no el del proyecto, as\u00ED que un servicio de cuatro m\u00F3dulos peque\u00F1os paga casi nada. tsx arranca unas 3.7 veces m\u00E1s lento aqu\u00ED, y sigue siendo la herramienta correcta para varios proyectos. [2]"
+    },
+    {
+      "Id": "node-04",
+      "Answerable": true,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": true,
+      "HadInvalidCitations": false,
+      "LatencyMs": 1098.8561,
+      "Answer": "This is the most relevant information I found in the documents: La opci\u00F3n ya no hace falta. node server.ts corre en Node 24 sin opciones extra, --experimental-strip-types ya no hace nada, y process.features.typescript reporta \u0022strip\u0022, \u0022transform\u0022 o false. [1] Node nunca lee tsconfig.json, as\u00ED que paths no hace nada: TypeError [ERR_PACKAGE_IMPORT_NOT_DEFINED]: Package import specifier \u0022#billing/types.ts\u0022 is not defined El reemplazo es el campo imports del package.json: los subpath imports propios de Node, que TypeScript tambi\u00E9n entiende. [2] Puedes preguntarle al proceso en qu\u00E9 modo est\u00E1 corriendo: process.features.typescript // \u0022strip\u0022 -\u003E el valor por omisi\u00F3n en Node 24 // \u0022transform\u0022 -\u003E con --experimental-transform-types // false -\u003E con --no-strip-types El \u00FAltimo caso vale la pena conocerlo: --no-strip-types devuelve a .ts la condici\u00F3n de extensi\u00F3n desconocida, y es la forma de comprobar que un despliegue est\u00E1 ejecutando c\u00F3digo ya compilado en lugar de borrar tipos en cada arranque. [4]"
+    },
+    {
+      "Id": "none-01",
+      "Answerable": false,
+      "Outcome": "AbstainedNoContext",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 257.7966,
+      "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?"
+    },
+    {
+      "Id": "none-02",
+      "Answerable": false,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 1443.3888,
+      "Answer": "This is the most relevant information I found in the documents: El costo fijo es de unos 25 ms, que es instanciar en WebAssembly el componente que borra los tipos, algo que antes no cargabas. [1] El costo variable ronda los 0.26 ms por kilobyte de TypeScript: 229 KB en un solo archivo cuestan 84 ms y un archivo de 20 bytes cuesta 24 ms. [1] El costo sigue el tama\u00F1o del c\u00F3digo fuente, no el del proyecto, as\u00ED que un servicio de cuatro m\u00F3dulos peque\u00F1os paga casi nada. tsx arranca unas 3.7 veces m\u00E1s lento aqu\u00ED, y sigue siendo la herramienta correcta para varios proyectos. [1]"
+    },
+    {
+      "Id": "none-03",
+      "Answerable": false,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 876.2877,
+      "Answer": "This is the most relevant information I found in the documents: Senior Software Engineer with 15\u002B years of experience modernizing legacy systems and building scalable fullstack solutions in multinational settings. [1] Experience with RESTful APIs, microservices, and data processing. [3] Improved operational efficiency by approximately 15% and significantly reduced manual processes through automation and system enhancements Enhanced platform usability and reduced load times by around 20% using ExtJS and performance optimization techniques Responsible for bug fixing and the development of new business-critical features, ensuring system reliability and continuous improvement Designed and implemented calculations for insurance policies, handling large datasets and complex business rules Collaborated with cross-functional teams to deliver scalable, user-friendly solutions aligned with client needs Technologies: ExtJS, JavaScript, .NET, Performance Optimization, Automation. [4]"
+    },
+    {
+      "Id": "none-04",
+      "Answerable": false,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 1555.9888,
+      "Answer": "This is the most relevant information I found in the documents: Checkout llama a precios y despu\u00E9s a inventario: { \u0022name\u0022: \u0022aurora-observability\u0022, \u0022private\u0022: true, \u0022type\u0022: \u0022module\u0022, \u0022engines\u0022: { \u0022node\u0022: \u0022\u003E=24\u0022 }, \u0022dependencies\u0022: { \u0022@opentelemetry/api\u0022: \u0022^1.9.1\u0022, \u0022@opentelemetry/auto-instrumentations-node\u0022: \u0022^0.80.0\u0022, \u0022@opentelemetry/exporter-prometheus\u0022: \u0022^0.222.0\u0022, \u0022@opentelemetry/exporter-trace-otlp-http\u0022: \u0022^0.222.0\u0022, \u0022@opentelemetry/sdk-node\u0022: \u0022^0.222.0\u0022, \u0022pino\u0022: \u0022^10.3.1\u0022 } } Detr\u00E1s hay tres contenedores de c\u00F3digo abierto. [2] Sin cuenta, sin API key y sin capa gratuita que se venza: # docker-compose.yml services: jaeger: image: jaegertracing/jaeger:2.21.0 container_name: aurora-jaeger ports: \u002216686:16686\u0022 # la interfaz de trazas que vas a abrir \u00224318:4318\u0022 # OTLP sobre HTTP \u2014 a donde los servicios env\u00EDan los spans prometheus: image: prom/prometheus:v3.15.0 container_name: aurora-prometheus ports: \u00229090:9090\u0022 volumes: ./prometheus.yml:/etc/prometheus/prometheus.yml:ro extra_hosts: # Prometheus consulta. [2] # prometheus.yml global: scrape_interval: 5s scrape_configs: job_name: aurora static_configs: targets: host.docker.internal:9464 # checkout host.docker.internal:9465 # precios host.docker.internal:9466 # inventario docker compose up -d Un solo archivo arma toda la telemetr\u00EDa, y se carga con --import para que corra antes que cualquier c\u00F3digo de la aplicaci\u00F3n: // telemetry.ts import { register } from \u0027node:module\u0027; // La instrumentaci\u00F3n autom\u00E1tica reescribe los m\u00F3dulos mientras se importan, y en ESM // eso necesita un hook del cargador. [4]"
+    },
+    {
+      "Id": "none-05",
+      "Answerable": false,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 1368.0351,
+      "Answer": "This is the most relevant information I found in the documents: Native AOT dotnet publish -r linux-x64 -c Release -o out/aot Then compare what actually matters for a deployed service: Disk size: du -sh out//AuroraCoffee.Orders (or the container image size, if you\u0027re shipping one) \u2014 this is what you pull across the network on every deploy. [1] One file, no cloud account, no managed-service signup: # docker-compose.yml services: rabbitmq: image: rabbitmq:4-management container_name: aurora-rabbitmq ports: \u00225672:5672\u0022 # AMQP \u2014 what your app connects to \u002215672:15672\u0022 # management UI \u2014 what you connect to environment: RABBITMQ_DEFAULT_USER: aurora RABBITMQ_DEFAULT_PASS: aurora-dev volumes: rabbitmq-data:/var/lib/rabbitmq healthcheck: test: [\u0022CMD\u0022, \u0022rabbitmq-diagnostics\u0022, \u0022-q\u0022, \u0022check_running\u0022] interval: 10s timeout: 5s retries: 5 volumes: rabbitmq-data: docker compose up -d The -management tag is the part worth insisting on. [3] A single .cs file run with dotnet run app.cs can now be published straight to a native executable with dotnet publish app.cs \u2014 no project file needed. .NET 10 makes AOT the default for these; opt out per-file if a script needs an AOT-incompatible package: #:property PublishAot=false Console apps get native container images for free. dotnet publish /t:PublishContainer now works on any console app, not just ASP.NET Core and Worker Service projects \u2014 no \u003CEnableSdkContainerSupport\u003E opt-in required anymore. [4]"
+    },
+    {
+      "Id": "none-06",
+      "Answerable": false,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 2029.1864,
+      "Answer": "This is the most relevant information I found in the documents: Preg\u00FAntale al histograma cu\u00E1les peticiones estuvieron lentas y no tiene nada: ah\u00ED no hay SKU, ni identificador de orden, ni cliente. [2] Tres servicios peque\u00F1os en Node 24, para que cada n\u00FAmero de este art\u00EDculo sea reproducible y no un recuerdo. [3] Ese n\u00FAmero sali\u00F3 de datos recolectados antes de que alguien estuviera mirando, y es lo bastante barato como para guardarlo un a\u00F1o, as\u00ED que tambi\u00E9n puedes ver que empez\u00F3 el martes. [5]"
+    },
+    {
+      "Id": "none-07",
+      "Answerable": false,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 1494.6613,
+      "Answer": "This is the most relevant information I found in the documents: That is a synchronous call \u2014 HTTP or gRPC \u2014 and dressing it up as request/reply over a broker buys you the latency of an extra hop plus a broker to operate. [1] Open http://localhost:15672 (aurora / aurora-dev) and you get a live view of every exchange, queue, and binding, plus the depth and rate of each queue. [3] The reservation has to be atomic, which means a compare-and-swap loop: using System.Collections.Concurrent; public sealed class InventoryStore { private readonly ConcurrentDictionary\u003Cstring, int\u003E stock = new() { [\u0022ETH-250\u0022] = 40, [\u0022COL-1KG\u0022] = 12, }; [4]"
+    },
+    {
+      "Id": "none-08",
+      "Answerable": false,
+      "Outcome": "AbstainedNoContext",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 266.0909,
+      "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?"
+    },
+    {
+      "Id": "none-09",
+      "Answerable": false,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 1436.7955,
+      "Answer": "This is the most relevant information I found in the documents: Add your server under mcpServers: { \u0022mcpServers\u0022: { \u0022aurora-coffee\u0022: { \u0022command\u0022: \u0022dotnet\u0022, \u0022args\u0022: [\u0022run\u0022, \u0022--project\u0022, \u0022C:/src/AuroraCoffee.Mcp\u0022] } } } The client runs that command, speaks stdio to the child process, and your tools show up. [2] \u0022\u0022\u0022, [\u0022webhooks.md\u0022] = \u0022\u0022\u0022 Webhooks. [4] \u0022\u0022\u0022, [\u0022errors.md\u0022] = \u0022\u0022\u0022 Error codes. [4]"
+    },
+    {
+      "Id": "none-10",
+      "Answerable": false,
+      "Outcome": "AnsweredExtractively",
+      "CitedEvidence": false,
+      "HadInvalidCitations": false,
+      "LatencyMs": 1134.4965,
+      "Answer": "This is the most relevant information I found in the documents: 413 : 400; send(response, status, { error: \u0022cuerpo ilegible\u0022 }); return; } const draft = parseNewInvoice(body); if (draft === null) { send(response, 422, { error: \u0022customer debe ser un string no vac\u00EDo y amountCents un n\u00FAmero entero\u0022 }); return; } send(response, 201, toResponseBody(store.add(draft))); return; } send(response, 404, { error: \u0022esa ruta no existe\u0022 }); }); server.listen(Number(process.env[\u0022PORT\u0022] ?? [1] Sin dependencias y con una pieza menos entre tu editor y el proceso. tsx: decoradores, enums o propiedades de constructor que no vas a reescribir; alias de rutas que no puedes convertir; dependencias en CommonJS con interoperabilidad inc\u00F3moda; un proyecto donde todos los imports terminan en .js y la migraci\u00F3n no entra en este trimestre. [5] Un paso de compilaci\u00F3n de verdad: publicar una librer\u00EDa en npm, donde la restricci\u00F3n de node_modules es absoluta; empaquetar o minificar para un destino de despliegue; apuntar a un Node anterior al 22; o un presupuesto de arranque en fr\u00EDo tan ajustado que no puedas gastar 25 ms de borrado de tipos m\u00E1s un milisegundo por cada cuatro kilobytes de c\u00F3digo. [5]"
+    }
+  ]
+}
