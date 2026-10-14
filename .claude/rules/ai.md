@@ -15,3 +15,7 @@ paths:
   construct a raw client in a feature.
 - Prefer abstaining ("I don't have that information") over a plausible guess. The abstention eval
   is as important as the accuracy eval.
+- Prompt-injection guardrails (ADR-0008): questions and passages go through `PromptInjectionDetector`;
+  the answer prompt keeps its `{{canary}}` line first. A new detector pattern needs a test that it
+  flags the attack *and* tests that innocent phrasings with the same words pass; re-run
+  `--suite injection` and check its false-positive columns stay at zero.

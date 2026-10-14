@@ -112,39 +112,45 @@ internal sealed class EvalEnvironment : IAsyncDisposable
 		var languages = new Dictionary<string, ContentLanguage>(StringComparer.OrdinalIgnoreCase);
 		foreach (var file in Directory.EnumerateFiles(corpusDirectory, "*.md").Where(f => !Path.GetFileName(f).Equals("README.md", StringComparison.OrdinalIgnoreCase)).Order())
 		{
-			IngestionJob job;
-			await using (var scope = Services.CreateAsyncScope())
-			{
-				var registered = await scope.ServiceProvider.GetRequiredService<UploadDocument>().HandleAsync(
-					new UploadDocumentRequest(tenant.Value, Path.GetFileName(file), "text/markdown", await File.ReadAllBytesAsync(file), null),
-					CancellationToken.None);
-				if (!registered.IsSuccess)
-				{
-					throw new InvalidOperationException($"{file}: {registered.Error!.Message}");
-				}
-
-				job = new IngestionJob(tenant, new DocumentId(registered.Value.Document.Id));
-			}
-
-			await using (var scope = Services.CreateAsyncScope())
-			{
-				var outcome = await scope.ServiceProvider.GetRequiredService<ProcessDocument>().HandleAsync(job, CancellationToken.None);
-				if (outcome != ProcessingOutcome.Ready)
-				{
-					throw new InvalidOperationException($"{file} did not ingest: {outcome}.");
-				}
-			}
-
-			await using (var scope = Services.CreateAsyncScope())
-			{
-				scope.ServiceProvider.GetRequiredService<ITenantContext>().Set(tenant);
-				var document = await scope.ServiceProvider.GetRequiredService<IDocumentRepository>().GetAsync(job.DocumentId, CancellationToken.None);
-				languages[Path.GetFileName(file)] = document!.Language;
-				Console.WriteLine($"  ingested {Path.GetFileName(file),-28} {document.ChunkCount,4} chunks  {document.Language}");
-			}
+			languages[Path.GetFileName(file)] = await IngestFileAsync(tenant, file);
 		}
 
 		return (tenant, languages);
+	}
+
+	/// <summary>Uploads and processes one file for the tenant through the real use cases. Returns its detected language.</summary>
+	public async Task<ContentLanguage> IngestFileAsync(TenantId tenant, string file)
+	{
+		IngestionJob job;
+		await using (var scope = Services.CreateAsyncScope())
+		{
+			var registered = await scope.ServiceProvider.GetRequiredService<UploadDocument>().HandleAsync(
+				new UploadDocumentRequest(tenant.Value, Path.GetFileName(file), "text/markdown", await File.ReadAllBytesAsync(file), null),
+				CancellationToken.None);
+			if (!registered.IsSuccess)
+			{
+				throw new InvalidOperationException($"{file}: {registered.Error!.Message}");
+			}
+
+			job = new IngestionJob(tenant, new DocumentId(registered.Value.Document.Id));
+		}
+
+		await using (var scope = Services.CreateAsyncScope())
+		{
+			var outcome = await scope.ServiceProvider.GetRequiredService<ProcessDocument>().HandleAsync(job, CancellationToken.None);
+			if (outcome != ProcessingOutcome.Ready)
+			{
+				throw new InvalidOperationException($"{file} did not ingest: {outcome}.");
+			}
+		}
+
+		await using (var scope = Services.CreateAsyncScope())
+		{
+			scope.ServiceProvider.GetRequiredService<ITenantContext>().Set(tenant);
+			var document = await scope.ServiceProvider.GetRequiredService<IDocumentRepository>().GetAsync(job.DocumentId, CancellationToken.None);
+			Console.WriteLine($"  ingested {Path.GetFileName(file),-28} {document!.ChunkCount,4} chunks  {document.Language}");
+			return document.Language;
+		}
 	}
 
 	public async ValueTask DisposeAsync()

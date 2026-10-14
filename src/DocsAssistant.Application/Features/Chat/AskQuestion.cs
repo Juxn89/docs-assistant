@@ -21,6 +21,11 @@ namespace DocsAssistant.Application.Features.Chat;
 /// When the model cannot be used — none configured, provider down, timeout — and nothing has been
 /// streamed yet, the answer falls back to quoting the most relevant sentences (extractive). A model
 /// failure after the first words were shown cannot be papered over and ends as an error event.
+///
+/// Prompt-injection guardrails, in the order they act: a question shaped like an instruction is
+/// refused before retrieval; a retrieved passage shaped like one is quarantined (neither sent to the
+/// model nor quoted); and the answer stream is cut if it reproduces the prompt's canary. The stream
+/// holds back as many characters as the canary has, so the canary itself is never shown.
 /// </summary>
 public sealed partial class AskQuestion(
 	RetrieveContext retrieve,
@@ -28,6 +33,7 @@ public sealed partial class AskQuestion(
 	ExtractiveAnswerer extractive,
 	IPromptLibrary prompts,
 	IOptions<ChatAnswerOptions> options,
+	IOptions<RetrievalOptions> retrievalOptions,
 	ILogger<AskQuestion> logger)
 {
 	public async IAsyncEnumerable<AnswerEvent> HandleAsync(
@@ -47,8 +53,17 @@ public sealed partial class AskQuestion(
 		var spanish = LanguageGuesser.Guess(question, tenantLanguage) == ContentLanguage.Spanish;
 		var prompt = prompts.Answer;
 
-		var context = await retrieve.HandleAsync(tenantId, question, cancellationToken).ConfigureAwait(false);
-		if (!context.IsConfident)
+		if (PromptInjectionDetector.IsSuspicious(question))
+		{
+			LogQuestionRejected(logger, tenantId.Value);
+			var text = AnswerTexts.OutOfScope(spanish);
+			yield return new AnswerDelta(text);
+			yield return new AnswerCompleted(text, AnswerOutcome.RejectedByGuardrail, [], false, TopSimilarity: 0, prompt.Hash, Usage: null);
+			yield break;
+		}
+
+		var context = Quarantine(await retrieve.HandleAsync(tenantId, question, cancellationToken).ConfigureAwait(false));
+		if (!context.IsConfident || context.Chunks.Count == 0)
 		{
 			var text = AnswerTexts.NoInformation(spanish);
 			yield return new AnswerDelta(text);
@@ -70,8 +85,11 @@ public sealed partial class AskQuestion(
 
 		var answer = new StringBuilder();
 		var pending = new StringBuilder();
+		var emitted = 0;
+		var holdBack = prompt.Canary is null ? 0 : prompt.Canary.Length - 1;
 		var decided = false;
 		var abstained = false;
+		var leaked = false;
 		Exception? modelFailure = null;
 		UsageDetails? usage = null;
 
@@ -94,7 +112,7 @@ public sealed partial class AskQuestion(
 				{
 					moved = await stream.MoveNextAsync().ConfigureAwait(false);
 				}
-				catch (Exception exception) when (answer.Length == 0 && CanFallBack(exception, settings))
+				catch (Exception exception) when (emitted == 0 && CanFallBack(exception, settings))
 				{
 					modelFailure = exception;
 					break;
@@ -115,27 +133,40 @@ public sealed partial class AskQuestion(
 				if (decided)
 				{
 					answer.Append(update.Text);
-					yield return new AnswerDelta(update.Text);
-					continue;
+				}
+				else
+				{
+					// Hold back the first characters until they cannot be the start of the sentinel, so the
+					// user never sees "NO_ANS…" flash before the abstention replaces it. Case-insensitive:
+					// gemma3:1b answered "No_ANSWER" in the answer eval and slipped past an exact match.
+					pending.Append(update.Text);
+					var head = pending.ToString().TrimStart();
+					if (head.StartsWith(AnswerTexts.NoAnswerSentinel, StringComparison.OrdinalIgnoreCase))
+					{
+						abstained = true;
+						break;
+					}
+
+					if (head.Length < AnswerTexts.NoAnswerSentinel.Length && AnswerTexts.NoAnswerSentinel.StartsWith(head, StringComparison.OrdinalIgnoreCase))
+					{
+						continue;
+					}
+
+					decided = true;
+					answer.Append(pending);
 				}
 
-				// Hold back the first characters until they cannot be the start of the sentinel, so the
-				// user never sees "NO_ANS…" flash before the abstention replaces it. Case-insensitive:
-				// gemma3:1b answered "No_ANSWER" in the answer eval and slipped past an exact match.
-				pending.Append(update.Text);
-				var head = pending.ToString().TrimStart();
-				if (head.StartsWith(AnswerTexts.NoAnswerSentinel, StringComparison.OrdinalIgnoreCase))
+				if (Leaks(answer, prompt.Canary))
 				{
-					abstained = true;
+					leaked = true;
 					break;
 				}
 
-				if (head.Length >= AnswerTexts.NoAnswerSentinel.Length || !AnswerTexts.NoAnswerSentinel.StartsWith(head, StringComparison.OrdinalIgnoreCase))
+				var releasable = answer.Length - holdBack;
+				if (releasable > emitted)
 				{
-					decided = true;
-					var released = pending.ToString();
-					answer.Append(released);
-					yield return new AnswerDelta(released);
+					yield return new AnswerDelta(answer.ToString(emitted, releasable - emitted));
+					emitted = releasable;
 				}
 			}
 		}
@@ -162,10 +193,23 @@ public sealed partial class AskQuestion(
 		{
 			// The whole reply was shorter than the sentinel and is not it.
 			answer.Append(pending);
-			yield return new AnswerDelta(pending.ToString());
 		}
 
 		var tokens = usage is null ? null : new TokenUsage(usage.InputTokenCount ?? 0, usage.OutputTokenCount ?? 0, usage.CachedInputTokenCount ?? 0);
+		if (leaked || Leaks(answer, prompt.Canary))
+		{
+			LogCanaryLeaked(logger, tenantId.Value, prompt.Hash);
+			var text = AnswerTexts.OutOfScope(spanish);
+			yield return new AnswerDelta((emitted > 0 ? "\n\n" : string.Empty) + text);
+			yield return new AnswerCompleted(text, AnswerOutcome.RejectedByGuardrail, [], false, context.TopSimilarity, prompt.Hash, tokens);
+			yield break;
+		}
+
+		if (!abstained && answer.Length > emitted)
+		{
+			yield return new AnswerDelta(answer.ToString(emitted, answer.Length - emitted));
+		}
+
 		if (abstained || answer.Length == 0)
 		{
 			var text = AnswerTexts.NoInformation(spanish);
@@ -221,8 +265,45 @@ public sealed partial class AskQuestion(
 	private static bool CanFallBack(Exception exception, ChatAnswerOptions settings) =>
 		settings.ExtractiveFallback && exception is not OperationCanceledException;
 
+	private static bool Leaks(StringBuilder answer, string? canary) =>
+		canary is not null && answer.Length >= canary.Length && answer.ToString().Contains(canary, StringComparison.Ordinal);
+
+	/// <summary>
+	/// A passage that tries to give instructions is dropped whole. Chunks join their paragraphs, so
+	/// there is no reliable boundary to cut the injection out of a passage and keep the rest — and a
+	/// document carrying one is not trustworthy anyway. Confidence is recomputed on what is left: in
+	/// the injection eval the poisoned passage was the only relevant one, and without this the answer
+	/// quoted unrelated passages instead of abstaining.
+	/// </summary>
+	private RetrievalResult Quarantine(RetrievalResult context)
+	{
+		var suspicious = context.Chunks.Where(c => PromptInjectionDetector.IsSuspicious(c.Text) || PromptInjectionDetector.IsSuspicious(c.Heading)).ToList();
+		foreach (var chunk in suspicious)
+		{
+			LogPassageQuarantined(logger, chunk.ChunkId.Value, chunk.DocumentId.Value);
+		}
+
+		if (suspicious.Count == 0)
+		{
+			return context;
+		}
+
+		var kept = context.Chunks.Except(suspicious).ToList();
+		var best = kept.Count == 0 ? 0 : kept.Max(c => c.Similarity);
+		return new RetrievalResult(kept, best, best >= retrievalOptions.Value.MinSimilarity);
+	}
+
 	[LoggerMessage(Level = LogLevel.Warning, Message = "Language model unavailable; answering extractively")]
 	private static partial void LogFallback(ILogger logger, Exception exception);
+
+	[LoggerMessage(Level = LogLevel.Warning, Message = "Question rejected by the prompt-injection guardrail for tenant {TenantId}")]
+	private static partial void LogQuestionRejected(ILogger logger, Guid tenantId);
+
+	[LoggerMessage(Level = LogLevel.Warning, Message = "Passage {ChunkId} of document {DocumentId} quarantined: it reads as instructions to the assistant")]
+	private static partial void LogPassageQuarantined(ILogger logger, Guid chunkId, Guid documentId);
+
+	[LoggerMessage(Level = LogLevel.Error, Message = "Answer reproduced the canary of prompt {PromptHash} for tenant {TenantId}; stream cut")]
+	private static partial void LogCanaryLeaked(ILogger logger, Guid tenantId, string promptHash);
 
 	/// <summary>
 	/// Passages are data, not instructions: each one is wrapped and its text escaped, so a document that

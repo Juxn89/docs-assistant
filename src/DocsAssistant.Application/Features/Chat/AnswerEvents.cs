@@ -18,6 +18,12 @@ public enum AnswerOutcome
 
 	/// <summary>No model was available: the most relevant sentences, quoted verbatim with citations.</summary>
 	AnsweredExtractively = 4,
+
+	/// <summary>
+	/// A guardrail stopped it: the question tried to instruct the assistant, or the answer started
+	/// reproducing the instructions. Nothing from the model is shown.
+	/// </summary>
+	RejectedByGuardrail = 5,
 }
 
 /// <summary>A passage the answer may cite, numbered as the model saw it.</summary>
@@ -83,6 +89,10 @@ public static class AnswerTexts
 	public static string NoInformation(bool spanish) => spanish
 		? "No encuentro esa información en los documentos que tengo. ¿Quieres que le pase tu pregunta a una persona?"
 		: "I can't find that in the documents I have. Would you like me to pass your question to a person?";
+
+	public static string OutOfScope(bool spanish) => spanish
+		? "Solo puedo responder preguntas sobre la información de los documentos. ¿Quieres que le pase tu pregunta a una persona?"
+		: "I can only answer questions about the information in the documents. Would you like me to pass your question to a person?";
 
 	/// <summary>
 	/// Frames quoted sentences as what they are. Measured on the evals: neither passage nor sentence

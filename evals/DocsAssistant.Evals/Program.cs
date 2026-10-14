@@ -17,6 +17,14 @@ if (suite == "extractive-calibration")
 	return 0;
 }
 
+if (suite == "injection")
+{
+	var injection = await InjectionEval.RunAsync(environment, repo);
+	injection.Print();
+	await injection.WriteAsync(repo.ResultsDirectory);
+	return 0;
+}
+
 if (suite == "answers")
 {
 	var answers = await AnswerEval.RunAsync(environment, repo);

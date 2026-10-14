@@ -39,5 +39,8 @@ Requests to `/v1/admin/*` without a valid `X-Admin-Key` header get a 401 Problem
 | `error` | `{ "code": "assistant.unavailable", "message" }` | Instead of `done`, when the model cannot be used (not configured, provider failure). |
 
 `outcome` is one of `Answered`, `AnsweredWithoutCitations`, `AnsweredExtractively`, `AbstainedNoContext`,
-`AbstainedByModel`
-([ADR-0005](adr/0005-grounded-answers-and-abstention.md), [ADR-0006](adr/0006-no-paid-key-providers-and-extractive-mode.md)).
+`AbstainedByModel`, `RejectedByGuardrail`
+([ADR-0005](adr/0005-grounded-answers-and-abstention.md), [ADR-0006](adr/0006-no-paid-key-providers-and-extractive-mode.md),
+[ADR-0008](adr/0008-prompt-injection-guardrails.md)). `RejectedByGuardrail` means the question tried to
+instruct the assistant, or the answer started reproducing its instructions; the streamed text is a
+fixed refusal (after any text already shown, if the answer was cut mid-stream) and `offerHandoff` is `true`.

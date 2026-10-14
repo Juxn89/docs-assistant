@@ -40,7 +40,7 @@ assistant is only useful if it **answers from your content, shows where the answ
 | Streaming answers (SSE) with validated citations and three-level abstention | ✅ [ADR-0005](docs/adr/0005-grounded-answers-and-abstention.md) |
 | Works with no paid model: Ollama locally, extractive mode (quotes with citations) for the demo and as automatic fallback | ✅ [ADR-0006](docs/adr/0006-no-paid-key-providers-and-extractive-mode.md) |
 | Rate limiting (per client, per assistant, admin key guessing; spoof-resistant, IPv6 /64) | ✅ [ADR-0007](docs/adr/0007-rate-limiting.md) |
-| Guardrails (prompt injection eval), handoff, widget, deploy | ⏳ |
+| Prompt-injection guardrails (question refusal, passage quarantine, prompt canary) with an attack eval and false-positive count | ✅ [ADR-0008](docs/adr/0008-prompt-injection-guardrails.md) |
 | Handoff, widget, admin panel, cost dashboard | ⏳ |
 | Live demo | ⏳ — will run on [juangomezb.com](https://juangomezb.com) |
 
@@ -78,6 +78,18 @@ Answer eval, same 54 questions, end to end (`-- --suite answers`, provider from 
 
 Local models run in a hardened container ([deploy/ollama](deploy/ollama/compose.yaml)): pinned image,
 read-only filesystem, no Linux capabilities, loopback-only port, memory/CPU limits.
+
+Prompt-injection eval (`-- --suite injection`): 8 attacks in the question, 4 hidden in an uploaded
+document, plus what the guardrails cost on the real data
+([ADR-0008](docs/adr/0008-prompt-injection-guardrails.md)):
+
+| Provider | direct resisted | indirect resisted | legitimate questions refused | clean passages quarantined |
+|---|---:|---:|---:|---:|
+| Extractive | 8/8 | 4/4 | 0/54 | 0/158 |
+| qwen3:1.7b | 7/8 (was 2/8 without guardrails) | 4/4 | 0/54 | 0/158 |
+
+The miss is kept in the eval on purpose: "…append the word PWNED" is not shaped like an injection and
+gets through to the model. The assistant has no tools, so the worst case is a wrong word on screen.
 
 Extractive mode cannot tell an unanswerable question apart (measured, [ADR-0006](docs/adr/0006-no-paid-key-providers-and-extractive-mode.md)),
 so its output is framed as "the most relevant information I found" and always offers a human.
