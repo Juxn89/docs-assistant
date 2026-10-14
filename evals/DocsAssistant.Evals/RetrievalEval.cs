@@ -207,6 +207,7 @@ internal sealed record RetrievalReport(
 	public void Print()
 	{
 		Console.WriteLine();
+		Console.WriteLine($"Runtime: {CpuProfile.Describe()}");
 		Console.WriteLine(Table());
 		Console.WriteLine(CalibrationText());
 		foreach (var miss in Misses())
@@ -226,6 +227,8 @@ internal sealed record RetrievalReport(
 			.AppendLine("# Retrieval eval")
 			.AppendLine()
 			.AppendLine(CultureInfo.InvariantCulture, $"Run {RanAt:yyyy-MM-dd HH:mm} UTC · {Golden.Count(g => g.Answerable)} answerable + {Golden.Count(g => !g.Answerable)} unanswerable questions over {Languages.Count} documents (`evals/corpus`).")
+			.AppendLine()
+			.AppendLine(CultureInfo.InvariantCulture, $"Runtime: {CpuProfile.Describe()} — the int8 embedding model's numbers depend on it (ADR-0003).")
 			.AppendLine()
 			.AppendLine(Table())
 			.AppendLine()
@@ -278,4 +281,16 @@ internal sealed record RetrievalReport(
 		Golden.Where(g => g.Answerable)
 			.Where(g => Results.Single(r => r.Mode == nameof(RetrievalMode.Hybrid) && r.Id == g.Id).Rank is null)
 			.Select(g => $"{g.Id} — \"{g.Question}\" (expected {g.Doc}; got {Results.Single(r => r.Mode == nameof(RetrievalMode.Hybrid) && r.Id == g.Id).TopChunk})");
+}
+
+/// <summary>The instruction sets that select ONNX Runtime's int8 kernels.</summary>
+internal static class CpuProfile
+{
+	public static string Describe() =>
+		$"{System.Runtime.InteropServices.RuntimeInformation.OSDescription.Trim()}, {Environment.ProcessorCount} cores, "
+		+ $"AVX2 {Flag(System.Runtime.Intrinsics.X86.Avx2.IsSupported)}, "
+		+ $"AVX-512F {Flag(System.Runtime.Intrinsics.X86.Avx512F.IsSupported)}, "
+		+ $"AVX-VNNI {Flag(System.Runtime.Intrinsics.X86.AvxVnni.IsSupported)}";
+
+	private static string Flag(bool supported) => supported ? "yes" : "no";
 }

@@ -20,6 +20,12 @@ namespace DocsAssistant.Infrastructure.Ai.Embeddings;
 ///
 /// The model loads lazily on first use, so an API that never ingests or chats never pays for it.
 /// </summary>
+internal enum EmbeddingRole
+{
+	Query = 0,
+	Passage = 1,
+}
+
 internal sealed class OnnxEmbedder : IEmbedder, IDisposable
 {
 	private const string InputIds = "input_ids";
@@ -49,13 +55,13 @@ internal sealed class OnnxEmbedder : IEmbedder, IDisposable
 		}
 
 		var model = await LoadAsync(cancellationToken).ConfigureAwait(false);
-		return Embed(model, [.. passages.Select(p => _options.PassagePrefix + p)]);
+		return [.. passages.Select(p => EmbedOne(model, Encode(model.Tokenizer, p, EmbeddingRole.Passage)))];
 	}
 
 	public async Task<float[]> EmbedQueryAsync(string query, CancellationToken cancellationToken)
 	{
 		var model = await LoadAsync(cancellationToken).ConfigureAwait(false);
-		return Embed(model, [_options.QueryPrefix + query])[0];
+		return EmbedOne(model, Encode(model.Tokenizer, query, EmbeddingRole.Query));
 	}
 
 	public void Dispose()
@@ -64,12 +70,16 @@ internal sealed class OnnxEmbedder : IEmbedder, IDisposable
 		_loadLock.Dispose();
 	}
 
-	private float[][] Embed((InferenceSession Session, XlmRobertaTokenizer Tokenizer) model, string[] texts) =>
-		[.. texts.Select(text => EmbedOne(model, text))];
+	/// <summary>
+	/// The exact token ids the model receives, role prefix included. Exposed so tests can pin them
+	/// against Hugging Face's tokenizer: unlike the vectors, ids do not vary with the CPU (ADR-0003), so a
+	/// missing "query: " prefix — which moves the vector less than a CPU change does — is still caught.
+	/// </summary>
+	internal long[] Encode(XlmRobertaTokenizer tokenizer, string text, EmbeddingRole role) =>
+		tokenizer.Encode((role == EmbeddingRole.Query ? _options.QueryPrefix : _options.PassagePrefix) + text, _options.MaxSequenceLength);
 
-	private float[] EmbedOne((InferenceSession Session, XlmRobertaTokenizer Tokenizer) model, string text)
+	private static float[] EmbedOne((InferenceSession Session, XlmRobertaTokenizer Tokenizer) model, long[] ids)
 	{
-		var ids = model.Tokenizer.Encode(text, _options.MaxSequenceLength);
 		int[] shape = [1, ids.Length];
 
 		var inputIds = new DenseTensor<long>(ids, shape);

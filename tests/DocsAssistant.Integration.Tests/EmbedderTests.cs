@@ -1,4 +1,5 @@
 using System.Text.Json;
+using DocsAssistant.Infrastructure.Ai.Embeddings;
 
 namespace DocsAssistant.Integration.Tests;
 
@@ -14,8 +15,18 @@ public sealed class EmbedderTests(EmbedderFixture model)
 	private const string PassagePrefix = "passage: ";
 	private const string QueryPrefix = "query: ";
 
-	/// <summary>Same model file, same math: anything below this means the pipelines differ.</summary>
-	private const double ReferenceAgreement = 0.9999;
+	/// <summary>
+	/// Agreement with the Python reference, which was generated on a CPU with AVX512-VNNI. The int8
+	/// model runs different ONNX Runtime kernels per instruction set, deterministically: measured on
+	/// 2026-10-14, a VNNI CPU (laptop i7-1165G7, GitHub's AMD EPYC 9V45) gives ≥ 0.9999, an AVX2-only
+	/// CPU (GitHub's AMD EPYC 7763) gives 0.9935 — every time. Injected bugs land far lower (no fairseq
+	/// offset 0.777, CLS pooling 0.864). A missing query prefix does not, which is why
+	/// <see cref="Embedder_FeedsTheModelThePrefixedTokens"/> checks token ids instead. See ADR-0003.
+	/// </summary>
+	private const double ReferenceAgreement = 0.99;
+
+	/// <summary>Same machine, same input: must be identical up to float rounding.</summary>
+	private const double SameMachineAgreement = 0.99999;
 
 	public static TheoryData<string, long[]> TokenCases()
 	{
@@ -35,6 +46,19 @@ public sealed class EmbedderTests(EmbedderFixture model)
 		var actual = model.Tokenizer.Encode(text, model.Options.MaxSequenceLength);
 
 		Assert.Equal(expected, actual);
+	}
+
+	[Theory]
+	[InlineData("query: ", true)]
+	[InlineData("passage: ", false)]
+	public void Embedder_FeedsTheModelThePrefixedTokens(string prefix, bool isQuery)
+	{
+		var role = isQuery ? EmbeddingRole.Query : EmbeddingRole.Passage;
+		var reference = LoadFixture<TokenCase[]>("e5-token-ids.json").First(c => c.Text.StartsWith(prefix, StringComparison.Ordinal));
+
+		var ids = model.Embedder.Encode(model.Tokenizer, reference.Text[prefix.Length..], role);
+
+		Assert.Equal(reference.Ids, ids);
 	}
 
 	[Fact]
@@ -72,7 +96,7 @@ public sealed class EmbedderTests(EmbedderFixture model)
 
 		Assert.All(batched, v => Assert.Equal(1.0, Math.Sqrt(v.Sum(x => (double)x * x)), precision: 4));
 		// Padding inside a batch must not change a passage's vector.
-		Assert.True(Cosine(batched[0], single[0]) >= ReferenceAgreement);
+		Assert.True(Cosine(batched[0], single[0]) >= SameMachineAgreement);
 	}
 
 	[Fact]
