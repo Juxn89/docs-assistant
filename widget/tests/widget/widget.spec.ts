@@ -220,7 +220,9 @@ test('takes the whole screen on a phone @mobile', async ({ page }) => {
 
 	await launcher(page).click();
 
-	const box = await page.getByRole('dialog').boundingBox();
+	// The panel rises in over ~220 ms; measure where it settles.
 	const viewport = page.viewportSize();
-	expect(box).toMatchObject({ x: 0, y: 0, width: viewport?.width, height: viewport?.height });
+	await expect
+		.poll(() => page.getByRole('dialog').boundingBox())
+		.toMatchObject({ x: 0, y: 0, width: viewport?.width, height: viewport?.height });
 });
