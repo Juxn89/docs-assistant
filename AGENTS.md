@@ -55,10 +55,16 @@ Domain  ←  Application  ←  Infrastructure  ←  Api
 | `Architecture.Tests` | layer rules, forbidden references | no |
 | `Domain.Tests` | pure logic: chunking, fusion, state machines | no |
 | `Application.Tests` | use cases against fake ports | no |
-| `Integration.Tests` | real Postgres/Valkey via Testcontainers | yes |
+| `Integration.Tests` | real Postgres/Mailpit via Testcontainers | yes |
+| `widget/tests/widget` | the widget in Chromium against a scripted API, axe | no |
+| `widget/tests/stack` | browser → real API → Postgres → Mailpit (`widget/e2e/README.md`) | yes |
 
 Nothing is done until it ran: `dotnet build` (warnings are errors), `dotnet test`, and
-`dotnet format whitespace --verify-no-changes`. "Should work" is not verified.
+`dotnet format whitespace --verify-no-changes`. For `widget/`: `npm run typecheck`, `npm run build`
+(enforces the size budget) and `npm test`. "Should work" is not verified.
+
+Widget rules: no runtime dependencies, text from the API is never inserted as HTML, every string
+exists in English and Spanish (`src/i18n.ts`).
 
 When you add a rule-like test (architecture, isolation), prove it can fail: inject the violation once,
 watch it go red, revert.

@@ -1,0 +1,26 @@
+{
+	"name": "docs-assistant-widget",
+	"private": true,
+	"description": "Embeddable chat widget for docs-assistant: one script tag, Shadow DOM, no framework.",
+	"license": "MIT",
+	"type": "module",
+	"engines": {
+		"node": ">=22"
+	},
+	"scripts": {
+		"build": "node scripts/build.mjs",
+		"typecheck": "tsc --noEmit",
+		"test": "playwright test --project=widget --project=widget-mobile",
+		"test:e2e": "playwright test --project=stack"
+	},
+	"devDependencies": {
+		"@axe-core/playwright": "4.13.0",
+		"@playwright/test": "1.63.0",
+		"@types/node": "22.20.5",
+		"esbuild": "0.28.2",
+		"typescript": "7.0.2"
+	},
+	"overrides": {
+		"playwright-core": "1.63.0"
+	}
+}

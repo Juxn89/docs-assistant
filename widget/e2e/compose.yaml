@@ -1,0 +1,23 @@
+# Dependencies for the end-to-end suite (npm run test:e2e): the same images as the AppHost, on
+# loopback-only ports that do not collide with a running AppHost. The API itself runs with
+# `dotnet run` (see e2e/README.md), so the test exercises the real build.
+name: docs-assistant-e2e
+
+services:
+  postgres:
+    image: pgvector/pgvector:0.8.7-pg18
+    environment:
+      POSTGRES_PASSWORD: e2e-only-not-a-secret
+      POSTGRES_DB: docsdb
+    ports:
+      - "127.0.0.1:25432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      retries: 30
+
+  mailpit:
+    image: axllent/mailpit:v1.31.2
+    ports:
+      - "127.0.0.1:21025:1025"
+      - "127.0.0.1:28025:8025"

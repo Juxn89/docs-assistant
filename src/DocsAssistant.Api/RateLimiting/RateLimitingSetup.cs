@@ -32,6 +32,13 @@ public sealed class RateLimitingOptions
 	[Range(1, 10_000)]
 	public int HandoffPerHourPerIp { get; set; } = 5;
 
+	/// <summary>
+	/// CORS preflights (OPTIONS) are not counted against the chat quota — each question would cost two
+	/// permits — but they read the tenant, so they get a separate, generous cap.
+	/// </summary>
+	[Range(1, 10_000)]
+	public int PreflightPerMinutePerIp { get; set; } = 60;
+
 	/// <summary>Slows down guessing the admin key; legitimate admin use is far below this.</summary>
 	[Range(1, 10_000)]
 	public int AdminPerMinutePerIp { get; set; } = 60;
@@ -87,28 +94,42 @@ internal static class RateLimitingSetup
 				PerClient(ChatPrefix, limits.ChatPerDayPerIp, Day),
 				PerTenant(limits.ChatPerDayPerTenant, Day),
 				PerClient(HandoffPrefix, limits.HandoffPerHourPerIp, Hour),
-				PerClient(AdminPrefix, limits.AdminPerMinutePerIp, Minute));
+				PerClient(AdminPrefix, limits.AdminPerMinutePerIp, Minute),
+				Preflights(limits.PreflightPerMinutePerIp, Minute));
 			limiter.OnRejected = RejectAsync;
 		});
 
 		return services;
 	}
 
-	public static WebApplication UseDocsAssistantRateLimiting(this WebApplication app)
+	/// <summary>
+	/// First in the pipeline when enabled: CORS and the limits must see the real client address.
+	/// </summary>
+	public static WebApplication UseDocsAssistantForwardedHeaders(this WebApplication app)
 	{
 		if (app.Services.GetRequiredService<IOptions<RateLimitingOptions>>().Value.TrustForwardedHeaders)
 		{
 			app.UseForwardedHeaders();
 		}
 
+		return app;
+	}
+
+	/// <summary>
+	/// After CORS, so a 429 still carries the CORS headers: without them the browser hides the status
+	/// and the widget cannot tell "slow down" from "the server is down".
+	/// </summary>
+	public static WebApplication UseDocsAssistantRateLimiting(this WebApplication app)
+	{
 		app.UseRateLimiter();
 		return app;
 	}
 
-	/// <summary>A fixed window per client address, applied only to paths under <paramref name="prefix"/>.</summary>
+	/// <summary>A fixed window per client address, applied only to non-preflight requests under <paramref name="prefix"/>.</summary>
 	private static PartitionedRateLimiter<HttpContext> PerClient(string prefix, int permits, TimeSpan window) =>
 		PartitionedRateLimiter.Create<HttpContext, string>(context =>
-			context.Request.Path.StartsWithSegments(prefix.TrimEnd('/'), StringComparison.OrdinalIgnoreCase)
+			!HttpMethods.IsOptions(context.Request.Method)
+				&& context.Request.Path.StartsWithSegments(prefix.TrimEnd('/'), StringComparison.OrdinalIgnoreCase)
 				? RateLimitPartition.GetFixedWindowLimiter($"{prefix}|{ClientOf(context)}", _ => Window(permits, window))
 				: RateLimitPartition.GetNoLimiter(string.Empty));
 
@@ -117,10 +138,20 @@ internal static class RateLimitingSetup
 		PartitionedRateLimiter.Create<HttpContext, string>(context =>
 		{
 			var path = context.Request.Path.Value ?? string.Empty;
-			return path.StartsWith(ChatPrefix, StringComparison.OrdinalIgnoreCase) && path.Length > ChatPrefix.Length
+			return !HttpMethods.IsOptions(context.Request.Method)
+				&& path.StartsWith(ChatPrefix, StringComparison.OrdinalIgnoreCase) && path.Length > ChatPrefix.Length
 				? RateLimitPartition.GetFixedWindowLimiter($"tenant|{path[ChatPrefix.Length..]}", _ => Window(permits, window))
 				: RateLimitPartition.GetNoLimiter(string.Empty);
 		});
+
+	/// <summary>Preflights to the widget endpoints, per client address.</summary>
+	private static PartitionedRateLimiter<HttpContext> Preflights(int permits, TimeSpan window) =>
+		PartitionedRateLimiter.Create<HttpContext, string>(context =>
+			HttpMethods.IsOptions(context.Request.Method)
+				&& (context.Request.Path.StartsWithSegments(ChatPrefix.TrimEnd('/'), StringComparison.OrdinalIgnoreCase)
+					|| context.Request.Path.StartsWithSegments(HandoffPrefix.TrimEnd('/'), StringComparison.OrdinalIgnoreCase))
+				? RateLimitPartition.GetFixedWindowLimiter($"preflight|{ClientOf(context)}", _ => Window(permits, window))
+				: RateLimitPartition.GetNoLimiter(string.Empty));
 
 	private static FixedWindowRateLimiterOptions Window(int permits, TimeSpan window) => new()
 	{

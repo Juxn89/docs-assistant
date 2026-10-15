@@ -9,6 +9,11 @@ hands the conversation to a human when it doesn't know.** Embeds in any website 
 
 > 🚧 **Work in progress.** Built in public over two weeks. The table below is the honest state.
 
+<p align="center">
+  <img src="docs/images/widget-desktop.png" alt="The assistant on a store's page: a cited answer about returns, its source, and a link to talk to a person" width="640">
+  <img src="docs/images/widget-mobile.png" alt="The same conversation full screen on a phone" width="180">
+</p>
+
 ## The problem
 
 Customers ask the same questions at all hours, and generic chatbots make answers up. A support
@@ -42,7 +47,9 @@ assistant is only useful if it **answers from your content, shows where the answ
 | Rate limiting (per client, per assistant, admin key guessing; spoof-resistant, IPv6 /64) | ✅ [ADR-0007](docs/adr/0007-rate-limiting.md) |
 | Prompt-injection guardrails (question refusal, passage quarantine, prompt canary) with an attack eval and false-positive count | ✅ [ADR-0008](docs/adr/0008-prompt-injection-guardrails.md) |
 | Human handoff: conversations recorded, lead stored first and emailed to the operator in the background with the transcript, retries with backoff, Reply-To the visitor | ✅ [ADR-0009](docs/adr/0009-human-handoff.md) |
-| Widget, admin panel, cost dashboard | ⏳ |
+| Embeddable widget: one script tag, Shadow DOM, no framework, 6.5 KB gzip; streaming, citations, handoff form, EN/ES, keyboard and screen reader, dark mode, mobile. CORS per assistant | ✅ [ADR-0010](docs/adr/0010-embeddable-widget.md) |
+| End-to-end test in CI: a browser on another origin asks, gets a cited answer, hands off, and the email arrives | ✅ [widget/tests/stack](widget/tests/stack) |
+| Admin panel, cost dashboard | ⏳ |
 | Live demo | ⏳ — will run on [juangomezb.com](https://juangomezb.com) |
 
 ## Measured, not claimed
@@ -147,6 +154,22 @@ curl -s localhost:5010/v1/admin/tenants/$TENANT/leads -H "X-Admin-Key: $KEY" | j
 
 Errors are ProblemDetails with a stable `code`, and the chat stream's events are documented too:
 see [docs/errors.md](docs/errors.md).
+
+### Embed it on a site
+
+Register the site's origin in the assistant's `allowedOrigins`, then add one tag:
+
+```html
+<script src="https://<api-host>/widget.js" data-key="pk_…" defer></script>
+```
+
+Optional attributes: `data-lang="es"` (otherwise the page's `lang`, then the browser's),
+`data-title="Acme support"`, `data-color="#7c3aed"`. A site with a Content Security Policy needs the
+API host in `script-src` and `connect-src`.
+
+Build it with `cd widget && npm ci && npm run build` (written to the API's `wwwroot`). Tests:
+`npm test` (widget against a scripted API, with axe) and `npm run test:e2e` (the real stack — see
+[widget/e2e/README.md](widget/e2e/README.md)).
 
 ## Architecture
 

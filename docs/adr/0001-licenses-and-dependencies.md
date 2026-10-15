@@ -18,6 +18,8 @@ popular libraries to commercial or open-core licensing in 2025-2026.
 | Mapping | hand-written | AutoMapper | open-core; mapping here is trivial |
 | Embeddings | ONNX `multilingual-e5-small` (MIT) | paid embedding API | zero cost, no network hop, bilingual |
 | LLM | Claude via official SDK (MIT), behind `IChatClient` | — | the port keeps the provider swappable (Ollama adapter for offline runs) |
+| Widget build and tests | TypeScript (Apache-2.0), esbuild (MIT), Playwright (Apache-2.0), @axe-core/playwright (MPL-2.0, test-only) | a UI framework | nothing but our own code ships in `widget.js` (ADR-0010) |
+| Email | MailKit (MIT) | `System.Net.Mail.SmtpClient` | Microsoft marks SmtpClient as not recommended for new development |
 
 ## Consequences
 

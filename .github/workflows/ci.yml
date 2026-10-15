@@ -85,3 +85,71 @@ jobs:
         with:
           name: retrieval-eval
           path: evals/results/
+
+  widget:
+    name: Widget (typecheck, size, browser tests)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: widget
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: widget/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      # Fails when widget.js goes over its gzip budget (scripts/build.mjs).
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      # Every API response scripted: streaming, citations, XSS, handoff, errors, a11y (axe), mobile.
+      - run: npm test
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: widget-report
+          path: widget/playwright-report/
+
+  e2e:
+    name: End to end (widget + API + Postgres + Mailpit)
+    runs-on: ubuntu-latest
+    needs: [build, widget]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: widget/package-lock.json
+      - uses: actions/cache@v4
+        with:
+          path: ~/.local/share/docs-assistant/models
+          key: e5-small-${{ hashFiles('src/DocsAssistant.Infrastructure/Ai/Embeddings/EmbeddingModelOptions.cs') }}
+      - run: docker compose -f widget/e2e/compose.yaml up -d --wait
+      - working-directory: widget
+        run: |
+          npm ci
+          npm run build
+          npx playwright install --with-deps chromium
+      - run: dotnet build src/DocsAssistant.Api -c Release
+      # The real API, as built, with no language model (the public demo's extractive mode).
+      - name: Start the API
+        run: |
+          source widget/e2e/api.env.sh
+          nohup dotnet run --project src/DocsAssistant.Api -c Release --no-build --no-launch-profile > api.log 2>&1 &
+          for i in $(seq 1 90); do curl -sf http://127.0.0.1:5010/health && exit 0; sleep 2; done
+          cat api.log; exit 1
+      - working-directory: widget
+        run: npm run test:e2e
+      - if: failure()
+        run: cat api.log
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: e2e-report
+          path: widget/playwright-report/
