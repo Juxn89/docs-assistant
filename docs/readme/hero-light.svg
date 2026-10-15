@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="460" viewBox="0 0 1280 460" role="img" aria-labelledby="title desc">
+<title id="title">docs-assistant</title>
+<desc id="desc">An AI support assistant that answers from your documents, cites every answer, and hands off to a person when it does not know.</desc>
+<style>
+	.flow { stroke-dasharray: 6 7; animation: flow 1.6s linear infinite; }
+	.pop { opacity: 0; animation: pop .5s ease-out forwards; }
+	.glow { animation: glow 2.4s ease-in-out infinite alternate; }
+	@keyframes flow { to { stroke-dashoffset: -26; } }
+	@keyframes pop { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+	@keyframes glow { from { opacity: .55; } to { opacity: 1; } }
+	@media (prefers-reduced-motion: reduce) { .flow, .glow { animation: none; } .pop { animation: none; opacity: 1; } }
+</style>
+<defs>
+	<linearGradient id="brand" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2dd4bf"/><stop offset=".6" stop-color="#0f766e"/><stop offset="1" stop-color="#f59e0b"/></linearGradient>
+	<linearGradient id="metric" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#f59e0b"/></linearGradient>
+	<radialGradient id="orbTeal"><stop offset="0" stop-color="#0f766e" stop-opacity="0.16"/><stop offset="1" stop-color="#0f766e" stop-opacity="0"/></radialGradient>
+	<radialGradient id="orbAmber"><stop offset="0" stop-color="#f59e0b" stop-opacity="0.11199999999999999"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
+	<pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="#0f766e" fill-opacity="0.09"/></pattern>
+	<clipPath id="frame"><rect width="1280" height="460" rx="28"/></clipPath>
+	<filter id="soft" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000" flood-opacity="0.12"/></filter>
+</defs>
+<g clip-path="url(#frame)">
+	<rect width="1280" height="460" fill="#f8faf9"/>
+	<rect width="1280" height="460" fill="url(#dots)"/>
+	<circle cx="180" cy="40" r="340" fill="url(#orbTeal)"/>
+	<circle cx="1060" cy="470" r="360" fill="url(#orbAmber)"/>
+</g>
+<rect x=".5" y=".5" width="1279" height="459" rx="28" fill="none" stroke="#e2e8f0"/>
+
+<g transform="translate(72 70)">
+	<rect width="236" height="30" rx="15" fill="#ffffff" stroke="#e2e8f0"/>
+	<circle cx="18" cy="15" r="4.5" fill="#2dd4bf" class="glow"/>
+	<text x="31" y="20" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="12.5" font-weight="700" letter-spacing=".1em" fill="#475569">OPEN SOURCE · .NET 10 · MIT</text>
+</g>
+<text x="68" y="172" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="70" font-weight="800" letter-spacing="-.03em" fill="#0f172a">docs<tspan fill="url(#brand)">-assistant</tspan></text>
+<text x="72" y="230" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="600" fill="#0f172a">Answers your customers from your documents.</text>
+<text x="72" y="268" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="20" fill="#475569">Cites every answer. Says “I don’t know” instead of guessing.</text>
+<text x="72" y="300" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="20" fill="#475569">Hands the conversation to a person when it should.</text>
+<g transform="translate(72 352)"><rect width="116" height="32" rx="16" fill="#ffffff" stroke="#e2e8f0"/><text x="58" y="21" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#0f172a">Hybrid RAG</text></g><g transform="translate(196 352)"><rect width="98.8" height="32" rx="16" fill="#ffffff" stroke="#e2e8f0"/><text x="49.4" y="21" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#0f172a">pgvector</text></g><g transform="translate(302.8 352)"><rect width="124.6" height="32" rx="16" fill="#ffffff" stroke="#e2e8f0"/><text x="62.3" y="21" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#0f172a">Evals in CI</text></g><g transform="translate(435.4 352)"><rect width="116" height="32" rx="16" fill="#ffffff" stroke="#e2e8f0"/><text x="58" y="21" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#0f172a">Guardrails</text></g><g transform="translate(559.4 352)"><rect width="159" height="32" rx="16" fill="#ffffff" stroke="#e2e8f0"/><text x="79.5" y="21" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#0f172a">One-line widget</text></g>
+
+<!-- Document -->
+<g transform="translate(724 64)" filter="url(#soft)">
+	<rect width="214" height="250" rx="16" fill="#ffffff" stroke="#e2e8f0"/>
+	<text x="20" y="32" font-family="'Cascadia Code', 'SFMono-Regular', Consolas, Menlo, monospace" font-size="12" fill="#475569">returns-policy.pdf</text>
+	<rect x="20" y="48" width="120" height="10" rx="5" fill="#0f172a" fill-opacity=".85"/>
+	<rect x="20" y="74" width="170" height="7" rx="3.5" fill="#cbd5e1" /><rect x="20" y="88" width="150" height="7" rx="3.5" fill="#cbd5e1" /><rect x="20" y="102" width="162" height="7" rx="3.5" fill="#cbd5e1" />
+	<rect x="12" y="120" width="190" height="38" rx="8" fill="#f59e0b" fill-opacity="0.18" class="glow"/>
+	<rect x="20" y="128" width="168" height="7" rx="3.5" fill="#f59e0b"/>
+	<rect x="20" y="142" width="128" height="7" rx="3.5" fill="#f59e0b"/>
+	<rect x="20" y="176" width="158" height="7" rx="3.5" fill="#cbd5e1" /><rect x="20" y="190" width="170" height="7" rx="3.5" fill="#cbd5e1" /><rect x="20" y="204" width="120" height="7" rx="3.5" fill="#cbd5e1" /><rect x="20" y="218" width="146" height="7" rx="3.5" fill="#cbd5e1" />
+</g>
+
+<!-- The passage travels into the answer -->
+<path d="M926 205 C 980 205, 960 128, 1012 128" fill="none" stroke="#f59e0b" stroke-width="2.2" class="flow"/>
+<circle cx="926" cy="205" r="4.5" fill="#f59e0b"/>
+
+<!-- Chat -->
+<g transform="translate(1000 46)" filter="url(#soft)">
+	<rect width="236" height="268" rx="18" fill="#ffffff" stroke="#e2e8f0"/>
+	<rect x="18" y="18" width="26" height="26" rx="8" fill="#0f766e"/>
+	<path d="M31 24l1.6 4.2L37 30l-4.4 1.8L31 36l-1.6-4.2L25 30l4.4-1.8Z" fill="#fff"/>
+	<text x="54" y="36" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#0f172a">Assistant</text>
+	<g class="pop" style="animation-delay:.2s">
+		<rect x="62" y="60" width="158" height="34" rx="12" fill="#0f766e"/>
+		<text x="76" y="82" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#fff">Opened bag—refund?</text>
+	</g>
+	<g class="pop" style="animation-delay:.8s">
+		<rect x="18" y="108" width="2" height="74" fill="#2dd4bf" fill-opacity=".6"/>
+		<text font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#0f172a">
+			<tspan x="30" y="122">Within 14 days we send</tspan>
+			<tspan x="30" y="140">another origin at no cost,</tspan>
+			<tspan x="30" y="158">once per order.</tspan>
+		</text>
+		<rect x="122" y="147" width="17" height="16" rx="5" fill="#0f766e" fill-opacity=".18"/>
+		<text x="130.5" y="159" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="800" fill="#0f766e">1</text>
+		<rect x="30" y="192" width="190" height="30" rx="9" fill="#ffffff" stroke="#e2e8f0"/>
+		<rect x="38" y="199" width="16" height="16" rx="5" fill="#0f766e"/>
+		<text x="46" y="211" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="800" fill="#fff">1</text>
+		<text x="62" y="211" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" font-weight="600" fill="#0f172a">returns › Opened coffee</text>
+	</g>
+	<g class="pop" style="animation-delay:1.4s">
+		<rect x="18" y="234" width="150" height="22" rx="11" fill="none" stroke="#0f766e" stroke-opacity=".5"/>
+		<text x="93" y="249" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="700" fill="#0f766e">Talk to a person →</text>
+	</g>
+</g>
+
+<!-- When it cannot answer: a person -->
+<path d="M1118 316 C 1118 360, 1060 372, 1020 390" fill="none" stroke="#0f766e" stroke-width="2.2" class="flow"/>
+<g transform="translate(944 370)">
+	<rect width="92" height="40" rx="20" fill="#ffffff" stroke="#e2e8f0"/>
+	<circle cx="22" cy="20" r="12" fill="#0f766e" fill-opacity=".15"/>
+	<circle cx="22" cy="16.5" r="4" fill="none" stroke="#0f766e" stroke-width="2"/>
+	<path d="M15 27c1.5-3.5 12.5-3.5 14 0" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/>
+	<text x="42" y="25" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0f172a">Email</text>
+</g>
+</svg>

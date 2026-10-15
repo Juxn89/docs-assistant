@@ -1,63 +1,152 @@
-# docs-assistant
+<div align="center">
 
-[![CI](https://github.com/Juxn89/docs-assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/Juxn89/docs-assistant/actions/workflows/ci.yml)
-[![.NET 10](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/hero-dark.svg">
+  <img src="docs/readme/hero-light.svg" alt="docs-assistant — answers your customers from your documents, cites every answer, says 'I don't know' instead of guessing, and hands the conversation to a person when it should." width="100%">
+</picture>
 
-**An AI support assistant that answers your customers from your own documents — with citations — and
-hands the conversation to a human when it doesn't know.** Embeds in any website with one line.
+<br><br>
 
-> 🚧 **Work in progress.** Built in public over two weeks. The table below is the honest state.
+<a href="https://github.com/Juxn89/docs-assistant/actions/workflows/ci.yml"><img src="https://github.com/Juxn89/docs-assistant/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
+<img src="https://img.shields.io/badge/.NET-10-512BD4?style=flat-square&logo=dotnet&logoColor=white" alt=".NET 10">
+<img src="https://img.shields.io/badge/PostgreSQL-pgvector-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL with pgvector">
+<img src="https://img.shields.io/badge/Aspire-13.6-6B4FBB?style=flat-square" alt="Aspire 13.6">
+<img src="https://img.shields.io/badge/widget-TypeScript_·_9_KB-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript widget, 9 KB">
+<img src="https://img.shields.io/badge/tests-xUnit_·_Playwright-2EAD33?style=flat-square&logo=playwright&logoColor=white" alt="xUnit and Playwright">
+<a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-f59e0b?style=flat-square" alt="MIT License"></a>
+
+</div>
+
+<br>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/metrics-dark.svg">
+  <img src="docs/readme/metrics-light.svg" alt="93% retrieval hit@5 on a 54-question bilingual eval · 12 of 12 injection attacks resisted in extractive mode · 0 of 54 real questions refused by the guardrails · 9 KB embeddable widget" width="100%">
+</picture>
+
+<br><br>
+
+Customers ask the same questions at all hours, and generic chatbots make answers up. **docs-assistant**
+answers only from **your** content, **shows where each answer came from**, says *"I don't know"*
+instead of guessing — and then hands the conversation to a person, with the transcript, by email.
+It embeds in any website with one line.
+
+> [!NOTE]
+> **Built in public, measured in public.** Every number on this page comes from an eval in this repo
+> that you can rerun, and the misses are published next to the hits.
 
 <p align="center">
-  <img src="docs/images/widget-desktop.png" alt="The assistant on a store's page: a cited answer about returns, its source, and a link to talk to a person" width="640">
-  <img src="docs/images/widget-mobile.png" alt="The same conversation full screen on a phone" width="180">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/readme/showcase-dark.png">
+    <img src="docs/readme/showcase-light.png" alt="The assistant on Mirlo, a demo coffee store: a cited answer about free shipping on desktop and about pausing a subscription on a phone" width="100%">
+  </picture>
 </p>
+<p align="center"><sub>Mirlo is a fictional store (<a href="widget/demo">widget/demo</a>) answered from four real policy documents, with no language model: extractive mode.</sub></p>
 
-## The problem
-
-Customers ask the same questions at all hours, and generic chatbots make answers up. A support
-assistant is only useful if it **answers from your content, shows where the answer came from, and says
-"I don't know" instead of guessing**.
+<p align="center"><img src="docs/readme/divider.svg" width="100%" alt=""></p>
 
 ## How it answers
 
-1. Your documents (PDF, DOCX, Markdown, web pages) are split along their structure and indexed twice:
-   as vectors (meaning) and as full text (exact words), in Postgres.
-2. A question searches both, and the two rankings are fused with Reciprocal Rank Fusion.
-3. If even the best passage is below a measured similarity floor, it **abstains without calling the
-   model** — zero cost, zero invention — and offers to hand off to a person.
-4. Otherwise Claude answers using only those passages, citing them as `[1]`, `[2]`, and still says
-   "I don't know" when the passages do not contain the answer.
+```mermaid
+flowchart LR
+    Q([Question]) --> G{{"Guardrail<br/>shaped like an injection?"}}
+    G -- yes --> R["Polite refusal<br/>+ offer a person"]
+    G -- no --> S["Hybrid search<br/>pgvector + full text"]
+    S --> F["Rank fusion · RRF<br/>quarantine poisoned passages"]
+    F --> C{{"Similar enough?"}}
+    C -- no --> A["“I can't find that”<br/>no model call · zero cost"]
+    C -- yes --> M["Model reads only<br/>the passages · cites [n]"]
+    M --> V["Citations validated<br/>streamed over SSE"]
+    A & R & V -.-> H(["Talk to a person"])
 
-## Status
+    classDef guard fill:#0f766e,stroke:#2dd4bf,color:#ffffff
+    classDef work fill:#1e293b,stroke:#64748b,color:#f8fafc
+    classDef stop fill:#b45309,stroke:#fbbf24,color:#ffffff
+    class G,C guard
+    class S,F,M,V work
+    class R,A,H stop
+```
 
-| Piece | State |
-|---|---|
-| Domain: tenants, documents, structure-aware chunking, rank fusion | ✅ done, unit tested |
-| Persistence: pgvector (HNSW, cosine) + full-text (GIN, per-language stemming), tenant isolation that fails closed | ✅ done, tested against real Postgres |
-| Architecture rules enforced in CI | ✅ |
-| Ingestion: PDF, DOCX, Markdown, text and web pages → chunks → embeddings, in a background worker with retries, crash recovery and dedup | ✅ end-to-end tested with the real model |
-| In-process multilingual embeddings, verified against the Python reference | ✅ [ADR-0003](docs/adr/0003-in-process-embeddings.md) |
-| URL ingestion hardened against SSRF (connect-time IP checks, redirects re-checked) | ✅ |
-| Admin API (tenants, documents) | ✅ |
-| Hybrid retrieval (pgvector + full text, RRF) with a retrieval eval gating CI | ✅ [results](evals/results/retrieval.md) |
-| Streaming answers (SSE) with validated citations and three-level abstention | ✅ [ADR-0005](docs/adr/0005-grounded-answers-and-abstention.md) |
-| Works with no paid model: Ollama locally, extractive mode (quotes with citations) for the demo and as automatic fallback | ✅ [ADR-0006](docs/adr/0006-no-paid-key-providers-and-extractive-mode.md) |
-| Rate limiting (per client, per assistant, admin key guessing; spoof-resistant, IPv6 /64) | ✅ [ADR-0007](docs/adr/0007-rate-limiting.md) |
-| Prompt-injection guardrails (question refusal, passage quarantine, prompt canary) with an attack eval and false-positive count | ✅ [ADR-0008](docs/adr/0008-prompt-injection-guardrails.md) |
-| Human handoff: conversations recorded, lead stored first and emailed to the operator in the background with the transcript, retries with backoff, Reply-To the visitor | ✅ [ADR-0009](docs/adr/0009-human-handoff.md) |
-| Embeddable widget: one script tag, Shadow DOM, no framework, 6.5 KB gzip; streaming, citations, handoff form, EN/ES, keyboard and screen reader, dark mode, mobile. CORS per assistant | ✅ [ADR-0010](docs/adr/0010-embeddable-widget.md) |
-| End-to-end test in CI: a browser on another origin asks, gets a cited answer, hands off, and the email arrives | ✅ [widget/tests/stack](widget/tests/stack) |
-| Admin panel, cost dashboard | ⏳ |
-| Live demo | ⏳ — will run on [juangomezb.com](https://juangomezb.com) |
+1. Documents (PDF, DOCX, Markdown, web pages) are split along their structure and indexed twice in
+   Postgres: as vectors (meaning, across languages) and as full text (exact words, numbers, names).
+2. A question searches both; the two rankings are fused with **Reciprocal Rank Fusion**.
+3. Below a measured similarity floor it **abstains without calling the model** — zero cost, zero
+   invention. Otherwise the model answers from those passages only and cites them as `[1]`, `[2]`.
+4. Every way of not answering — no context, the model's own "I don't know", an uncited answer, a
+   refused question — **offers a person**.
+
+## The visitor's side
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/gallery-dark.png">
+  <img src="docs/readme/gallery-light.png" alt="Three steps of the widget: a welcome card with suggested questions, a cited answer with its sources, and the form to hand off to a person" width="100%">
+</picture>
+
+## What's inside
+
+<table>
+  <tr>
+    <td width="33%" valign="top">
+      <img src="docs/readme/icon-search.svg" width="44" alt=""><br>
+      <b>Hybrid retrieval</b><br>
+      <sub>pgvector (HNSW, cosine) and Postgres full text with per-language stemming, fused by rank. One database, transactions included.</sub>
+    </td>
+    <td width="33%" valign="top">
+      <img src="docs/readme/icon-quote.svg" width="44" alt=""><br>
+      <b>Cited, streamed answers</b><br>
+      <sub>Server-Sent Events; every <code>[n]</code> is checked against the passages the model actually saw.</sub>
+    </td>
+    <td width="33%" valign="top">
+      <img src="docs/readme/icon-abstain.svg" width="44" alt=""><br>
+      <b>Three ways to say "I don't know"</b><br>
+      <sub>A similarity floor before the model, a no-answer sentinel held back from the stream, and uncited answers flagged.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <img src="docs/readme/icon-shield.svg" width="44" alt=""><br>
+      <b>Injection guardrails</b><br>
+      <sub>Instruction-shaped questions refused, poisoned passages quarantined, a canary in the prompt — measured against attacks <i>and</i> false positives.</sub>
+    </td>
+    <td valign="top">
+      <img src="docs/readme/icon-handoff.svg" width="44" alt=""><br>
+      <b>Human handoff</b><br>
+      <sub>The lead is stored first, then emailed to the operator in the background with the transcript; retries with backoff, Reply-To the visitor.</sub>
+    </td>
+    <td valign="top">
+      <img src="docs/readme/icon-widget.svg" width="44" alt=""><br>
+      <b>One-line widget</b><br>
+      <sub>TypeScript, no framework, Shadow DOM, 9 KB gzip. Bilingual, keyboard and screen-reader friendly, dark mode, mobile.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <img src="docs/readme/icon-tenants.svg" width="44" alt=""><br>
+      <b>Multi-tenant, fails closed</b><br>
+      <sub>Every query filtered by tenant; no tenant bound means no rows. CORS and origin checks per assistant.</sub>
+    </td>
+    <td valign="top">
+      <img src="docs/readme/icon-evals.svg" width="44" alt=""><br>
+      <b>Evals that gate CI</b><br>
+      <sub>Retrieval, answers and prompt injection, on a fixed bilingual corpus. A retrieval drop fails the build.</sub>
+    </td>
+    <td valign="top">
+      <img src="docs/readme/icon-offline.svg" width="44" alt=""><br>
+      <b>No paid key required</b><br>
+      <sub>In-process ONNX embeddings, a local model in a hardened container, or extractive answers at zero cost.</sub>
+    </td>
+  </tr>
+</table>
 
 ## Measured, not claimed
 
-Retrieval eval over a fixed bilingual corpus (9 real technical articles and a profile, 158 chunks) and
-54 questions — 44 with a known answer passage, 21 of them asked in the other language, and 10 with no
-answer in the corpus. No language model involved: it measures whether the passage with the answer
-reaches the top 5. Reproduce with `dotnet run --project evals/DocsAssistant.Evals`.
+<details open>
+<summary><b>Retrieval</b> — does the passage with the answer reach the top 5?</summary>
+<br>
+
+A fixed bilingual corpus (9 real technical articles and a profile, 158 chunks) and 54 questions — 44
+with a known answer passage, 21 of them asked in the other language, and 10 with no answer in the
+corpus. No language model involved. Reproduce with `dotnet run --project evals/DocsAssistant.Evals`.
 
 | Mode | hit@1 | hit@5 | MRR | cross-lingual hit@5 |
 |---|---:|---:|---:|---:|
@@ -65,17 +154,21 @@ reaches the top 5. Reproduce with `dotnet run --project evals/DocsAssistant.Eval
 | Vector only | 66 % | 91 % | 0.766 | 86 % |
 | Full text only | 36 % | 84 % | 0.544 | 71 % |
 
-What the numbers decided:
-
 - **Hybrid, equal weights.** Down-weighting full text improves the first rank but loses answers
   (hit@5 93 % → 89 % at weight 0.3). The model reads all five passages, so recall wins.
 - **Similarity alone cannot tell answerable from unanswerable.** Answerable questions scored 0.79–0.90,
   unanswerable ones up to 0.85: the ranges overlap, and the best single cut-off is only 82 % accurate.
   So the threshold is a *floor* (0.79, the lowest answerable score) that never refuses a real question
-  and catches the clearly off-topic ones for free; everything above it goes to the grounded answer.
+  and catches the clearly off-topic ones for free.
 - **The misses are listed**, not hidden: [evals/results/retrieval.md](evals/results/retrieval.md).
 
-Answer eval, same 54 questions, end to end (`-- --suite answers`, provider from configuration):
+</details>
+
+<details open>
+<summary><b>Answers</b> — end to end, same 54 questions</summary>
+<br>
+
+`-- --suite answers`, provider from configuration:
 
 | Provider | cited the evidence | abstained when there was no answer | false answers with a citation | latency p50 |
 |---|---:|---:|---:|---:|
@@ -85,10 +178,17 @@ Answer eval, same 54 questions, end to end (`-- --suite answers`, provider from 
 | gemma3:1b, local container | 2 % | 30 % | 0 | 30 s |
 
 Local models run in a hardened container ([deploy/ollama](deploy/ollama/compose.yaml)): pinned image,
-read-only filesystem, no Linux capabilities, loopback-only port, memory/CPU limits.
+read-only filesystem, no Linux capabilities, loopback-only port, memory and CPU limits. Extractive mode
+cannot tell an unanswerable question apart ([ADR-0006](docs/adr/0006-no-paid-key-providers-and-extractive-mode.md)),
+so it frames its output as "the most relevant information I found" and always offers a person.
 
-Prompt-injection eval (`-- --suite injection`): 8 attacks in the question, 4 hidden in an uploaded
-document, plus what the guardrails cost on the real data
+</details>
+
+<details open>
+<summary><b>Prompt injection</b> — attacks resisted, and what the defence costs</summary>
+<br>
+
+`-- --suite injection`: 8 attacks in the question, 4 hidden in an uploaded document
 ([ADR-0008](docs/adr/0008-prompt-injection-guardrails.md)):
 
 | Provider | direct resisted | indirect resisted | legitimate questions refused | clean passages quarantined |
@@ -99,8 +199,7 @@ document, plus what the guardrails cost on the real data
 The miss is kept in the eval on purpose: "…append the word PWNED" is not shaped like an injection and
 gets through to the model. The assistant has no tools, so the worst case is a wrong word on screen.
 
-Extractive mode cannot tell an unanswerable question apart (measured, [ADR-0006](docs/adr/0006-no-paid-key-providers-and-extractive-mode.md)),
-so its output is framed as "the most relevant information I found" and always offers a human.
+</details>
 
 ## Run it
 
@@ -108,20 +207,15 @@ Requires the .NET 10 SDK and Docker.
 
 ```bash
 git clone https://github.com/Juxn89/docs-assistant.git && cd docs-assistant
-dotnet run --project src/DocsAssistant.AppHost
+dotnet run --project src/DocsAssistant.AppHost      # Postgres + pgvector, Valkey, Mailpit, the API, dashboards
+dotnet test                                         # unit + architecture + integration (Docker)
 ```
 
-The Aspire dashboard opens with Postgres (pgvector), Valkey, Mailpit and the API, with traces and
-metrics wired.
+The first run downloads the embedding model (~123 MB, verified by SHA-256) into the user cache.
 
-```bash
-dotnet test        # unit + architecture + integration (integration needs Docker)
-```
-
-The first integration run downloads the embedding model (~123 MB, verified by SHA-256) into the
-user cache; later runs reuse it.
-
-### Try the admin API
+<details>
+<summary><b>Try the API from a terminal</b></summary>
+<br>
 
 With the AppHost running (local admin key in `src/DocsAssistant.AppHost/appsettings.Development.json`):
 
@@ -135,16 +229,15 @@ curl -s -X POST localhost:5010/v1/admin/tenants/$TENANT/documents -H "X-Admin-Ke
 curl -s localhost:5010/v1/admin/tenants/$TENANT/documents -H "X-Admin-Key: $KEY" | jq '.[] | {title, status, chunkCount}'
 ```
 
-Then ask — the answer streams as Server-Sent Events. Without any model configured it answers in
-extractive mode (quotes with citations); `Ai__Provider=Ollama` (with a local model) or
-`ANTHROPIC_API_KEY` give written answers:
+Ask — the answer streams as Server-Sent Events. Without a model it answers in extractive mode;
+`Ai__Provider=Ollama` (with a local model) or `ANTHROPIC_API_KEY` give written answers:
 
 ```bash
 curl -N -X POST localhost:5010/v1/chat/$PK -H 'content-type: application/json' -d '{"question":"¿Hacen envíos gratis?"}'
 ```
 
-The `done` event carries a `conversationId`; send it with the next question, and with a request
-for a person. The email lands in Mailpit (its UI is linked from the Aspire dashboard):
+The `done` event carries a `conversationId`; send it with the next question and with a request for a
+person. The email lands in Mailpit (linked from the Aspire dashboard):
 
 ```bash
 curl -s -X POST localhost:5010/v1/handoff/$PK -H 'content-type: application/json' \
@@ -152,8 +245,10 @@ curl -s -X POST localhost:5010/v1/handoff/$PK -H 'content-type: application/json
 curl -s localhost:5010/v1/admin/tenants/$TENANT/leads -H "X-Admin-Key: $KEY" | jq '.[] | {email, status, attempts}'
 ```
 
-Errors are ProblemDetails with a stable `code`, and the chat stream's events are documented too:
-see [docs/errors.md](docs/errors.md).
+Errors are ProblemDetails with a stable `code`; the stream's events are documented too:
+[docs/errors.md](docs/errors.md).
+
+</details>
 
 ### Embed it on a site
 
@@ -163,27 +258,98 @@ Register the site's origin in the assistant's `allowedOrigins`, then add one tag
 <script src="https://<api-host>/widget.js" data-key="pk_…" defer></script>
 ```
 
-Optional attributes: `data-lang="es"` (otherwise the page's `lang`, then the browser's),
-`data-title="Acme support"`, `data-color="#7c3aed"`. A site with a Content Security Policy needs the
-API host in `script-src` and `connect-src`.
+| Attribute | Default | |
+|---|---|---|
+| `data-lang` | the page's `lang`, then the browser's | `en` or `es` |
+| `data-title` | "Assistant" / "Asistente" | Shown in the launcher and the header |
+| `data-color` | `#0f766e` | One brand color; every tint is mixed from it |
+| `data-suggestions` | none | Up to four starter questions, separated by `\|` |
 
-Build it with `cd widget && npm ci && npm run build` (written to the API's `wwwroot`). Tests:
-`npm test` (widget against a scripted API, with axe) and `npm run test:e2e` (the real stack — see
-[widget/e2e/README.md](widget/e2e/README.md)).
+A site with a Content Security Policy needs the API host in `script-src` and `connect-src`. Build with
+`cd widget && npm ci && npm run build`; test with `npm test` (scripted API, axe) and `npm run test:e2e`
+(the real stack — [widget/e2e/README.md](widget/e2e/README.md)).
 
 ## Architecture
 
-```
-Domain  ←  Application  ←  Infrastructure  ←  Api
+```mermaid
+flowchart LR
+    subgraph Browser
+        W["widget.js<br/>Shadow DOM"]
+    end
+    subgraph Api["ASP.NET Core · Minimal APIs"]
+        E["/v1/chat · /v1/handoff<br/>CORS · rate limits"]
+        AD["/v1/admin<br/>X-Admin-Key"]
+    end
+    subgraph App["Application · use cases"]
+        UC["AskQuestion · ConversationLog<br/>RequestHandoff · ProcessDocument"]
+    end
+    subgraph Infra["Infrastructure · adapters"]
+        PG[("Postgres<br/>pgvector + FTS")]
+        ONNX["ONNX e5-small<br/>embeddings"]
+        LLM["IChatClient<br/>Claude · Ollama · none"]
+        SMTP["SMTP<br/>MailKit"]
+        WK["Background workers<br/>ingestion · lead email"]
+    end
+    W -- SSE --> E
+    E --> UC
+    AD --> UC
+    UC --> PG & ONNX & LLM
+    WK --> PG & SMTP
+
+    classDef edge fill:#0f766e,stroke:#2dd4bf,color:#ffffff
+    classDef core fill:#1e293b,stroke:#64748b,color:#f8fafc
+    classDef infra fill:#b45309,stroke:#fbbf24,color:#ffffff
+    class W,E,AD edge
+    class UC core
+    class PG,ONNX,LLM,SMTP,WK infra
 ```
 
-- **Domain** is plain C#: chunking, fusion, document state machine. No packages at all.
-- **Application** holds use cases and ports; it sees ports such as `IChatClient` (Microsoft.Extensions.AI) and
-  `IEmbedder`, never a concrete model client.
-- The rule is not a diagram: [`tests/DocsAssistant.Architecture.Tests`](tests/DocsAssistant.Architecture.Tests)
-  fails the build when it is broken, and each rule was proven able to fail.
+`Domain ← Application ← Infrastructure ← Api`. The **Domain** is plain C# with no packages;
+**Application** sees ports such as `IChatClient` (Microsoft.Extensions.AI) and `IEmbedder`, never a
+concrete client. The rule is not a diagram:
+[`tests/DocsAssistant.Architecture.Tests`](tests/DocsAssistant.Architecture.Tests) fails the build when
+it is broken, and each rule was proven able to fail.
 
-Decisions are recorded in [`docs/adr`](docs/adr).
+## Decisions
+
+| | Decision |
+|---|---|
+| [0001](docs/adr/0001-licenses-and-dependencies.md) | Only OSI-licensed dependencies, chosen by license |
+| [0002](docs/adr/0002-hybrid-search-in-postgres.md) | Hybrid search in Postgres, fused by rank |
+| [0003](docs/adr/0003-in-process-embeddings.md) | In-process multilingual embeddings (int8), one sequence at a time |
+| [0004](docs/adr/0004-ingestion-pipeline.md) | Ingestion: the database is the queue of record |
+| [0005](docs/adr/0005-grounded-answers-and-abstention.md) | Grounded answers: three ways to say "I don't know" |
+| [0006](docs/adr/0006-no-paid-key-providers-and-extractive-mode.md) | Working without a paid model: providers and extractive mode |
+| [0007](docs/adr/0007-rate-limiting.md) | Rate limiting for a public demo |
+| [0008](docs/adr/0008-prompt-injection-guardrails.md) | Prompt-injection guardrails |
+| [0009](docs/adr/0009-human-handoff.md) | Human handoff |
+| [0010](docs/adr/0010-embeddable-widget.md) | The embeddable widget |
+
+<details>
+<summary><b>Build log</b> — the honest state, piece by piece</summary>
+<br>
+
+| Piece | State |
+|---|---|
+| Domain: tenants, documents, structure-aware chunking, rank fusion | ✅ unit tested |
+| Persistence: pgvector (HNSW, cosine) + full text (GIN, per-language stemming), tenant isolation that fails closed | ✅ tested against real Postgres |
+| Architecture rules enforced in CI | ✅ |
+| Ingestion: PDF, DOCX, Markdown, text and web pages → chunks → embeddings, background worker with retries, crash recovery and dedup | ✅ end to end with the real model |
+| In-process multilingual embeddings, verified against the Python reference | ✅ [ADR-0003](docs/adr/0003-in-process-embeddings.md) |
+| URL ingestion hardened against SSRF (connect-time IP checks, redirects re-checked) | ✅ |
+| Admin API (tenants, documents, leads) | ✅ |
+| Hybrid retrieval with a retrieval eval gating CI | ✅ [results](evals/results/retrieval.md) |
+| Streaming answers (SSE) with validated citations and three-level abstention | ✅ [ADR-0005](docs/adr/0005-grounded-answers-and-abstention.md) |
+| Works with no paid model: Ollama locally, extractive mode for the demo and as automatic fallback | ✅ [ADR-0006](docs/adr/0006-no-paid-key-providers-and-extractive-mode.md) |
+| Rate limiting (per client, per assistant, admin key guessing; spoof-resistant, IPv6 /64) | ✅ [ADR-0007](docs/adr/0007-rate-limiting.md) |
+| Prompt-injection guardrails with an attack eval and false-positive count | ✅ [ADR-0008](docs/adr/0008-prompt-injection-guardrails.md) |
+| Human handoff: conversations, leads, background email with transcript and retries | ✅ [ADR-0009](docs/adr/0009-human-handoff.md) |
+| Embeddable widget with per-assistant CORS | ✅ [ADR-0010](docs/adr/0010-embeddable-widget.md) |
+| End-to-end test in CI: a browser on another origin asks, gets a cited answer, hands off, the email arrives | ✅ [widget/tests/stack](widget/tests/stack) |
+| Admin panel, cost dashboard | ⏳ |
+| Live demo | ⏳ — will run on [juangomezb.com](https://juangomezb.com) |
+
+</details>
 
 ## How it was built
 
@@ -191,8 +357,15 @@ Developed with Claude Code under explicit rules rather than ad-hoc prompting:
 [`AGENTS.md`](AGENTS.md) (binding rules), [`.claude/rules`](.claude/rules), a
 [`format` hook](.claude/hooks/format.sh) that enforces style on every edit, a
 [`security-auditor`](.claude/agents/security-auditor.md) subagent, and every pull request reviewed by
-[claude-pr-review-bot](https://github.com/Juxn89/claude-pr-review-bot).
+[claude-pr-review-bot](https://github.com/Juxn89/claude-pr-review-bot). The README artwork is generated
+from the running product by [`widget/scripts/readme-assets.mjs`](widget/scripts/readme-assets.mjs).
 
-## License
+<p align="center"><img src="docs/readme/divider.svg" width="100%" alt=""></p>
 
-[MIT](LICENSE)
+<div align="center">
+
+**Juan Gómez** · [juangomezb.com](https://www.juangomezb.com) · [GitHub](https://github.com/Juxn89) · [LinkedIn](https://www.linkedin.com/in/jcgomez89/)
+
+<sub>Released under the <a href="LICENSE">MIT License</a>.</sub>
+
+</div>

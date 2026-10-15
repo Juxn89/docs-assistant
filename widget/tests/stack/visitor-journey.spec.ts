@@ -74,7 +74,7 @@ test('a visitor asks, reads a cited answer, and reaches a person by email', asyn
 
 	const log = page.getByRole('log');
 	await expect(log).toContainText('Returns are accepted within 30 days', { timeout: 60_000 });
-	await expect(log.locator('sup.cite').first()).toHaveText('[1]');
+	await expect(log.locator('sup.cite').first()).toHaveText('1');
 	await expect(log.locator('.sources')).toContainText('returns-policy');
 
 	const accessibility = await new AxeBuilder({ page }).include('docs-assistant-widget').analyze();

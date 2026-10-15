@@ -8,8 +8,12 @@ import { Widget } from './widget';
  *   <script src="https://api.example.com/widget.js" data-key="pk_…" defer></script>
  *
  * Optional: data-lang="es|en", data-title="…", data-color="#0f766e", data-api="https://…" (defaults
- * to the origin the script was loaded from).
+ * to the origin the script was loaded from), data-suggestions="First question|Second question" (up to
+ * four, shown before the first question).
  */
+const maxSuggestions = 4;
+const maxSuggestionLength = 80;
+
 function start(script: HTMLScriptElement): void {
 	const key = script.dataset['key'];
 	if (!key) {
@@ -32,6 +36,11 @@ function start(script: HTMLScriptElement): void {
 		storageKey: `docs-assistant:${key}`,
 		accent: script.dataset['color'] ?? null,
 		title: script.dataset['title'] ?? null,
+		suggestions: (script.dataset['suggestions'] ?? '')
+			.split('|')
+			.map((suggestion) => suggestion.trim())
+			.filter((suggestion) => suggestion.length > 0 && suggestion.length <= maxSuggestionLength)
+			.slice(0, maxSuggestions),
 	});
 }
 

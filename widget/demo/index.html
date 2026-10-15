@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mirlo · Tostadores de café de altura</title>
+<meta name="description" content="Tienda de demostración ficticia para probar docs-assistant.">
+<style>
+	:root {
+		--cream: #f5efe4;
+		--paper: #fbf8f2;
+		--ink: #1d1a17;
+		--ink-soft: #5e554c;
+		--line: #e3d9c8;
+		--terracotta: #a3441f;
+		--sage: #5d6f5c;
+		--gold: #c49a4c;
+		--plum: #4a2c3a;
+		--serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+		--sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--cream: #1a1714;
+			--paper: #211d19;
+			--ink: #f3ece1;
+			--ink-soft: #b5aa9b;
+			--line: #3a332c;
+		}
+	}
+
+	* { box-sizing: border-box; margin: 0; }
+
+	body { background: var(--cream); color: var(--ink); font: 16px/1.6 var(--sans); }
+
+	a { color: inherit; text-decoration: none; }
+
+	.wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+	/* Navigation */
+	.bar { background: var(--ink); color: var(--cream); font-size: 13px; text-align: center; padding: 8px 16px; letter-spacing: .02em; }
+
+	@media (prefers-color-scheme: dark) { .bar { background: var(--terracotta); color: #fff; } }
+
+	nav { display: flex; align-items: center; justify-content: space-between; height: 76px; border-bottom: 1px solid var(--line); }
+
+	.brand { display: flex; align-items: center; gap: 10px; font: 600 26px/1 var(--serif); letter-spacing: -.01em; }
+
+	.brand svg { color: var(--terracotta); }
+
+	.links { display: flex; gap: 32px; font-size: 14.5px; color: var(--ink-soft); }
+
+	.links a:first-child { color: var(--ink); }
+
+	.cart { display: flex; align-items: center; gap: 8px; font-size: 14px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; }
+
+	.cart b { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--terracotta); color: #fff; font-size: 11px; }
+
+	/* Hero */
+	.hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; padding: 72px 0 64px; }
+
+	.eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--terracotta); }
+
+	.eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+
+	h1 { margin-top: 18px; font: 500 66px/1.02 var(--serif); letter-spacing: -.025em; }
+
+	h1 em { font-style: italic; color: var(--terracotta); }
+
+	.lede { margin-top: 22px; max-width: 470px; font-size: 18px; color: var(--ink-soft); }
+
+	.actions { display: flex; gap: 12px; margin-top: 32px; }
+
+	.button { display: inline-flex; align-items: center; gap: 8px; height: 50px; padding: 0 24px; border-radius: 999px; font-weight: 600; font-size: 15px; }
+
+	.button.primary { background: var(--ink); color: var(--cream); }
+
+	.button.ghost { border: 1px solid var(--line); }
+
+	.proof { display: flex; gap: 28px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); max-width: 500px; }
+
+	.proof div { font-size: 13px; color: var(--ink-soft); }
+
+	.proof strong { display: block; font: 600 22px/1.2 var(--serif); color: var(--ink); }
+
+	/* Bags, drawn in CSS */
+	.stage { position: relative; height: 470px; }
+
+	.sun { position: absolute; inset: 30px 10px 10px 30px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, color-mix(in srgb, var(--gold) 45%, transparent), transparent 70%); }
+
+	.bag { position: absolute; bottom: 40px; width: 170px; height: 280px; border-radius: 14px 14px 18px 18px; padding: 52px 18px 18px; color: #fff;
+		box-shadow: 0 30px 50px -20px rgb(0 0 0 / .45), inset 0 -10px 30px rgb(0 0 0 / .15); }
+
+	.bag::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 36px; border-radius: 14px 14px 0 0;
+		background: repeating-linear-gradient(90deg, rgb(255 255 255 / .12) 0 2px, transparent 2px 9px); }
+
+	.bag .origin { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; opacity: .8; }
+
+	.bag .name { margin-top: 6px; font: 500 30px/1 var(--serif); }
+
+	.bag .notes { margin-top: 10px; font-size: 12px; opacity: .85; line-height: 1.45; }
+
+	.bag .weight { position: absolute; bottom: 16px; left: 18px; font-size: 11px; letter-spacing: .1em; opacity: .8; }
+
+	.bag.one { left: 0; background: var(--sage); transform: rotate(-6deg); }
+
+	.bag.two { left: 125px; bottom: 70px; background: var(--terracotta); transform: rotate(2deg); z-index: 2; height: 300px; }
+
+	.bag.three { left: 250px; background: var(--plum); transform: rotate(8deg); }
+
+	.stamp { position: absolute; top: 40px; left: 270px; width: 104px; height: 104px; border-radius: 50%; display: grid; place-items: center; text-align: center;
+		background: var(--paper); border: 1px dashed var(--terracotta); color: var(--terracotta); font: 600 12px/1.25 var(--sans); letter-spacing: .08em; text-transform: uppercase; transform: rotate(-10deg); }
+
+	/* Strip */
+	.strip { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+	.strip div { padding: 22px 0; font-size: 14px; color: var(--ink-soft); }
+
+	.strip div + div { padding-left: 24px; border-left: 1px solid var(--line); }
+
+	.strip b { display: block; color: var(--ink); font-weight: 600; }
+
+	footer { padding: 28px 0 40px; font-size: 13px; color: var(--ink-soft); }
+
+	@media (max-width: 900px) {
+		.wrap { padding: 0 20px; }
+		.links, .stage, .proof { display: none; }
+		.hero { grid-template-columns: 1fr; padding: 40px 0; }
+		h1 { font-size: 44px; }
+		.strip { grid-template-columns: 1fr 1fr; }
+		.strip div:nth-child(3) { padding-left: 0; border-left: 0; }
+	}
+</style>
+</head>
+<body>
+	<div class="bar">Envío gratis desde $35 · Tostamos lunes y miércoles</div>
+	<div class="wrap">
+		<nav>
+			<a class="brand" href="#">
+				<svg width="30" height="30" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+					<path d="M5 19c4-9 13-13 22-12-3 2-5 4-6 7 3 0 5 1 6 3-4 1-8 0-10-1-2 3-6 5-12 6 2-1 3-2 0-3Z"/>
+					<circle cx="22.5" cy="10.5" r="1.2" fill="#fff"/>
+				</svg>
+				mirlo
+			</a>
+			<div class="links"><a href="#">Cafés</a><a href="#">Suscripción</a><a href="#">Preparación</a><a href="#">Nosotros</a></div>
+			<a class="cart" href="#">Carrito <b>2</b></a>
+		</nav>
+
+		<section class="hero">
+			<div>
+				<span class="eyebrow">Tostado esta semana</span>
+				<h1>Café de altura,<br>tostado con <em>paciencia</em>.</h1>
+				<p class="lede">Lotes pequeños de fincas de Jinotega y Matagalpa, tostados en casa y enviados al día siguiente.</p>
+				<div class="actions">
+					<a class="button primary" href="#">Ver los cafés →</a>
+					<a class="button ghost" href="#">Armar suscripción</a>
+				</div>
+				<div class="proof">
+					<div><strong>1.350 m</strong>altura media de nuestras fincas</div>
+					<div><strong>48 h</strong>del tostador a tu puerta</div>
+					<div><strong>4,9 ★</strong>en 820 reseñas</div>
+				</div>
+			</div>
+
+			<div class="stage" aria-hidden="true">
+				<div class="sun"></div>
+				<div class="bag one"><div class="origin">Jinotega</div><div class="name">Neblina</div><div class="notes">Cacao, nuez<br>y panela</div><div class="weight">340 G · TUESTE MEDIO</div></div>
+				<div class="bag two"><div class="origin">Matagalpa</div><div class="name">Volcán</div><div class="notes">Ciruela, caramelo<br>y especias</div><div class="weight">340 G · ESPRESSO</div></div>
+				<div class="bag three"><div class="origin">Nueva Segovia</div><div class="name">Mirlo</div><div class="notes">Jazmín, durazno<br>y miel</div><div class="weight">250 G · TUESTE CLARO</div></div>
+				<div class="stamp">Lote<br>de temporada</div>
+			</div>
+		</section>
+
+		<section class="strip">
+			<div><b>Recién tostado</b>Tueste dos veces por semana</div>
+			<div><b>Envío gratis</b>En pedidos desde $35</div>
+			<div><b>Suscripción flexible</b>Pausa o cancela cuando quieras</div>
+			<div><b>¿Dudas?</b>Pregúntale a nuestro asistente</div>
+		</section>
+
+		<footer>Mirlo es una tienda ficticia: existe solo para mostrar docs-assistant respondiendo con sus propias políticas.</footer>
+	</div>
+
+	<script src="{{API}}/widget.js" data-key="{{KEY}}" data-title="Asistente Mirlo" data-color="#a3441f"
+		data-suggestions="¿El envío es gratis?|¿Puedo pausar mi suscripción?|¿Cómo conservo el café?" defer></script>
+</body>
+</html>

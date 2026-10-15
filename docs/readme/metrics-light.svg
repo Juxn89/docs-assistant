@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="150" viewBox="0 0 1280 150" role="img" aria-label="93% retrieval hit at 5 on a 54-question bilingual eval. 12 of 12 injection attacks resisted in extractive mode. 0 of 54 real questions refused by the guardrails. 9 KB embeddable widget, gzip, no framework.">
+<defs>
+	<linearGradient id="brand" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2dd4bf"/><stop offset=".6" stop-color="#0f766e"/><stop offset="1" stop-color="#f59e0b"/></linearGradient>
+	<linearGradient id="metric" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#f59e0b"/></linearGradient>
+	<radialGradient id="orbTeal"><stop offset="0" stop-color="#0f766e" stop-opacity="0.16"/><stop offset="1" stop-color="#0f766e" stop-opacity="0"/></radialGradient>
+	<radialGradient id="orbAmber"><stop offset="0" stop-color="#f59e0b" stop-opacity="0.11199999999999999"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
+	<pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="#0f766e" fill-opacity="0.09"/></pattern></defs>
+<rect x=".5" y=".5" width="1279" height="149" rx="22" fill="#ffffff" stroke="#e2e8f0"/>
+
+	<g transform="translate(160 0)">
+		<text y="64" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="40" font-weight="800" letter-spacing="-.02em" fill="url(#metric)">93 %</text>
+		<text y="94" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="16" font-weight="600" fill="#0f172a">retrieval hit@5</text>
+		<text y="116" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#475569">54-question bilingual eval</text>
+	</g>
+	<g transform="translate(480 0)">
+		<text y="64" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="40" font-weight="800" letter-spacing="-.02em" fill="url(#metric)">12 / 12</text>
+		<text y="94" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="16" font-weight="600" fill="#0f172a">injection attacks resisted</text>
+		<text y="116" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#475569">extractive mode</text>
+	</g><line x1="320" y1="36" x2="320" y2="114" stroke="#e2e8f0"/>
+	<g transform="translate(800 0)">
+		<text y="64" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="40" font-weight="800" letter-spacing="-.02em" fill="url(#metric)">0</text>
+		<text y="94" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="16" font-weight="600" fill="#0f172a">real questions refused</text>
+		<text y="116" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#475569">by the guardrails (0/54)</text>
+	</g><line x1="640" y1="36" x2="640" y2="114" stroke="#e2e8f0"/>
+	<g transform="translate(1120 0)">
+		<text y="64" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="40" font-weight="800" letter-spacing="-.02em" fill="url(#metric)">9 KB</text>
+		<text y="94" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="16" font-weight="600" fill="#0f172a">embeddable widget</text>
+		<text y="116" text-anchor="middle" font-family="'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#475569">gzip · no framework</text>
+	</g><line x1="960" y1="36" x2="960" y2="114" stroke="#e2e8f0"/>
+</svg>

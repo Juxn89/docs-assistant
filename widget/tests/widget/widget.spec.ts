@@ -29,7 +29,8 @@ test('streams the answer and shows its sources', async ({ page }) => {
 	await ask(page, 'How long do I have to return it?');
 
 	await expect(log(page)).toContainText('Returns are accepted within 30 days');
-	await expect(log(page).locator('sup.cite')).toHaveText('[1]');
+	await expect(log(page).locator('sup.cite')).toHaveText('1');
+	await expect(log(page).getByLabel('Source 1').first()).toBeVisible();
 	await expect(log(page).getByRole('link', { name: 'Returns policy › Refunds' })).toHaveAttribute('href', 'https://shop.example.com/returns');
 	await expect(log(page)).toHaveAttribute('aria-busy', 'false');
 });
@@ -72,7 +73,7 @@ test('sends the conversation id back and keeps the chat across page loads', asyn
 	await page.reload();
 	await launcher(page).click();
 	await expect(log(page)).toContainText('Second question');
-	await expect(log(page).locator('sup.cite').first()).toHaveText('[1]');
+	await expect(log(page).locator('sup.cite').first()).toHaveText('1');
 });
 
 test('an abstention offers a person, and the handoff carries the conversation', async ({ page }) => {
@@ -168,6 +169,23 @@ test('keyboard: Escape closes and returns focus to the launcher; Shift+Enter is 
 	await expect(page.getByRole('dialog')).toBeHidden();
 	await expect(launcher(page)).toBeFocused();
 	await expect(launcher(page)).toHaveAttribute('aria-expanded', 'false');
+});
+
+test('an empty conversation greets and offers the configured questions', async ({ page }) => {
+	const recorded = await openHostPage(
+		page,
+		{ chat: (_, route) => streamed(route, citedAnswer) },
+		{ attributes: { 'data-suggestions': 'How long do I have to return it?|Do you ship abroad?' } },
+	);
+
+	await launcher(page).click();
+	await expect(log(page)).toContainText('Hi! How can we help?');
+	expect((await new AxeBuilder({ page }).include('docs-assistant-widget').analyze()).violations).toEqual([]);
+	await page.getByRole('button', { name: 'How long do I have to return it?' }).click();
+
+	await expect(log(page)).toContainText('within 30 days');
+	await expect(page.getByRole('button', { name: 'Do you ship abroad?' })).toHaveCount(0);
+	expect(recorded.chat[0]).toMatchObject({ question: 'How long do I have to return it?' });
 });
 
 test('the host page CSS does not reach into the widget', async ({ page }) => {

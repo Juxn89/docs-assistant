@@ -14,5 +14,8 @@ docker compose -f widget/e2e/compose.yaml down -v
 ```
 
 The first run downloads the embedding model (~123 MB). CI runs the same steps (`e2e` job).
-`node scripts/screenshots.mjs <dir>` (from `widget/`) captures the images used in the README against
-the same running stack.
+
+The README artwork comes from the same running stack: `node scripts/screenshots.mjs screenshots`
+seeds the demo store ([`widget/demo`](../demo), a fictional coffee roaster with four policy documents)
+and captures it, then `node scripts/readme-assets.mjs screenshots` composes `docs/readme/`. Start the
+API with `RateLimiting__ChatPerMinutePerIp=1000` for that run: it asks more than ten questions a minute.

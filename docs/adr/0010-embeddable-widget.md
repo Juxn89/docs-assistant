@@ -14,7 +14,8 @@ must be usable with a keyboard and a screen reader.
 **One script tag, no framework.** `widget.js` is TypeScript bundled by esbuild into a single IIFE,
 served by the API itself (`/widget.js`, `Cache-Control: max-age=300`, `Cross-Origin-Resource-Policy:
 cross-origin`), so the API host is the only thing a site needs to allow. A framework would weigh more
-than the whole widget. Budget: **15 KB gzip, enforced by the build**; it is 6.5 KB.
+than the whole widget. Budget: **15 KB gzip, enforced by the build**; it is 9 KB (6.5 KB before the
+welcome card, suggested questions and icons were added).
 
 **Shadow DOM for isolation.** Everything renders in an open shadow root; the host page's selectors do
 not match inside it, and `:host { all: initial }` stops inherited font and color from leaking in. A
@@ -50,6 +51,12 @@ so navigating the site keeps the chat; nothing is kept after the tab closes, and
 unavailable (privacy modes, sandboxed frames) only loses that convenience.
 
 **Languages.** English and Spanish: `data-lang`, else the page's `lang`, else the browser's.
+
+**First impression.** An empty conversation shows who answers and how ("from our documents, with
+sources; a person when I don't know") and up to four starter questions (`data-suggestions`), because
+a blank box is where visitors give up. One brand color (`data-color`) is enough to make it native: every
+tint is mixed from it with `color-mix`. Icons are built with `createElementNS` from path data, never
+from markup strings.
 
 ## Testing
 

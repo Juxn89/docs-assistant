@@ -5,6 +5,9 @@ export type Strings = {
 	close: string;
 	title: string;
 	subtitle: string;
+	greeting: string;
+	greetingText: string;
+	suggestions: string;
 	placeholder: string;
 	inputLabel: string;
 	send: string;
@@ -42,7 +45,10 @@ const en: Strings = {
 	open: 'Open the assistant',
 	close: 'Close the assistant',
 	title: 'Assistant',
-	subtitle: 'Answers from our documents, with sources.',
+	subtitle: 'Answers with sources',
+	greeting: 'Hi! How can we help?',
+	greetingText: "I answer from our own documents and show where each answer comes from. When I don't know, I'll pass you to a person.",
+	suggestions: 'Try asking',
 	placeholder: 'Ask a question…',
 	inputLabel: 'Your question',
 	send: 'Send',
@@ -73,14 +79,17 @@ const en: Strings = {
 		messageTooLong: 'The message can be at most 2000 characters.',
 		generic: 'Something went wrong. Please try again.',
 	},
-	poweredBy: 'Answers can be incomplete; check the sources.',
+	poweredBy: 'It can be wrong: check the sources.',
 };
 
 const es: Strings = {
 	open: 'Abrir el asistente',
 	close: 'Cerrar el asistente',
 	title: 'Asistente',
-	subtitle: 'Respuestas de nuestros documentos, con fuentes.',
+	subtitle: 'Responde con fuentes',
+	greeting: '¡Hola! ¿En qué te ayudamos?',
+	greetingText: 'Respondo con nuestros propios documentos y te muestro de dónde sale cada respuesta. Si no lo sé, te paso con una persona.',
+	suggestions: 'Prueba a preguntar',
 	placeholder: 'Escribe tu pregunta…',
 	inputLabel: 'Tu pregunta',
 	send: 'Enviar',
@@ -111,7 +120,7 @@ const es: Strings = {
 		messageTooLong: 'El mensaje puede tener como máximo 2000 caracteres.',
 		generic: 'Algo salió mal. Inténtalo de nuevo.',
 	},
-	poweredBy: 'Las respuestas pueden estar incompletas; revisa las fuentes.',
+	poweredBy: 'Puede equivocarse: revisa las fuentes.',
 };
 
 /** The explicit data-lang wins; otherwise the page's language, then the browser's. English by default. */
