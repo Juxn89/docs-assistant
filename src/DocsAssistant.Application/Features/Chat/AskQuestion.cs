@@ -125,7 +125,10 @@ public sealed partial class AskQuestion(
 
 				var update = stream.Current;
 				usage = Accumulate(usage, update);
-				if (string.IsNullOrEmpty(update.Text))
+
+				// After the sentinel nothing more is shown, but the stream is read to its end: the usage
+				// (what the call cost) arrives last, and the reply is only the sentinel anyway.
+				if (abstained || string.IsNullOrEmpty(update.Text))
 				{
 					continue;
 				}
@@ -144,7 +147,7 @@ public sealed partial class AskQuestion(
 					if (head.StartsWith(AnswerTexts.NoAnswerSentinel, StringComparison.OrdinalIgnoreCase))
 					{
 						abstained = true;
-						break;
+						continue;
 					}
 
 					if (head.Length < AnswerTexts.NoAnswerSentinel.Length && AnswerTexts.NoAnswerSentinel.StartsWith(head, StringComparison.OrdinalIgnoreCase))
@@ -196,6 +199,11 @@ public sealed partial class AskQuestion(
 		}
 
 		var tokens = usage is null ? null : new TokenUsage(usage.InputTokenCount ?? 0, usage.OutputTokenCount ?? 0, usage.CachedInputTokenCount ?? 0);
+		if (tokens is not null)
+		{
+			LogModelUsage(logger, tenantId.Value, tokens.InputTokens, tokens.OutputTokens, tokens.CachedInputTokens, prompt.Hash);
+		}
+
 		if (leaked || Leaks(answer, prompt.Canary))
 		{
 			LogCanaryLeaked(logger, tenantId.Value, prompt.Hash);
@@ -292,6 +300,10 @@ public sealed partial class AskQuestion(
 		var best = kept.Count == 0 ? 0 : kept.Max(c => c.Similarity);
 		return new RetrievalResult(kept, best, best >= retrievalOptions.Value.MinSimilarity);
 	}
+
+	/// <summary>What each model call cost, per tenant and prompt revision: the basis for a spend dashboard or cap.</summary>
+	[LoggerMessage(Level = LogLevel.Information, Message = "Model call for tenant {TenantId}: {InputTokens} input, {OutputTokens} output, {CachedInputTokens} cached input tokens, prompt {PromptHash}")]
+	private static partial void LogModelUsage(ILogger logger, Guid tenantId, long inputTokens, long outputTokens, long cachedInputTokens, string promptHash);
 
 	[LoggerMessage(Level = LogLevel.Warning, Message = "Language model unavailable; answering extractively")]
 	private static partial void LogFallback(ILogger logger, Exception exception);

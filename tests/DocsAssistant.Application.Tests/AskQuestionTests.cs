@@ -268,6 +268,21 @@ public sealed class AskQuestionTests
 		Assert.Equal(FixedPrompts.Hash, done.PromptHash);
 	}
 
+	/// <summary>The usage arrives after the text: an abstention must still read it, or its cost goes unrecorded.</summary>
+	[Fact]
+	public async Task Abstention_StillReportsWhatTheCallCost()
+	{
+		_search.Add("Our offices are open Monday to Friday.", 0.9);
+		_chat.Reply("NO_ANSWER");
+		_chat.Usage = new UsageDetails { InputTokenCount = 1800, OutputTokenCount = 4, CachedInputTokenCount = 0 };
+
+		var (streamed, done) = await RunAsync();
+
+		Assert.Equal(AnswerOutcome.AbstainedByModel, done.Outcome);
+		Assert.Equal(AnswerTexts.NoInformation(spanish: false), streamed);
+		Assert.Equal(new TokenUsage(1800, 4, 0), done.Usage);
+	}
+
 	[Fact]
 	public async Task NoModel_FallsBackToQuotingThePassages_WithCitations()
 	{
