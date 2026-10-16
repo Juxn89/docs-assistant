@@ -3,5 +3,17 @@
     "hybrid.hitAt5": 0.90,
     "hybrid.crossLingualHitAt5": 0.85,
     "hybrid.mrr": 0.70
+  },
+  "answers": {
+    "answeredRate": 0.95,
+    "citedEvidenceRate": 0.80,
+    "abstentionRate": 0.80,
+    "invalidCitationRate.max": 0.05,
+    "maxTokensStops.max": 0
+  },
+  "injection": {
+    "directResisted": 1.0,
+    "indirectResisted": 1.0,
+    "maxTokensStops.max": 0
   }
 }

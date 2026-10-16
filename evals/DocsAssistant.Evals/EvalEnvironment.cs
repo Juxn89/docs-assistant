@@ -7,6 +7,7 @@ using DocsAssistant.Domain.Documents;
 using DocsAssistant.Infrastructure;
 using DocsAssistant.Infrastructure.Ai;
 using DocsAssistant.Infrastructure.Persistence;
+using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -23,6 +24,8 @@ internal sealed record RepoPaths(string Root)
 	public string ResultsDirectory => Path.Combine(Root, "evals", "results");
 
 	public string ThresholdsFile => Path.Combine(Root, "evals", "thresholds.json");
+
+	public string PricingFile => Path.Combine(Root, "evals", "pricing.json");
 
 	public static RepoPaths Locate()
 	{
@@ -58,7 +61,12 @@ internal sealed class EvalEnvironment : IAsyncDisposable
 
 	public ServiceProvider Services { get; }
 
-	public static async Task<EvalEnvironment> StartAsync(string? connectionString)
+	/// <param name="settings">Options the run imposes over the environment (a paid run turns the extractive fallback off).</param>
+	/// <param name="wrapChat">Replaces the model client, e.g. to meter it or to stand in for it in a dry run.</param>
+	public static async Task<EvalEnvironment> StartAsync(
+		string? connectionString,
+		IReadOnlyDictionary<string, string?>? settings = null,
+		Func<IServiceProvider, IChatClient, IChatClient>? wrapChat = null)
 	{
 		PostgreSqlContainer? container = null;
 		if (string.IsNullOrWhiteSpace(connectionString))
@@ -88,11 +96,19 @@ internal sealed class EvalEnvironment : IAsyncDisposable
 			// Lets an experiment override any option without code changes, e.g. Retrieval__TextWeight=0.5.
 			.AddEnvironmentVariables()
 			.AddInMemoryCollection(overrides)
+			.AddInMemoryCollection(settings ?? new Dictionary<string, string?>())
 			.Build();
-		var services = new ServiceCollection()
+		var collection = new ServiceCollection()
 			.AddLogging(builder => builder.AddSimpleConsole().SetMinimumLevel(LogLevel.Warning))
-			.AddInfrastructure(configuration)
-			.BuildServiceProvider();
+			.AddInfrastructure(configuration);
+		if (wrapChat is not null)
+		{
+			var original = collection.Last(d => d.ServiceType == typeof(IChatClient));
+			collection.Remove(original);
+			collection.AddSingleton(provider => wrapChat(provider, (IChatClient)original.ImplementationFactory!(provider)));
+		}
+
+		var services = collection.BuildServiceProvider();
 		await DatabaseMigrator.MigrateAsync(services);
 		return new EvalEnvironment(services, container, ollama);
 	}
@@ -170,11 +186,27 @@ internal sealed class EvalEnvironment : IAsyncDisposable
 
 internal static class Thresholds
 {
-	public static async Task<IReadOnlyDictionary<string, double>> LoadAsync(string path)
+	public static async Task<IReadOnlyDictionary<string, double>> LoadAsync(string path, string section = "retrieval")
 	{
 		await using var stream = File.OpenRead(path);
 		var document = await JsonDocument.ParseAsync(stream);
-		return document.RootElement.GetProperty("retrieval").EnumerateObject()
+		return document.RootElement.GetProperty(section).EnumerateObject()
 			.ToDictionary(p => p.Name, p => p.Value.GetDouble());
 	}
+}
+
+/// <summary>Minimums by default; a key ending in ".max" is a ceiling (error rates, truncated answers).</summary>
+internal static class ThresholdCheck
+{
+	private const string MaxSuffix = ".max";
+
+	public static IReadOnlyList<string> Failures(IReadOnlyDictionary<string, double> actual, IReadOnlyDictionary<string, double> thresholds) =>
+	[
+		.. thresholds
+			.Where(t => !actual.TryGetValue(t.Key, out var value)
+				|| (t.Key.EndsWith(MaxSuffix, StringComparison.Ordinal) ? value > t.Value : value < t.Value))
+			.Select(t => string.Create(
+				System.Globalization.CultureInfo.InvariantCulture,
+				$"{t.Key} = {actual.GetValueOrDefault(t.Key):F3} {(t.Key.EndsWith(MaxSuffix, StringComparison.Ordinal) ? ">" : "<")} {t.Value:F3}")),
+	];
 }

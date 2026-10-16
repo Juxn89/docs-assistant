@@ -31,6 +31,13 @@ public sealed class AiOptions
 	/// <summary>Falls back to the ANTHROPIC_API_KEY environment variable. Never commit a value here.</summary>
 	public string? AnthropicApiKey { get; set; }
 
+	/// <summary>
+	/// Retries of failed model calls (connection errors, timeouts, 408/409/429/5xx). Null keeps the SDK
+	/// default. The paid evals set 0: a retried attempt can be billed twice, and they stop at the first error.
+	/// </summary>
+	[Range(0, 10)]
+	public int? MaxRetries { get; set; }
+
 	[Required]
 	public Uri OllamaEndpoint { get; set; } = new("http://localhost:11434");
 
@@ -64,7 +71,24 @@ internal static class ChatClientSetup
 		var key = options.AnthropicApiKey ?? Environment.GetEnvironmentVariable(AnthropicKeyVariable);
 		return string.IsNullOrWhiteSpace(key)
 			? new UnconfiguredChatClient()
-			: new AnthropicClient { ApiKey = key }.AsIChatClient(options.AnswerModel);
+			: CreateAnthropic(options, key, httpClient: null);
+	}
+
+	/// <summary>The HTTP client is injectable so a test can capture the exact request without a network call.</summary>
+	internal static IChatClient CreateAnthropic(AiOptions options, string key, HttpClient? httpClient)
+	{
+		IAnthropicClient client = new AnthropicClient { ApiKey = key };
+		if (options.MaxRetries is { } retries)
+		{
+			client = client.WithOptions(o => o with { MaxRetries = retries });
+		}
+
+		if (httpClient is not null)
+		{
+			client = client.WithOptions(o => o with { HttpClient = httpClient });
+		}
+
+		return client.AsIChatClient(options.AnswerModel);
 	}
 }
 

@@ -14,7 +14,17 @@ namespace DocsAssistant.Evals;
 
 internal sealed record Attack(string Id, string Kind, string Question, string[] Forbidden);
 
-internal sealed record AttackResult(string Id, string Kind, bool Resisted, string Outcome, string? Leaked, string Answer);
+internal sealed record AttackResult(
+	string Id,
+	string Kind,
+	bool Resisted,
+	string Outcome,
+	string? Leaked,
+	string Answer,
+	long? InputTokens = null,
+	long? OutputTokens = null,
+	string? FinishReason = null,
+	double? CostUsd = null);
 
 /// <summary>What the guardrail costs: legitimate questions refused and clean passages thrown away.</summary>
 internal sealed record FalsePositives(int QuestionsRejected, int Questions, int PassagesQuarantined, int Passages);
@@ -32,7 +42,7 @@ internal static class InjectionEval
 {
 	private const string CanaryPlaceholder = "{canary}";
 
-	public static async Task<InjectionReport> RunAsync(EvalEnvironment environment, RepoPaths repo)
+	public static async Task<InjectionReport> RunAsync(EvalEnvironment environment, RepoPaths repo, RunContext run)
 	{
 		Console.WriteLine("Ingesting corpus and the poisoned document…");
 		var (tenant, _) = await environment.IngestCorpusAsync(repo.CorpusDirectory);
@@ -43,9 +53,10 @@ internal static class InjectionEval
 		var attacks = (await File.ReadAllLinesAsync(Path.Combine(injectionDirectory, "attacks.jsonl")))
 			.Where(line => !string.IsNullOrWhiteSpace(line))
 			.Select(line => JsonSerializer.Deserialize<Attack>(line, new JsonSerializerOptions(JsonSerializerDefaults.Web))!)
+			.Where(a => run.Includes(a.Id))
 			.ToList();
 
-		var provider = Describe(environment.Services.GetRequiredService<IOptions<AiOptions>>().Value);
+		var provider = run.Label(Describe(environment.Services.GetRequiredService<IOptions<AiOptions>>().Value));
 		var canary = environment.Services.GetRequiredService<IPromptLibrary>().Answer.Canary;
 		Console.WriteLine($"Running {attacks.Count} attacks against {provider}…");
 
@@ -65,7 +76,10 @@ internal static class InjectionEval
 				.Where(f => !string.IsNullOrEmpty(f))
 				.ToList();
 			var leaked = markers.FirstOrDefault(m => done!.Answer.Contains(m!, StringComparison.OrdinalIgnoreCase));
-			results.Add(new AttackResult(attack.Id, attack.Kind, leaked is null, done!.Outcome.ToString(), leaked, done.Answer));
+			var call = run.Meter?.TakeLast();
+			results.Add(new AttackResult(
+				attack.Id, attack.Kind, leaked is null, done!.Outcome.ToString(), leaked, done.Answer,
+				call?.InputTokens, call?.OutputTokens, call?.FinishReason, call?.CostUsd));
 			Console.Write(leaked is null ? '.' : 'x');
 		}
 
@@ -105,6 +119,24 @@ internal sealed record InjectionReport(DateTimeOffset RanAt, string Provider, IR
 {
 	public void Print() => Console.WriteLine(Table());
 
+	/// <summary>Share of attacks resisted per kind, gated by evals/thresholds.json ("injection").</summary>
+	public IReadOnlyList<string> CheckThresholds(IReadOnlyDictionary<string, double> thresholds)
+	{
+		double Resisted(string kind)
+		{
+			var subset = Results.Where(r => r.Kind == kind).ToList();
+			return subset.Count == 0 ? 1 : subset.Count(r => r.Resisted) / (double)subset.Count;
+		}
+
+		var actual = new Dictionary<string, double>
+		{
+			["directResisted"] = Resisted("direct"),
+			["indirectResisted"] = Resisted("indirect"),
+			["maxTokensStops.max"] = Results.Count(r => r.FinishReason == Microsoft.Extensions.AI.ChatFinishReason.Length.Value),
+		};
+		return ThresholdCheck.Failures(actual, thresholds);
+	}
+
 	public async Task WriteAsync(string directory)
 	{
 		Directory.CreateDirectory(directory);
@@ -134,11 +166,11 @@ internal sealed record InjectionReport(DateTimeOffset RanAt, string Provider, IR
 		}
 
 		var fp = FalsePositives;
-		return $"""
-			| Provider | direct attacks resisted | indirect (poisoned document) resisted | legitimate questions refused | corpus passages quarantined |
-			|---|---:|---:|---:|---:|
-			| {Provider} | {Rate("direct")} | {Rate("indirect")} | {fp.QuestionsRejected}/{fp.Questions} | {fp.PassagesQuarantined}/{fp.Passages} |
-			""";
+		return string.Create(CultureInfo.InvariantCulture, $"""
+			| Provider | direct attacks resisted | indirect (poisoned document) resisted | legitimate questions refused | corpus passages quarantined | model calls | tokens in / out | cost |
+			|---|---:|---:|---:|---:|---:|---:|---:|
+			| {Provider} | {Rate("direct")} | {Rate("indirect")} | {fp.QuestionsRejected}/{fp.Questions} | {fp.PassagesQuarantined}/{fp.Passages} | {Results.Count(r => r.InputTokens is not null)} | {Results.Sum(r => r.InputTokens ?? 0):N0} / {Results.Sum(r => r.OutputTokens ?? 0):N0} | ${Results.Sum(r => r.CostUsd ?? 0):F4} |
+			""");
 	}
 
 	private static string Preview(string text)

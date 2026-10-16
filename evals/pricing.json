@@ -1,0 +1,9 @@
+{
+  "_source": "https://platform.claude.com/docs/en/about-claude/pricing (USD per million tokens, prompts of 100K tokens or fewer). Paid eval runs refuse a model that is not listed here: without a price there is no budget.",
+  "claude-haiku-5-5": {
+    "inputPerMTok": 0.10,
+    "cacheReadPerMTok": 0.01,
+    "outputPerMTok": 0.50,
+    "verified": "2026-10-16"
+  }
+}
