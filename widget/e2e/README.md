@@ -19,3 +19,10 @@ The README artwork comes from the same running stack: `node scripts/screenshots.
 seeds the demo store ([`widget/demo`](../demo), a fictional coffee roaster with four policy documents)
 and captures it, then `node scripts/readme-assets.mjs screenshots` composes `docs/readme/`. Start the
 API with `RateLimiting__ChatPerMinutePerIp=1000` for that run: it asks more than ten questions a minute.
+
+The product video ([`docs/demo`](../../docs/demo), about 75 s, on-screen text in Spanish) comes from
+the same stack too: `node scripts/video.mjs video` seeds the store, drives the widget with a visible
+pointer and captions, and encodes `video/docs-assistant-demo.mp4` with ffmpeg in a pinned container
+(no network). Rehearse with `Ai__Provider=None` (extractive, free); the final take runs with a model,
+and the API logs each model call's tokens ("Model call for tenant…") so its cost can be recorded.
+Start the API with `RateLimiting__ChatPerMinutePerIp=1000` here as well.

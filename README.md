@@ -42,6 +42,7 @@ It embeds in any website with one line.
   </picture>
 </p>
 <p align="center"><sub>Mirlo is a fictional store (<a href="widget/demo">widget/demo</a>) answered from four real policy documents, with no language model: extractive mode.</sub></p>
+<p align="center"><b><a href="docs/demo/docs-assistant-demo.mp4">▶ Watch the 75-second demo</a></b> (Spanish on-screen text, answers by Claude Haiku 5.5) · <a href="docs/demo">stills</a></p>
 
 <p align="center"><img src="docs/readme/divider.svg" width="100%" alt=""></p>
 
