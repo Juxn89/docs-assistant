@@ -153,7 +153,7 @@ function metrics(name) {
 	const W = 1280;
 	const H = 150;
 	const items = [
-		['93 %', 'retrieval hit@5', '54-question bilingual eval'],
+		['98 %', 'retrieval hit@5', '54-question bilingual eval'],
 		['12 / 12', 'injection attacks resisted', 'extractive mode'],
 		['0', 'real questions refused', 'by the guardrails (0/54)'],
 		['9 KB', 'embeddable widget', 'gzip · no framework'],
@@ -169,7 +169,7 @@ function metrics(name) {
 	</g>${i > 0 ? `<line x1="${col * i}" y1="36" x2="${col * i}" y2="114" stroke="${t.border}"/>` : ''}`,
 		)
 		.join('');
-	return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="93% retrieval hit at 5 on a 54-question bilingual eval. 12 of 12 injection attacks resisted in extractive mode. 0 of 54 real questions refused by the guardrails. 9 KB embeddable widget, gzip, no framework.">
+	return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="98% retrieval hit at 5 on a 54-question bilingual eval. 12 of 12 injection attacks resisted in extractive mode. 0 of 54 real questions refused by the guardrails. 9 KB embeddable widget, gzip, no framework.">
 <defs>${defs(t)}</defs>
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="22" fill="${t.panel}" stroke="${t.border}"/>
 ${cells}

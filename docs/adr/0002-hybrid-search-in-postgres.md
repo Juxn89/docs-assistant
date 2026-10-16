@@ -60,3 +60,32 @@ Consequences in the code (`PgChunkSearch`):
 
 What the automated suite pins is the *result* (a dominant tenant gets its own nearest chunks); the
 underfill path itself was only reproducible in the low-dimension probe above, and is defence in depth.
+
+## Addendum · 2026-10-16: the vector's first hit always reaches the model
+
+Fusion rewards agreement between the two rankings, and that fails across languages. A Spanish question
+about an English article has no words in common with it. Full-text search still returns passages, the
+ones sharing stray terms (names, numbers, product words), and their agreement with the vector's lower
+ranks outscores a passage that only the vector ranks first.
+
+Measured on the retrieval eval, with a temporary diagnostic that followed the evidence beyond the top 5:
+
+| Question (Spanish, article in English) | vector-only rank | hybrid rank |
+|---|---:|---:|
+| profile-03 | 1 | 7 |
+| bot-02 | 1 | 11 |
+| rmq-06 | > 20 | > 20 |
+
+**Decision:** `Retrieval:GuaranteedVectorHits` (default **1**). When fusion left the vector's best hit out
+of the top K, it takes the place of the last fused passage, so the fused order is kept for the rest.
+
+| Variant | hit@1 | hit@5 | MRR | cross-lingual hit@5 |
+|---|---:|---:|---:|---:|
+| Fusion only | 55 % | 93 % | 0.720 | 86 % |
+| Text weight 0.5 / 0.3 instead | 64 % / 66 % | 91 % / 89 % | 0.749 / 0.755 | 81 % / 81 % |
+| **1 guaranteed vector hit** | 55 % | **98 %** | **0.729** | **95 %** |
+| 2 guaranteed vector hits | 55 % | 95 % | 0.723 | 90 % |
+
+The similarity floor (0.79) and the unanswerable questions it catches are unchanged. rmq-06 stays out:
+vector search does not have it in its top 20 and full-text ranks it 17th. It would need the question
+translated before the search, which is not worth a model call per question today. The CI gate was raised to hit@5 ≥ 0.95 and cross-lingual ≥ 0.90.

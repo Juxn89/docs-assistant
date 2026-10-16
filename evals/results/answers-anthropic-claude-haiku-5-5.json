@@ -1,20 +1,22 @@
 {
-  "RanAt": "2026-10-16T13:36:21.4020602+00:00",
+  "RanAt": "2026-10-16T13:56:16.085913+00:00",
   "Provider": "Anthropic claude-haiku-5-5",
   "Metrics": {
     "Provider": "Anthropic claude-haiku-5-5",
     "Answerable": 44,
-    "AnsweredRate": 0.9318181818181818,
-    "CitedEvidenceRate": 0.9090909090909091,
+    "AnsweredRate": 0.9772727272727273,
+    "EvidenceRetrieved": 43,
+    "AnsweredWhenRetrievedRate": 1,
+    "CitedEvidenceRate": 0.9545454545454546,
     "Unanswerable": 10,
     "AbstentionRate": 1,
     "InvalidCitationRate": 0,
-    "LatencyP50Ms": 1055.9945,
-    "LatencyP95Ms": 2730.7381,
+    "LatencyP50Ms": 1219.8633,
+    "LatencyP95Ms": 2281.6121,
     "ModelCalls": 52,
-    "InputTokens": 152587,
-    "OutputTokens": 4938,
-    "CostUsd": 0.017727700000000006,
+    "InputTokens": 151988,
+    "OutputTokens": 4971,
+    "CostUsd": 0.017684299999999997,
     "MaxTokensStops": 0
   },
   "Results": [
@@ -24,12 +26,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1543.1293,
-      "Answer": "Juan currently works as a Software Engineer at The Stepstone Group, in a remote role based in Nicaragua, which started in January 2022 [2].",
-      "InputTokens": 2064,
-      "OutputTokens": 51,
+      "LatencyMs": 1319.016,
+      "Answer": "Juan currently works at The Stepstone Group, where he has been a Software Engineer since January 2022, working remotely from Nicaragua [2].",
+      "InputTokens": 2065,
+      "OutputTokens": 49,
       "FinishReason": "stop",
-      "CostUsd": 0.0002319
+      "CostUsd": 0.000231,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "profile-02",
@@ -37,25 +40,27 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 773.6739,
-      "Answer": "Juan trabaja actualmente en The Stepstone Group, como Software Engineer desde enero de 2022, en modalidad remota desde Nicaragua [2].",
-      "InputTokens": 2251,
-      "OutputTokens": 57,
+      "LatencyMs": 921.9257,
+      "Answer": "Juan trabaja actualmente en The Stepstone Group, como Software Engineer desde enero de 2022 [2].",
+      "InputTokens": 2252,
+      "OutputTokens": 42,
       "FinishReason": "stop",
-      "CostUsd": 0.00025360000000000004
+      "CostUsd": 0.0002462,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "profile-03",
       "Answerable": true,
-      "Outcome": "AbstainedByModel",
-      "CitedEvidence": false,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1513.9165,
-      "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?",
-      "InputTokens": 3673,
-      "OutputTokens": 10,
+      "LatencyMs": 950.8246,
+      "Answer": "Seg\u00FAn el perfil profesional, Juan G\u00F3mez lider\u00F3 el desarrollo e implementaci\u00F3n del sistema de catastro para los 153 gobiernos municipales del pa\u00EDs [5].",
+      "InputTokens": 3460,
+      "OutputTokens": 58,
       "FinishReason": "stop",
-      "CostUsd": 0.0003723
+      "CostUsd": 0.000375,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "profile-04",
@@ -63,12 +68,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 828.167,
+      "LatencyMs": 682.9974,
       "Answer": "Juan reduced deployment times by approximately 25% through automation and migration to microservices [1].",
-      "InputTokens": 2703,
+      "InputTokens": 2704,
       "OutputTokens": 32,
       "FinishReason": "stop",
-      "CostUsd": 0.0002863
+      "CostUsd": 0.0002864,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "profile-05",
@@ -76,12 +82,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 990.6137,
-      "Answer": "En Axxis-Systems us\u00F3 ExtJS y JavaScript para el frontend [1].",
-      "InputTokens": 2902,
-      "OutputTokens": 32,
+      "LatencyMs": 973.5912,
+      "Answer": "En Axxis-Systems us\u00F3 ExtJS y JavaScript [1].",
+      "InputTokens": 2903,
+      "OutputTokens": 27,
       "FinishReason": "stop",
-      "CostUsd": 0.00030619999999999996
+      "CostUsd": 0.0003038,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "profile-06",
@@ -89,12 +96,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 831.5824,
-      "Answer": "Yes. At INIFOM, Juan provided ongoing support and updates for legacy systems built in VB 6.0, ensuring business continuity and gradual modernization [1].",
-      "InputTokens": 2040,
-      "OutputTokens": 59,
+      "LatencyMs": 855.432,
+      "Answer": "Yes. At INIFOM he provided ongoing support and updates for legacy systems built in VB 6.0, ensuring business continuity and gradual modernization [1].",
+      "InputTokens": 2041,
+      "OutputTokens": 56,
       "FinishReason": "stop",
-      "CostUsd": 0.0002335
+      "CostUsd": 0.00023210000000000003,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "profile-07",
@@ -102,12 +110,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1032.6078,
-      "Answer": "S\u00ED. Durante su trabajo como Team Leader en INIFOM (abril 2017 a junio 2020), migr\u00F3 aplicaciones ASP.NET heredadas a .NET Core, mejorando su rendimiento, seguridad y mantenibilidad [3].",
-      "InputTokens": 3196,
-      "OutputTokens": 91,
+      "LatencyMs": 1454.8271,
+      "Answer": "S\u00ED. Como Team Leader en INIFOM (abr 2017 \u2013 jun 2020), migr\u00F3 aplicaciones ASP.NET legacy a .NET Core, con el objetivo de mejorar rendimiento, seguridad y mantenibilidad [3].",
+      "InputTokens": 3197,
+      "OutputTokens": 89,
       "FinishReason": "stop",
-      "CostUsd": 0.00036510000000000004
+      "CostUsd": 0.00036420000000000007,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "mcp-01",
@@ -115,12 +124,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 766.3391,
-      "Answer": "MCP is a client/server protocol that uses JSON-RPC under the hood [2].",
-      "InputTokens": 2254,
-      "OutputTokens": 30,
+      "LatencyMs": 713.4597,
+      "Answer": "MCP is a small client/server protocol that uses JSON-RPC under the hood [2].",
+      "InputTokens": 2255,
+      "OutputTokens": 31,
       "FinishReason": "stop",
-      "CostUsd": 0.00024040000000000002
+      "CostUsd": 0.000241,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "mcp-02",
@@ -128,12 +138,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1144.2374,
-      "Answer": "Puedes usar el MCP Inspector, una interfaz en el navegador que habla el protocolo y te permite listar y ejecutar las herramientas a mano. Se lanza con \u0060npx @modelcontextprotocol/inspector dotnet run --project ./AuroraCoffee.Mcp\u0060, y as\u00ED detectas los errores antes de llegar a un chat [2].",
-      "InputTokens": 2352,
-      "OutputTokens": 124,
+      "LatencyMs": 1169.5139,
+      "Answer": "Puedes usar el MCP Inspector, una interfaz en el navegador que habla el protocolo y permite listar y ejecutar herramientas a mano. Se lanza con \u0060npx @modelcontextprotocol/inspector dotnet run --project ./AuroraCoffee.Mcp\u0060, y as\u00ED detectas errores antes de llegar a una conversaci\u00F3n [2].",
+      "InputTokens": 2353,
+      "OutputTokens": 122,
       "FinishReason": "stop",
-      "CostUsd": 0.00029720000000000007
+      "CostUsd": 0.0002963,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "mcp-03",
@@ -141,12 +152,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 762.7519,
+      "LatencyMs": 2542.4103,
       "Answer": "The Claude Desktop configuration file is claude_desktop_config.json, located in %APPDATA%\\Claude\\ on Windows [1].",
-      "InputTokens": 2698,
+      "InputTokens": 2699,
       "OutputTokens": 48,
       "FinishReason": "stop",
-      "CostUsd": 0.0002938
+      "CostUsd": 0.00029390000000000004,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "mcp-04",
@@ -154,12 +166,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1574.7948,
-      "Answer": "Conviene un servidor MCP cuando m\u00E1s de un cliente necesita las mismas herramientas, por ejemplo si quieres la misma capacidad en Claude Desktop y Claude Code, o un servidor compartido por todo el equipo [1]. En cambio, si una sola aplicaci\u00F3n es la que controla el modelo y las herramientas, el tool use dentro de la propia app es m\u00E1s simple y r\u00E1pido, porque no requiere transporte ni un segundo proceso [1]. La regla pr\u00E1ctica es: tool use en la app cuando una sola aplicaci\u00F3n es due\u00F1a del modelo y de las herramientas, y un servidor MCP en cuanto m\u00E1s de un cliente necesita esas mismas herramientas [1][3].",
-      "InputTokens": 2404,
-      "OutputTokens": 233,
+      "LatencyMs": 1421.5738,
+      "Answer": "Conviene un servidor MCP cuando m\u00E1s de un cliente necesita las mismas herramientas, por ejemplo cuando las mismas capacidades se usan en Claude Desktop y Claude Code, o cuando todo un equipo apunta a un mismo servidor [1][3]. Si solo una aplicaci\u00F3n usar\u00E1 las herramientas y es ella la que hace las llamadas al modelo, el tool use dentro de la aplicaci\u00F3n es m\u00E1s simple y r\u00E1pido, porque no requiere transporte ni un segundo proceso [1].",
+      "InputTokens": 2405,
+      "OutputTokens": 173,
       "FinishReason": "stop",
-      "CostUsd": 0.0003569
+      "CostUsd": 0.000327,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "mcp-05",
@@ -167,12 +180,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1052.0041,
-      "Answer": "In SDK 2.0, the HTTP transport is stateless by default: HttpServerTransportOptions.Stateless defaults to true, the initialize handshake is gone, and the Mcp-Session-Id header was removed [1]. Servers that rely on sessions or server-initiated requests such as sampling or roots (now deprecated) should review the migration notes before upgrading [1].",
-      "InputTokens": 2542,
-      "OutputTokens": 126,
+      "LatencyMs": 913.8043,
+      "Answer": "In SDK 2.0 the HTTP transport is stateless by default, since HttpServerTransportOptions.Stateless defaults to true, and the initialize handshake and Mcp-Session-Id header are gone [1].",
+      "InputTokens": 2543,
+      "OutputTokens": 74,
       "FinishReason": "stop",
-      "CostUsd": 0.00031720000000000007
+      "CostUsd": 0.00029130000000000003,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "aot-01",
@@ -180,12 +194,13 @@
       "Outcome": "Answered",
       "CitedEvidence": false,
       "HadInvalidCitations": false,
-      "LatencyMs": 1652.0914,
-      "Answer": "No. EF Core isn\u0027t AOT-compatible today, because its query pipeline relies on runtime code generation that Native AOT can\u0027t produce [5]. For an AOT service, Dapper or raw ADO.NET are the compatible alternatives [3].",
-      "InputTokens": 3197,
-      "OutputTokens": 82,
+      "LatencyMs": 1641.6558,
+      "Answer": "No. Entity Framework Core is not AOT-compatible today, because its query pipeline relies on runtime code generation that Native AOT cannot produce [5]. For an EF-heavy service, Dapper or raw ADO.NET are the AOT-compatible alternatives [3].",
+      "InputTokens": 3198,
+      "OutputTokens": 93,
       "FinishReason": "stop",
-      "CostUsd": 0.00036070000000000004
+      "CostUsd": 0.0003663,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "aot-02",
@@ -193,12 +208,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1538.3772,
-      "Answer": "CreateSlimBuilder es la forma de inicio de una Minimal API compatible con Native AOT; \u0060dotnet new webapiaot\u0060 la genera junto con el JsonSerializerContext [1]. En el ejemplo, se usa \u0060WebApplication.CreateSlimBuilder(args)\u0060 como base del servicio [4]. Los documentos no detallan m\u00E1s all\u00E1 de esto qu\u00E9 componentes omite exactamente.",
-      "InputTokens": 3274,
-      "OutputTokens": 138,
+      "LatencyMs": 2863.565,
+      "Answer": "No encuentro en los documentos una descripci\u00F3n de lo que hace \u0060CreateSlimBuilder\u0060 en s\u00ED; solo aparece en el c\u00F3digo de ejemplo de \u0060Program.cs\u0060 [4] y se menciona como parte de la forma de una Minimal API AOT junto con la serializaci\u00F3n JSON generada por c\u00F3digo fuente [1]. Por eso no puedo explicar su funcionamiento interno con base en la documentaci\u00F3n proporcionada.",
+      "InputTokens": 3275,
+      "OutputTokens": 139,
       "FinishReason": "stop",
-      "CostUsd": 0.00039640000000000004
+      "CostUsd": 0.000397,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "aot-03",
@@ -206,12 +222,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1291.5778,
-      "Answer": "Library authors can declare AOT compatibility by setting the \u0060IsAotCompatible\u0060 property to \u0060true\u0060 in their project file: \u0060\u003CPropertyGroup\u003E\u003CIsAotCompatible\u003Etrue\u003C/IsAotCompatible\u003E\u003C/PropertyGroup\u003E\u0060 [1]. Setting it automatically turns on the trim, single-file, and AOT analyzers for that library [1]. Consuming apps can also set \u0060VerifyReferenceAotCompatibility\u0060 to \u0060true\u0060 to be warned when a dependency hasn\u0027t made this declaration [1].",
-      "InputTokens": 3048,
-      "OutputTokens": 167,
+      "LatencyMs": 1542.5295,
+      "Answer": "Library authors can declare AOT compatibility by setting the \u0060IsAotCompatible\u0060 property to \u0060true\u0060 in the project file: \u0060\u003CPropertyGroup\u003E \u003CIsAotCompatible\u003Etrue\u003C/IsAotCompatible\u003E \u003C/PropertyGroup\u003E\u0060 [1]. Setting it turns on the trim, single-file, and AOT analyzers for that library automatically [1]. Consumers can then add \u0060VerifyReferenceAotCompatibility\u0060 set to \u0060true\u0060 in their own app to be warned when a dependency hasn\u0027t made that declaration [1].",
+      "InputTokens": 3049,
+      "OutputTokens": 172,
       "FinishReason": "stop",
-      "CostUsd": 0.0003883
+      "CostUsd": 0.0003909,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "aot-04",
@@ -219,12 +236,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 3055.9909,
-      "Answer": "Native AOT vale la pena cuando tienes muchas instancias del mismo servicio, como microservicios en contenedores, funciones serverless o servicios que el autoscaler levanta y apaga bajo carga, porque el ahorro de arranque y memoria por r\u00E9plica se multiplica en la flota [2]. Solo conviene si tus dependencias son compatibles con AOT; si dependes de EF Core, bibliotecas muy basadas en reflexi\u00F3n, MVC, Blazor Server, SignalR completo o Session, es mejor quedarte con JIT (opcionalmente con trimming) [2]. Adem\u00E1s, los binarios AOT son espec\u00EDficos de plataforma, as\u00ED que si necesitas desplegar en muchas combinaciones de sistema operativo y arquitectura, el despliegue dependiente del framework resulta m\u00E1s sencillo [2].",
-      "InputTokens": 2863,
-      "OutputTokens": 281,
+      "LatencyMs": 2000.4713,
+      "Answer": "Vale la pena usar Native AOT cuando se ejecutan muchas instancias del mismo servicio, como microservicios en contenedores, funciones serverless o servicios que el autoscaler levanta y baja seg\u00FAn la carga, porque reducir el arranque y la memoria de cada r\u00E9plica se multiplica en toda la flota [2]. Debe usarse solo si las dependencias son compatibles con AOT; si el stack depende de EF Core, bibliotecas muy basadas en reflexi\u00F3n, MVC, Blazor Server, SignalR completo o Session, es mejor quedarse con JIT [2]. Adem\u00E1s, los binarios AOT son espec\u00EDficos de cada plataforma [2].",
+      "InputTokens": 2864,
+      "OutputTokens": 226,
       "FinishReason": "stop",
-      "CostUsd": 0.0004268
+      "CostUsd": 0.00039940000000000006,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "min-01",
@@ -232,12 +250,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1478.8926,
-      "Answer": "To turn on DataAnnotations validation for Minimal APIs in .NET 10, register the services in your builder: call builder.Services.AddProblemDetails() and builder.Services.AddValidation() [2]. No extra package is needed in a Microsoft.NET.Sdk.Web project, since Microsoft.Extensions.Validation ships in the ASP.NET Core shared framework [2]. Then annotate your request types, and on positional records use the [property:] prefix on each attribute, or validation silently does nothing [1][2].",
-      "InputTokens": 2818,
-      "OutputTokens": 176,
+      "LatencyMs": 1749.9554,
+      "Answer": "Call both \u0060builder.Services.AddProblemDetails();\u0060 and \u0060builder.Services.AddValidation();\u0060 in your startup code; that is the whole setup [2]. No PackageReference is needed in a Microsoft.NET.Sdk.Web project, because the validation library ships in the ASP.NET Core shared framework [2]. Annotate the request properties with the \u0060[property:]\u0060 prefix when using positional records, or the validation silently does nothing [1][2].",
+      "InputTokens": 2819,
+      "OutputTokens": 148,
       "FinishReason": "stop",
-      "CostUsd": 0.0003698
+      "CostUsd": 0.00035590000000000003,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "min-02",
@@ -245,12 +264,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1013.1603,
-      "Answer": "Puedes desactivarla en un endpoint concreto con \u0060.DisableValidation()\u0060, que es gen\u00E9rico sobre \u0060IEndpointConventionBuilder\u0060, por lo que tambi\u00E9n funciona sobre un grupo entero de endpoints [1].",
-      "InputTokens": 3201,
-      "OutputTokens": 80,
+      "LatencyMs": 921.7839,
+      "Answer": "Puedes desactivarla en un endpoint concreto con \u0060.DisableValidation()\u0060, un m\u00E9todo gen\u00E9rico sobre \u0060IEndpointConventionBuilder\u0060 que tambi\u00E9n funciona sobre un grupo entero de endpoints [1].",
+      "InputTokens": 3202,
+      "OutputTokens": 76,
       "FinishReason": "stop",
-      "CostUsd": 0.0003601
+      "CostUsd": 0.00035820000000000003,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "min-03",
@@ -258,12 +278,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 900.1135,
+      "LatencyMs": 868.6946,
       "Answer": "Microsoft.AspNetCore.OpenApi replaced Swashbuckle as the default in .NET 9 [1].",
-      "InputTokens": 3046,
+      "InputTokens": 3047,
       "OutputTokens": 43,
       "FinishReason": "stop",
-      "CostUsd": 0.0003261
+      "CostUsd": 0.0003262,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "min-04",
@@ -271,12 +292,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1047.6148,
-      "Answer": ".NET 10 usa OpenAPI 3.1 como versi\u00F3n por defecto del documento [1]. Si necesitas la versi\u00F3n 3.0, puedes configurar options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_0 dentro de AddOpenApi() [4].",
-      "InputTokens": 2867,
-      "OutputTokens": 102,
+      "LatencyMs": 1020.4968,
+      "Answer": ".NET 10 genera documentos OpenAPI 3.1 por defecto [1]. Si un generador de c\u00F3digo no lo admite, se puede volver a OpenAPI 3.0 con options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_0 dentro de AddOpenApi() [4].",
+      "InputTokens": 2868,
+      "OutputTokens": 110,
       "FinishReason": "stop",
-      "CostUsd": 0.00033769999999999997
+      "CostUsd": 0.0003418,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "min-05",
@@ -284,12 +306,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 2072.3421,
-      "Answer": "No, version only the endpoints that broke. In the example, the v2 changes affected the GET-by-id and list endpoints, while the POST stayed the same and was mapped to both versions [1].",
-      "InputTokens": 3360,
-      "OutputTokens": 62,
+      "LatencyMs": 2281.6121,
+      "Answer": "No. The guidance is to version only the endpoints that broke, not the whole API. In the example, only the order-fetching endpoints got v2 handlers because their response shape changed, while the POST endpoint stayed shared across both versions because it returns no body [1].",
+      "InputTokens": 3361,
+      "OutputTokens": 83,
       "FinishReason": "stop",
-      "CostUsd": 0.000367
+      "CostUsd": 0.0003776,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "min-06",
@@ -297,12 +320,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1053.0994,
-      "Answer": "The store is a \u0060ConcurrentDictionary\u0060 because it is registered as a singleton and written to by concurrent requests, and a plain \u0060Dictionary\u0060 would be a data race that can corrupt its buckets during a resize [2]. The same reasoning appears in the other article: a singleton serving concurrent requests has no other option than a thread-safe store [1].",
-      "InputTokens": 3467,
-      "OutputTokens": 113,
+      "LatencyMs": 2102.0397,
+      "Answer": "The store is a \u0060ConcurrentDictionary\u0060 because it is registered as a singleton and written to from concurrent requests, and a plain \u0060Dictionary\u0060 could corrupt its buckets during a resize [2]. The failure mode is a request that spins a CPU core forever rather than throwing an error that\u0027s easy to debug [5].",
+      "InputTokens": 3104,
+      "OutputTokens": 103,
       "FinishReason": "stop",
-      "CostUsd": 0.00040320000000000004
+      "CostUsd": 0.0003619,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "rmq-01",
@@ -310,12 +334,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1081.2696,
-      "Answer": "A producer does not publish directly to a queue; it publishes to an exchange, and the exchange routes a copy to any queues bound to it [3]. The sendToQueue call in the tutorials is equivalent to publishing to the nameless default exchange, which is bound to every queue using the queue\u0027s name as the binding key [1][2].",
-      "InputTokens": 2909,
-      "OutputTokens": 105,
+      "LatencyMs": 1938.5418,
+      "Answer": "No. A producer never publishes to a queue; it publishes to an exchange and attaches a routing key [3]. The \u0060sendToQueue\u0060 call only looks like a direct publish because it routes through the nameless default exchange, which binds every queue under its own name [1][2].",
+      "InputTokens": 2732,
+      "OutputTokens": 85,
       "FinishReason": "stop",
-      "CostUsd": 0.00034340000000000005
+      "CostUsd": 0.0003157,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "rmq-02",
@@ -323,12 +348,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1094.8076,
-      "Answer": "La routing key la define el productor en cada mensaje al publicarlo, mientras que la binding key se establece una sola vez en el binding, al conectar una cola con un exchange [1]. El exchange compara una con la otra, y la forma en que lo hace depende del tipo de exchange [1].",
-      "InputTokens": 2682,
-      "OutputTokens": 97,
+      "LatencyMs": 1272.9401,
+      "Answer": "La routing key la define el productor en cada mensaje al publicarlo, mientras que la binding key se establece una sola vez en el binding, al conectar una cola con un exchange [1]. El exchange compara una con la otra, y el tipo de exchange determina c\u00F3mo se realiza esa comparaci\u00F3n [1]. Por ejemplo, en un exchange topic, la binding key puede usar comodines como * y # para hacer coincidir la routing key [2].",
+      "InputTokens": 2683,
+      "OutputTokens": 147,
       "FinishReason": "stop",
-      "CostUsd": 0.0003167
+      "CostUsd": 0.0003418,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "rmq-03",
@@ -336,12 +362,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 911.2727,
-      "Answer": "A fanout exchange ignores the routing key completely, so the binding key is ignored too and each message is copied to every bound queue [2].",
-      "InputTokens": 2659,
-      "OutputTokens": 44,
+      "LatencyMs": 1135.4942,
+      "Answer": "A fanout exchange ignores the routing key completely and copies each message to every bound queue [2]. Because the routing key is ignored, the binding key is ignored too, so an empty string is passed when binding [2].",
+      "InputTokens": 2660,
+      "OutputTokens": 68,
       "FinishReason": "stop",
-      "CostUsd": 0.00028790000000000006
+      "CostUsd": 0.0003,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "rmq-04",
@@ -349,12 +376,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1437.6079,
-      "Answer": "Un poison pill es un mensaje que falla siempre, sin importar cu\u00E1ntas veces se reintente, por ejemplo un payload que el parser rechaza o una referencia a un registro ya eliminado. No es un fallo transitorio, as\u00ED que la paciencia no lo resuelve [1]. Si se reencola con nack(message, false, true), el mensaje vuelve a la cola y se reprocesa de inmediato, creando un bucle sin retardo que consume CPU y llena los logs [1].",
-      "InputTokens": 2712,
-      "OutputTokens": 166,
+      "LatencyMs": 2110.8278,
+      "Answer": "A poison pill is a message that fails every time it is processed, such as a payload the parser rejects, a reference to a deleted row, or a bug on one specific code path. It is not a transient failure, so waiting does not fix it [1]. Combined with \u0060nack(message, false, true)\u0060, which requeues the message immediately, it creates a fast loop where the message is redelivered and fails over and over with no delay [1].",
+      "InputTokens": 2713,
+      "OutputTokens": 130,
       "FinishReason": "stop",
-      "CostUsd": 0.0003542
+      "CostUsd": 0.0003363,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "rmq-05",
@@ -362,12 +390,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1936.6723,
-      "Answer": "A message that no binding matches is discarded: RabbitMQ drops it silently, and channel.publish still returns true [2]. Setting mandatory: true makes the broker return the message instead, so a \u0027return\u0027 event can be handled [2]. The exchange holds no messages and only decides which queues receive a copy, so zero matching bindings means zero copies [4].",
-      "InputTokens": 2687,
-      "OutputTokens": 115,
+      "LatencyMs": 1441.1643,
+      "Answer": "A message that no binding matches is discarded: the exchange holds no messages and only decides which queues get a copy, so zero matching bindings means zero copies [4]. The publish call still returns true, so the loss is silent unless you set the mandatory flag and listen for the return event [2].",
+      "InputTokens": 2688,
+      "OutputTokens": 90,
       "FinishReason": "stop",
-      "CostUsd": 0.0003262
+      "CostUsd": 0.00031380000000000004,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "rmq-06",
@@ -375,12 +404,13 @@
       "Outcome": "AbstainedByModel",
       "CitedEvidence": false,
       "HadInvalidCitations": false,
-      "LatencyMs": 1676.8435,
+      "LatencyMs": 689.6445,
       "Answer": "No encuentro esa informaci\u00F3n en los documentos que tengo. \u00BFQuieres que le pase tu pregunta a una persona?",
-      "InputTokens": 2800,
+      "InputTokens": 2801,
       "OutputTokens": 10,
       "FinishReason": "stop",
-      "CostUsd": 0.000285
+      "CostUsd": 0.00028510000000000005,
+      "EvidenceRetrieved": false
     },
     {
       "Id": "rmq-07",
@@ -388,12 +418,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1391.2509,
-      "Answer": "You cannot change a queue\u0027s arguments in place: re-asserting an existing queue with different arguments makes the broker reply PRECONDITION_FAILED and close the channel [1]. The exception is arguments that a policy can also set, such as the dead-letter exchange, delivery limit, and message TTL, which can be applied to an existing queue with rabbitmqctl set_policy and no redeclare [1]. Arguments with no policy equivalent, such as the queue type or single active consumer, require a migration: declare a new queue, bind it alongside the old one, drain the original, and then remove it [1].",
-      "InputTokens": 3193,
-      "OutputTokens": 194,
+      "LatencyMs": 1450.876,
+      "Answer": "You cannot change a queue\u0027s arguments in place: assertQueue is idempotent only while the arguments match, and asserting an existing queue with different arguments (such as adding an x-dead-letter-exchange) makes the broker reply PRECONDITION_FAILED and close the channel [1]. The usual approach is to declare a new queue, bind it alongside the old one, drain the original, and then remove it [1]. Some arguments that a policy can also set, such as the dead-letter exchange, delivery limit, and message TTL, can be applied to an existing queue with rabbitmqctl set_policy without redeclaring it [1]. Arguments with no policy equivalent, such as the queue type or single active consumer, still require a migration [1].",
+      "InputTokens": 3194,
+      "OutputTokens": 238,
       "FinishReason": "stop",
-      "CostUsd": 0.00041630000000000004
+      "CostUsd": 0.00043840000000000003,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "bot-01",
@@ -401,25 +432,27 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1055.9945,
-      "Answer": "About $0.12 per pull request with Claude Opus 5, based on a 400-line diff that uses roughly 20,000 input tokens and 900 output tokens at $5/$25 per million tokens [4]. With Sonnet 5 at $2/$10 per million tokens, the same review comes to about $0.05 [4].",
-      "InputTokens": 2605,
-      "OutputTokens": 107,
+      "LatencyMs": 1552.4777,
+      "Answer": "About $0.12 per pull request using Claude Opus 5, or about $0.05 using Sonnet 5, for a 400-line diff [4]. That estimate assumes roughly 20,000 input tokens and 900 output tokens, with Opus 5 priced at $5/$25 per million tokens and Sonnet 5 at $2/$10 [4].",
+      "InputTokens": 2606,
+      "OutputTokens": 118,
       "FinishReason": "stop",
-      "CostUsd": 0.000314
+      "CostUsd": 0.0003196,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "bot-02",
       "Answerable": true,
-      "Outcome": "AbstainedByModel",
-      "CitedEvidence": false,
+      "Outcome": "Answered",
+      "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 784.8401,
-      "Answer": "No encuentro esa informaci\u00F3n en los documentos que tengo. \u00BFQuieres que le pase tu pregunta a una persona?",
-      "InputTokens": 2644,
-      "OutputTokens": 10,
+      "LatencyMs": 1743.4257,
+      "Answer": "Porque la publicaci\u00F3n de comentarios es una tarea del c\u00F3digo, no una decisi\u00F3n del modelo: \u0022If the model doesn\u0027t need to decide, don\u0027t give it a tool. Posting comments was my code\u0027s job all along; making it a tool call bought latency, partial failures, and no chance to review the review.\u0022 [5] Adem\u00E1s, las salidas estructuradas permiten revisar y filtrar la respuesta antes de actuar sobre ella [5].",
+      "InputTokens": 2522,
+      "OutputTokens": 136,
       "FinishReason": "stop",
-      "CostUsd": 0.00026940000000000004
+      "CostUsd": 0.00032020000000000003,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "bot-03",
@@ -427,12 +460,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1091.2329,
-      "Answer": "GitHub rejects a comment with a 422 when it targets a line the PR didn\u0027t touch, because it only accepts positions that exist in the patch. The model is answering about file line numbers, but GitHub only accepts positions present in the diff [2]. The fix is to compute the set of commentable lines from the hunk headers before calling Claude, and filter out findings outside that set [2].",
-      "InputTokens": 2850,
-      "OutputTokens": 122,
+      "LatencyMs": 1470.0934,
+      "Answer": "GitHub returns a 422 when a comment is posted on a line the PR didn\u0027t touch. Claude counts lines in the file, but GitHub only accepts positions that exist in the patch, so comments on lines outside the diff are rejected [2]. The fix is to build the set of commentable lines from the diff\u0027s hunk headers before calling Claude, and to drop and log any finding outside that set [2].",
+      "InputTokens": 2851,
+      "OutputTokens": 127,
       "FinishReason": "stop",
-      "CostUsd": 0.000346
+      "CostUsd": 0.0003486,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "bot-04",
@@ -440,12 +474,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 2730.7381,
-      "Answer": "Hay tres capas de protecci\u00F3n. Primero, el diff se envuelve en etiquetas \u003Cfile path=\u0022...\u0022\u003E dentro del mensaje de usuario, y el system prompt indica que es contenido no confiable y que sus instrucciones deben tratarse como contenido a revisar, no como \u00F3rdenes [1]. Segundo, el radio de impacto es peque\u00F1o: el bot solo puede publicar comentarios, sin herramientas para hacer merge, etiquetar o aprobar, y las revisiones se publican siempre con event: \u0022COMMENT\u0022, nunca APPROVE ni REQUEST_CHANGES [1]. Tercero, el bot lee el PR a trav\u00E9s de la API en lugar de hacer checkout del c\u00F3digo, lo que mantiene el c\u00F3digo no confiable fuera del job que tiene la clave de la API [4].",
-      "InputTokens": 3117,
-      "OutputTokens": 269,
+      "LatencyMs": 1885.625,
+      "Answer": "El bot se protege de tres formas. Primero, el diff se envuelve en etiquetas \u003Cfile\u003E y el system prompt indica que es contenido no confiable, cuyas instrucciones deben tratarse como texto a revisar y no como \u00F3rdenes [1]. Segundo, el alcance es m\u00EDnimo: el bot solo puede publicar comentarios, sin herramientas para fusionar, etiquetar o aprobar, y las revisiones se publican siempre con event: \u0022COMMENT\u0022, de modo que una inyecci\u00F3n exitosa solo puede provocar una revisi\u00F3n silenciosa y nunca bloquear un merge [1]. Adem\u00E1s, el bot lee el PR a trav\u00E9s de la API sin hacer checkout del c\u00F3digo, lo que mantiene el c\u00F3digo no confiable fuera de un job que tiene la API key [4].",
+      "InputTokens": 3118,
+      "OutputTokens": 260,
       "FinishReason": "stop",
-      "CostUsd": 0.00044620000000000006
+      "CostUsd": 0.0004418,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "rag-01",
@@ -453,12 +488,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 858.9358,
+      "LatencyMs": 709.4976,
       "Answer": "RAG stands for Retrieval-Augmented Generation [1].",
-      "InputTokens": 2096,
+      "InputTokens": 2097,
       "OutputTokens": 24,
       "FinishReason": "stop",
-      "CostUsd": 0.00022160000000000002
+      "CostUsd": 0.00022170000000000002,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "rag-02",
@@ -466,12 +502,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1222.8319,
-      "Answer": "Los vectores se guardan en SQLite, dentro de una tabla virtual \u0060vec_chunks\u0060 creada con la extensi\u00F3n sqlite-vec, que permite buscar vectores de forma nativa [5]. Cada fragmento se guarda junto con su embedding de 768 floats y su texto original [5]. Todo se almacena en un \u00FAnico archivo de SQLite [4].",
-      "InputTokens": 2662,
-      "OutputTokens": 124,
+      "LatencyMs": 1264.033,
+      "Answer": "Los vectores se guardan en SQLite, en un \u00FAnico archivo, usando la extensi\u00F3n sqlite-vec que crea una tabla virtual llamada \u0060vec_chunks\u0060 con \u0060distance_metric=cosine\u0060 [4][5]. Cada fragmento se guarda junto con su embedding y su texto original mediante un \u0060INSERT\u0060 en esa tabla [5].",
+      "InputTokens": 2663,
+      "OutputTokens": 118,
       "FinishReason": "stop",
-      "CostUsd": 0.0003282
+      "CostUsd": 0.0003253,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "rag-03",
@@ -479,12 +516,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 4292.0727,
-      "Answer": "RAG is the right tool when your knowledge is large, private, or changing, such as company docs, product manuals, support tickets, or a knowledge base that the base model never saw and that updates often [1]. Because new documents only need to be embedded, there is no retraining required [1]. If the whole knowledge fits comfortably in the context window, you can skip RAG and paste it into the prompt instead [1]. As a rule of thumb, if you would have to copy-paste a document into the chat to get a good answer, that is a job for RAG [1].",
-      "InputTokens": 2546,
-      "OutputTokens": 172,
+      "LatencyMs": 1104.1723,
+      "Answer": "RAG is the right tool when your knowledge is large, private, or changing, such as company docs, product manuals, support tickets, or a knowledge base that the base model never saw and that updates often, since new docs only need to be embedded with no retraining [1]. If the whole knowledge fits comfortably in the context window, you can skip RAG and paste it into the prompt instead [1]. The rule of thumb is that if you would have to copy-paste a document into the chat to get a good answer, that is a job for RAG [1].",
+      "InputTokens": 2547,
+      "OutputTokens": 165,
       "FinishReason": "stop",
-      "CostUsd": 0.00034060000000000004
+      "CostUsd": 0.00033720000000000006,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "obs-01",
@@ -492,12 +530,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1319.7953,
-      "Answer": "El monitoreo responde preguntas que alguien escribi\u00F3 de antemano, como si la CPU pas\u00F3 del 80% o si la tasa de errores super\u00F3 el 1% [1]. La observabilidad, en cambio, permite responder preguntas que no se pensaron de antemano, usando datos ya recolectados y sin desplegar c\u00F3digo nuevo [1]. Si averiguar algo exige agregar una l\u00EDnea de log y volver a desplegar, se tiene logging, no observabilidad [2].",
-      "InputTokens": 3327,
-      "OutputTokens": 159,
+      "LatencyMs": 1267.8953,
+      "Answer": "El monitoreo responde preguntas que alguien escribi\u00F3 de antemano, como si la CPU pas\u00F3 del 80% o si la tasa de errores super\u00F3 el 1% [1]. La observabilidad, en cambio, permite responder preguntas que no se previeron, sin desplegar c\u00F3digo nuevo para averiguarlo, usando datos que ya se recolectaron [1]. Si para averiguar algo hay que agregar una l\u00EDnea de log y volver a desplegar, el sistema tiene logging, no observabilidad [2].",
+      "InputTokens": 3328,
+      "OutputTokens": 169,
       "FinishReason": "stop",
-      "CostUsd": 0.00041220000000000004
+      "CostUsd": 0.0004173,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "obs-02",
@@ -505,12 +544,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1665.885,
-      "Answer": "Porque cada combinaci\u00F3n distinta de etiquetas se convierte en una serie temporal aparte, y un histograma expone muchas l\u00EDneas por serie [4]. En la medici\u00F3n citada, usar el SKU y el customer_id como etiquetas hizo que los registros se desbordaran a una serie de overflow: 4.001 de 6.000 registros cayeron en ella, de modo que la m\u00E9trica queda incorrecta y el SDK lo oculta en silencio [4]. Un SKU como atributo de span, en cambio, no tiene ese costo porque cada span es un evento con sus propios campos [4].",
-      "InputTokens": 3715,
-      "OutputTokens": 199,
+      "LatencyMs": 1610.6146,
+      "Answer": "Porque cada combinaci\u00F3n distinta de etiquetas se convierte en una serie temporal aparte, lo que multiplica las l\u00EDneas que expone un histograma [4]. En la prueba medida, a\u00F1adir un identificador de cliente hizo pasar de 6 a 6.000 series esperadas, y el SDK agrupa en silencio todo lo que excede 2.000 conjuntos de atributos en una sola serie de desbordamiento, de modo que la m\u00E9trica queda incorrecta [4]. En un span, en cambio, el SKU es un campo m\u00E1s sin ese costo [4].",
+      "InputTokens": 3801,
+      "OutputTokens": 191,
       "FinishReason": "stop",
-      "CostUsd": 0.000471
+      "CostUsd": 0.0004756,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "obs-03",
@@ -518,12 +558,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1311.8887,
-      "Answer": "Sample whole traces, never individual spans, because sampling single spans leaves incomplete trees [1]. The parentbased_traceidratio sampler does this: the decision is made once at the first service and propagated in traceparent, so every service respects it [4]. For example, setting OTEL_TRACES_SAMPLER=parentbased_traceidratio with OTEL_TRACES_SAMPLER_ARG=0.1 keeps about 10% of complete traces [1][4].",
-      "InputTokens": 3614,
-      "OutputTokens": 158,
+      "LatencyMs": 1257.8325,
+      "Answer": "Sample whole traces, never individual spans, because sampling single spans leaves incomplete trees [1]. The usual setup is \u0060OTEL_TRACES_SAMPLER=parentbased_traceidratio\u0060 with \u0060OTEL_TRACES_SAMPLER_ARG=0.1\u0060, which keeps about 10% of complete traces, with the decision made once at the first service and carried in traceparent so downstream services respect it [4].",
+      "InputTokens": 3615,
+      "OutputTokens": 142,
       "FinishReason": "stop",
-      "CostUsd": 0.0004404
+      "CostUsd": 0.0004325,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "obs-04",
@@ -531,12 +572,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1271.0363,
-      "Answer": "Las trazas dicen d\u00F3nde se fue el tiempo dentro de una petici\u00F3n lenta: en el ejemplo, el 96% estaba dentro de pricing.evaluate_rules, lo que identifica el servicio y la funci\u00F3n sin leer c\u00F3digo [2]. Las m\u00E9tricas, en cambio, solo dicen con qu\u00E9 frecuencia y qu\u00E9 tan grave es el problema, y no pueden se\u00F1alar una petici\u00F3n concreta porque el histograma no conserva SKU, identificador de orden ni cliente [4].",
-      "InputTokens": 3326,
-      "OutputTokens": 163,
+      "LatencyMs": 1291.9488,
+      "Answer": "Las trazas te dicen d\u00F3nde se fue el tiempo de una petici\u00F3n lenta: en el ejemplo, el 96% estaba dentro de pricing.evaluate_rules, algo que las m\u00E9tricas no pueden mostrar [1][2]. Las m\u00E9tricas, en cambio, solo dicen con qu\u00E9 frecuencia ocurre el problema y qu\u00E9 tan grave es, como el 2% de checkouts por encima de 500 ms [2][4]. Una traza demuestra que una petici\u00F3n estuvo lenta, pero no cu\u00E1nto del tr\u00E1fico se ve afectado [4].",
+      "InputTokens": 3327,
+      "OutputTokens": 188,
       "FinishReason": "stop",
-      "CostUsd": 0.00041410000000000004
+      "CostUsd": 0.00042670000000000007,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "node-01",
@@ -544,12 +586,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 971.8215,
-      "Answer": "No. Node 24 only strips types and never verifies them; tsc --noEmit is still needed for checking [1][2]. Node reads the TypeScript, removes the type-only code, and runs the rest, without validating or resolving anything [2].",
-      "InputTokens": 2936,
-      "OutputTokens": 79,
+      "LatencyMs": 1135.5926,
+      "Answer": "No. Node 24 solo borra los tipos y no verifica nada; por eso tsc --noEmit sigue siendo necesario [1]. Node tampoco lee tsconfig.json ni resuelve ni emite c\u00F3digo [2].",
+      "InputTokens": 2937,
+      "OutputTokens": 78,
       "FinishReason": "stop",
-      "CostUsd": 0.0003331
+      "CostUsd": 0.0003327,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "node-02",
@@ -557,12 +600,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1348.2899,
-      "Answer": "Los decoradores fallan porque no son sintaxis exclusiva de TypeScript: son una propuesta de JavaScript que el borrado de tipos deja intacta y se la pasa a V8, que todav\u00EDa no la implementa, as\u00ED que el error es un simple \u0022SyntaxError: Invalid or unexpected token\u0022 sin mencionar TypeScript [2]. Tampoco los rescata --experimental-transform-types, por lo que conviene usar tsx o un paso de compilaci\u00F3n [2].",
-      "InputTokens": 3039,
-      "OutputTokens": 162,
+      "LatencyMs": 1465.6005,
+      "Answer": "Los decoradores fallan porque no son sintaxis exclusiva de TypeScript: son una propuesta de JavaScript que el borrado de tipos deja intacta y pasa a V8, que todav\u00EDa no la implementa, as\u00ED que el error es un SyntaxError gen\u00E9rico (\u0022Invalid or unexpected token\u0022) sin menci\u00F3n de TypeScript [2]. Tampoco los rescata --experimental-transform-types, por lo que la recomendaci\u00F3n es usar tsx o un paso de compilaci\u00F3n [2].",
+      "InputTokens": 3040,
+      "OutputTokens": 163,
       "FinishReason": "stop",
-      "CostUsd": 0.00038490000000000003
+      "CostUsd": 0.0003855,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "node-03",
@@ -570,12 +614,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1215.3218,
-      "Answer": "Seg\u00FAn los documentos, tsx arranca unas 3.7 veces m\u00E1s lento que node con los mismos archivos [1][2]. En la medici\u00F3n del servicio de cuatro m\u00F3dulos, tsx tard\u00F3 486 ms en el m\u00EDnimo frente a 130 ms con borrado de tipos de Node, y 590 ms frente a 176 ms en la mediana [2].",
-      "InputTokens": 3350,
-      "OutputTokens": 119,
+      "LatencyMs": 1029.8265,
+      "Answer": "Seg\u00FAn los datos del benchmark, tsx arranca unas 3.7 veces m\u00E1s lento que node con borrado de tipos sobre los mismos archivos [1][2]. En la tabla, el servicio de cuatro m\u00F3dulos tarda 486 ms con tsx (m\u00EDnimo) frente a 130 ms con node pelado [2].",
+      "InputTokens": 3351,
+      "OutputTokens": 109,
       "FinishReason": "stop",
-      "CostUsd": 0.0003945
+      "CostUsd": 0.00038960000000000004,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "node-04",
@@ -583,12 +628,13 @@
       "Outcome": "Answered",
       "CitedEvidence": true,
       "HadInvalidCitations": false,
-      "LatencyMs": 1011.7539,
-      "Answer": "Node never reads tsconfig.json, so \u0060paths\u0060 has no effect and fails with \u0060ERR_PACKAGE_IMPORT_NOT_DEFINED\u0060 [2]. The replacement is the \u0060imports\u0060 field in package.json, which uses Node\u0027s own subpath imports and is also understood by TypeScript, so one alias mechanism serves both the runtime and the type checker [2].",
-      "InputTokens": 3230,
-      "OutputTokens": 123,
+      "LatencyMs": 1219.8633,
+      "Answer": "Node nunca lee tsconfig.json, as\u00ED que la opci\u00F3n paths no tiene efecto en tiempo de ejecuci\u00F3n [2]. El reemplazo es el campo imports del package.json, que son los subpath imports propios de Node y que TypeScript tambi\u00E9n entiende, por eso el ejemplo mapea #src/ [2]. As\u00ED un solo mecanismo de alias es respetado tanto por el runtime como por el verificador [2].",
+      "InputTokens": 3231,
+      "OutputTokens": 141,
       "FinishReason": "stop",
-      "CostUsd": 0.0003845
+      "CostUsd": 0.0003936,
+      "EvidenceRetrieved": true
     },
     {
       "Id": "none-01",
@@ -596,12 +642,13 @@
       "Outcome": "AbstainedNoContext",
       "CitedEvidence": false,
       "HadInvalidCitations": false,
-      "LatencyMs": 24.7413,
+      "LatencyMs": 16.982,
       "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?",
       "InputTokens": null,
       "OutputTokens": null,
       "FinishReason": null,
-      "CostUsd": null
+      "CostUsd": null,
+      "EvidenceRetrieved": null
     },
     {
       "Id": "none-02",
@@ -609,12 +656,13 @@
       "Outcome": "AbstainedByModel",
       "CitedEvidence": false,
       "HadInvalidCitations": false,
-      "LatencyMs": 764.0875,
+      "LatencyMs": 1188.446,
       "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?",
-      "InputTokens": 3313,
+      "InputTokens": 3340,
       "OutputTokens": 10,
       "FinishReason": "stop",
-      "CostUsd": 0.0003363
+      "CostUsd": 0.000339,
+      "EvidenceRetrieved": null
     },
     {
       "Id": "none-03",
@@ -622,12 +670,13 @@
       "Outcome": "AbstainedByModel",
       "CitedEvidence": false,
       "HadInvalidCitations": false,
-      "LatencyMs": 726.7285,
+      "LatencyMs": 1017.6073,
       "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?",
-      "InputTokens": 1852,
+      "InputTokens": 1853,
       "OutputTokens": 10,
       "FinishReason": "stop",
-      "CostUsd": 0.00019020000000000002
+      "CostUsd": 0.00019030000000000002,
+      "EvidenceRetrieved": null
     },
     {
       "Id": "none-04",
@@ -635,12 +684,13 @@
       "Outcome": "AbstainedByModel",
       "CitedEvidence": false,
       "HadInvalidCitations": false,
-      "LatencyMs": 841.9996,
+      "LatencyMs": 769.9737,
       "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?",
-      "InputTokens": 3502,
+      "InputTokens": 3503,
       "OutputTokens": 10,
       "FinishReason": "stop",
-      "CostUsd": 0.00035520000000000007
+      "CostUsd": 0.0003553,
+      "EvidenceRetrieved": null
     },
     {
       "Id": "none-05",
@@ -648,12 +698,13 @@
       "Outcome": "AbstainedByModel",
       "CitedEvidence": false,
       "HadInvalidCitations": false,
-      "LatencyMs": 1480.9843,
+      "LatencyMs": 1246.9818,
       "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?",
-      "InputTokens": 3331,
+      "InputTokens": 3332,
       "OutputTokens": 10,
       "FinishReason": "stop",
-      "CostUsd": 0.00033810000000000003
+      "CostUsd": 0.00033820000000000003,
+      "EvidenceRetrieved": null
     },
     {
       "Id": "none-06",
@@ -661,12 +712,13 @@
       "Outcome": "AbstainedByModel",
       "CitedEvidence": false,
       "HadInvalidCitations": false,
-      "LatencyMs": 812.1874,
+      "LatencyMs": 646.0028,
       "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?",
-      "InputTokens": 3870,
+      "InputTokens": 3871,
       "OutputTokens": 10,
       "FinishReason": "stop",
-      "CostUsd": 0.000392
+      "CostUsd": 0.00039210000000000004,
+      "EvidenceRetrieved": null
     },
     {
       "Id": "none-07",
@@ -674,12 +726,13 @@
       "Outcome": "AbstainedByModel",
       "CitedEvidence": false,
       "HadInvalidCitations": false,
-      "LatencyMs": 661.7304,
+      "LatencyMs": 980.2974,
       "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?",
-      "InputTokens": 2989,
+      "InputTokens": 3107,
       "OutputTokens": 10,
       "FinishReason": "stop",
-      "CostUsd": 0.0003039
+      "CostUsd": 0.00031570000000000003,
+      "EvidenceRetrieved": null
     },
     {
       "Id": "none-08",
@@ -687,12 +740,13 @@
       "Outcome": "AbstainedNoContext",
       "CitedEvidence": false,
       "HadInvalidCitations": false,
-      "LatencyMs": 28.7082,
+      "LatencyMs": 23.7127,
       "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?",
       "InputTokens": null,
       "OutputTokens": null,
       "FinishReason": null,
-      "CostUsd": null
+      "CostUsd": null,
+      "EvidenceRetrieved": null
     },
     {
       "Id": "none-09",
@@ -700,12 +754,13 @@
       "Outcome": "AbstainedByModel",
       "CitedEvidence": false,
       "HadInvalidCitations": false,
-      "LatencyMs": 795.6007,
+      "LatencyMs": 644.6702,
       "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?",
-      "InputTokens": 3255,
+      "InputTokens": 3256,
       "OutputTokens": 10,
       "FinishReason": "stop",
-      "CostUsd": 0.0003305
+      "CostUsd": 0.0003306,
+      "EvidenceRetrieved": null
     },
     {
       "Id": "none-10",
@@ -713,12 +768,13 @@
       "Outcome": "AbstainedByModel",
       "CitedEvidence": false,
       "HadInvalidCitations": false,
-      "LatencyMs": 894.5546,
+      "LatencyMs": 641.5775,
       "Answer": "I can\u0027t find that in the documents I have. Would you like me to pass your question to a person?",
-      "InputTokens": 3556,
+      "InputTokens": 3557,
       "OutputTokens": 10,
       "FinishReason": "stop",
-      "CostUsd": 0.00036060000000000004
+      "CostUsd": 0.00036070000000000004,
+      "EvidenceRetrieved": null
     }
   ]
 }

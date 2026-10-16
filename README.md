@@ -21,7 +21,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/readme/metrics-dark.svg">
-  <img src="docs/readme/metrics-light.svg" alt="93% retrieval hit@5 on a 54-question bilingual eval · 12 of 12 injection attacks resisted in extractive mode · 0 of 54 real questions refused by the guardrails · 9 KB embeddable widget" width="100%">
+  <img src="docs/readme/metrics-light.svg" alt="98% retrieval hit@5 on a 54-question bilingual eval · 12 of 12 injection attacks resisted in extractive mode · 0 of 54 real questions refused by the guardrails · 9 KB embeddable widget" width="100%">
 </picture>
 
 <br><br>
@@ -150,12 +150,17 @@ corpus. No language model involved. Reproduce with `dotnet run --project evals/D
 
 | Mode | hit@1 | hit@5 | MRR | cross-lingual hit@5 |
 |---|---:|---:|---:|---:|
-| **Hybrid (shipped)** | 55 % | **93 %** | 0.720 | **86 %** |
+| **Hybrid (shipped)** | 55 % | **98 %** | 0.729 | **95 %** |
 | Vector only | 66 % | 91 % | 0.766 | 86 % |
 | Full text only | 36 % | 84 % | 0.544 | 71 % |
 
 - **Hybrid, equal weights.** Down-weighting full text improves the first rank but loses answers
   (hit@5 93 % → 89 % at weight 0.3). The model reads all five passages, so recall wins.
+- **The vector's first hit always reaches the model.** A question in Spanish about an English article
+  shares no words with it, so full-text search returns passages with stray terms in common; their
+  agreement won the fusion and buried the right passage at rank 7 or 11, though vector search had it
+  first. Guaranteeing that hit a place in the five (`Retrieval:GuaranteedVectorHits=1`) took hit@5
+  from 93 % to 98 % and cross-lingual from 86 % to 95 %, with nothing lost.
 - **Similarity alone cannot tell answerable from unanswerable.** Answerable questions scored 0.79–0.90,
   unanswerable ones up to 0.85: the ranges overlap, and the best single cut-off is only 82 % accurate.
   So the threshold is a *floor* (0.79, the lowest answerable score) that never refuses a real question
@@ -172,17 +177,18 @@ corpus. No language model involved. Reproduce with `dotnet run --project evals/D
 
 | Provider | cited the evidence | abstained when there was no answer | false answers with a citation | latency p50 |
 |---|---:|---:|---:|---:|
-| **Claude Haiku 5.5**, API | **91 %** | **100 %** | **0** | 1.1 s |
+| **Claude Haiku 5.5**, API | **95 %** | **100 %** | **0** | 1.2 s |
 | Extractive (no model, zero cost) | 80 % | 20 % | — (quotes only) | **0.6 s** |
 | qwen3:1.7b, local container | 48 % | 60 % | 0 | 40 s |
 | qwen3:0.6b, local container | 48 % | 20 % | 2 | 28 s |
 | gemma3:1b, local container | 2 % | 30 % | 0 | 30 s |
 
 **What Claude costs here, measured:** the 54 questions made 52 model calls (two never reach it: retrieval
-abstains first), 152,587 input and 4,938 output tokens, **US$ 0.018**, so **US$ 0.33 per 1,000 questions**.
-It answered 41 of the 44 answerable questions; the other 3 are exactly the questions whose evidence
-retrieval does not put in the top 5 passages, and it said so instead of guessing
-([results](evals/results/answers-anthropic-claude-haiku-5-5.md)).
+abstains first), 151,988 input and 4,971 output tokens, **US$ 0.018**, so **US$ 0.33 per 1,000 questions**.
+It answered **every question whose evidence retrieval found (43 of 43)**. The one left is the question
+retrieval misses, and it said "I can't find that" instead of guessing
+([results](evals/results/answers-anthropic-claude-haiku-5-5.md)). The eval scores the model on the
+questions it was given the evidence for, so a retrieval miss is not counted against it.
 
 Runs against a paid model are guarded: they refuse to start without `--allow-paid`, a call limit, a cost
 limit and a budget ledger; the call that could cross a limit is never sent, and `--dry-run` counts and

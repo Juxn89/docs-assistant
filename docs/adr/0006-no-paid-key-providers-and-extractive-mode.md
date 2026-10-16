@@ -104,19 +104,29 @@ Answer eval, same 54 questions, `claude-haiku-5-5`, `Chat:ReasoningEffort=None`:
 |---|---:|---:|---:|---:|---:|---:|
 | Extractive (no model) | 100 % | 80 % | 20 % | 0 % | 0.6 / 1.5 s | 0 |
 | qwen3:1.7b | 100 % | 48 % | 60 % | 0 % | 40 / 159 s | 0 (local CPU) |
-| **Claude Haiku 5.5** | 93 % | **91 %** | **100 %** | **0 %** | 1.1 / 2.7 s | US$ 0.018 (US$ 0.33 / 1,000 questions) |
+| Claude Haiku 5.5, first run | 93 % | 91 % | 100 % | 0 % | 1.1 / 2.7 s | US$ 0.018 |
+| **Claude Haiku 5.5**, after the retrieval fix | **98 %** (100 % of the 43 with the evidence retrieved) | **95 %** | **100 %** | **0 %** | 1.2 / 2.3 s | US$ 0.018 (US$ 0.33 / 1,000 questions) |
 
 - **It is the first provider that fixes both weaknesses at once:** it cites better than quoting
-  verbatim (91 % against 80 %), and it abstains on every unanswerable question (extractive manages
+  verbatim (95 % against 80 %), and it abstains on every unanswerable question (extractive manages
   20 %), without a single invented citation.
-- **"Answered 93 %" is retrieval's ceiling, not the model's.** The 3 answerable questions it declined
-  (profile-03, rmq-06, bot-02) are exactly the 3 whose evidence hybrid retrieval leaves out of the top
-  5 (re-checked the same day). Without the evidence in its context, it said "I can't find that"
-  instead of guessing. The threshold fixed before the run (`answers.answeredRate` ≥ 0.95) is kept and
-  reported as missed, not lowered after the fact. The lever is retrieval recall, not the model.
-- No answer hit the output cap (`stop_reason` was `end_turn` on all 52 calls). Input is ~2.9K tokens a
+- **The first run missed the pre-registered "answered ≥ 95 %" on retrieval's account, not the
+  model's.** The 3 answerable questions it declined (profile-03, rmq-06, bot-02) were exactly the 3
+  whose evidence hybrid retrieval left out of the top 5. Without the evidence, it said "I can't find
+  that" instead of guessing. The threshold was not lowered. Two fixes followed, neither needing a model
+  call:
+  - **Retrieval:** the vector's first hit is now guaranteed a place in the top 5
+    (`Retrieval:GuaranteedVectorHits`, measured in the README). hit@5 went from 93 % to 98 %.
+  - **The metric:** the eval records whether each question's evidence was in the passages the model
+    read, and gates the model on those (`answers.answeredWhenRetrievedRate` ≥ 0.95). Retrieval recall
+    is gated by its own eval.
+
+  Re-run once on the fixed pipeline: it answered 43 of 43. The only answerable question declined is
+  rmq-06, which retrieval still misses.
+- No answer hit the output cap (`stop_reason` was `end_turn` on every call). Input is ~2.9K tokens a
   call, almost all of it the 5 passages.
-- Total spent on the evaluation, smoke run included: US$ 0.0199 for 60 calls.
+- Total spent on the evaluation: US$ 0.039 for 117 calls. That covers the smoke run, both answer runs
+  and both injection runs, and every call is recorded in the shared budget ledger.
 
 **Decision:** Claude Haiku 5.5 is the provider for written answers wherever a key and a spend cap
 exist. The public demo moves to it once it is deployed with a provider-side spend limit; until then it
