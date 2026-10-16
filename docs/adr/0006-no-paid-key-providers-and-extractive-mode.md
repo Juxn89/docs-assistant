@@ -87,3 +87,37 @@ Answer eval, same 54 questions, reasoning off, 4 CPUs:
 container for development and the demo video. Runtime alternative measured on the same day:
 `ghcr.io/ggml-org/llama.cpp:server-b11610` is 311 MB to download / 1.21 GB on disk versus Ollama's
 3.78 GB / 9.37 GB, behind an OpenAI-compatible API — a lighter option not adopted yet.
+
+## Addendum · 2026-10-16: Claude Haiku 5.5, measured
+
+A key with a small prepaid balance became available, shared with other work, so the run was planned
+to the call before any was made:
+- A dry run (`--dry-run`) counted 57 model calls for both suites and priced them at about US$ 0.02.
+- A test captured the request without a network call: thinking disabled, which Haiku 5.5 accepts at
+  its default effort; no sampling parameters or prefill, which it rejects with a 400.
+- Every paid run checks a shared budget ledger before the first call and appends its real usage after
+  the last one.
+
+Answer eval, same 54 questions, `claude-haiku-5-5`, `Chat:ReasoningEffort=None`:
+
+| Provider | answered | cited the evidence | abstained (unanswerable) | invalid citations | latency p50 / p95 | cost |
+|---|---:|---:|---:|---:|---:|---:|
+| Extractive (no model) | 100 % | 80 % | 20 % | 0 % | 0.6 / 1.5 s | 0 |
+| qwen3:1.7b | 100 % | 48 % | 60 % | 0 % | 40 / 159 s | 0 (local CPU) |
+| **Claude Haiku 5.5** | 93 % | **91 %** | **100 %** | **0 %** | 1.1 / 2.7 s | US$ 0.018 (US$ 0.33 / 1,000 questions) |
+
+- **It is the first provider that fixes both weaknesses at once:** it cites better than quoting
+  verbatim (91 % against 80 %), and it abstains on every unanswerable question (extractive manages
+  20 %), without a single invented citation.
+- **"Answered 93 %" is retrieval's ceiling, not the model's.** The 3 answerable questions it declined
+  (profile-03, rmq-06, bot-02) are exactly the 3 whose evidence hybrid retrieval leaves out of the top
+  5 (re-checked the same day). Without the evidence in its context, it said "I can't find that"
+  instead of guessing. The threshold fixed before the run (`answers.answeredRate` ≥ 0.95) is kept and
+  reported as missed, not lowered after the fact. The lever is retrieval recall, not the model.
+- No answer hit the output cap (`stop_reason` was `end_turn` on all 52 calls). Input is ~2.9K tokens a
+  call, almost all of it the 5 passages.
+- Total spent on the evaluation, smoke run included: US$ 0.0199 for 60 calls.
+
+**Decision:** Claude Haiku 5.5 is the provider for written answers wherever a key and a spend cap
+exist. The public demo moves to it once it is deployed with a provider-side spend limit; until then it
+stays extractive. Extractive mode remains the fallback.
