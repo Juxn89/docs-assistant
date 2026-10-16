@@ -1,13 +1,13 @@
 {
   "retrieval": {
-    "hybrid.hitAt5": 0.90,
-    "hybrid.crossLingualHitAt5": 0.85,
-    "hybrid.mrr": 0.70
+    "hybrid.hitAt5": 0.95,
+    "hybrid.crossLingualHitAt5": 0.9,
+    "hybrid.mrr": 0.7
   },
   "answers": {
-    "answeredRate": 0.95,
-    "citedEvidenceRate": 0.80,
-    "abstentionRate": 0.80,
+    "answeredWhenRetrievedRate": 0.95,
+    "citedEvidenceRate": 0.8,
+    "abstentionRate": 0.8,
     "invalidCitationRate.max": 0.05,
     "maxTokensStops.max": 0
   },

@@ -41,6 +41,18 @@ public sealed class RetrievalOptions
 	public double TextWeight { get; set; } = 1.0;
 
 	/// <summary>
+	/// The best vector hits that always reach the model, appended in place of the last fused ones when
+	/// fusion pushed them out of the top K. Fusion rewards agreement between rankings, but a question in
+	/// one language over a document in another has no words in common with it: full-text search then
+	/// returns passages that share stray terms, and their agreement buries the vector's first hit.
+	/// Measured on 2026-10-16 (evals/results/retrieval.md): 1 raises hit@5 from 93 % to 98 % and
+	/// cross-lingual hit@5 from 86 % to 95 %, with hit@1 and the similarity floor unchanged; 2 drops
+	/// another question out of the top 5.
+	/// </summary>
+	[Range(0, 5)]
+	public int GuaranteedVectorHits { get; set; } = 1;
+
+	/// <summary>
 	/// Below this best cosine similarity the assistant abstains without calling the model. It is the
 	/// eval's "safe floor": the lowest score any answerable question reached (0.792), rounded down, so it
 	/// never refuses a question it could answer. Similarity alone cannot separate the rest — the
@@ -99,6 +111,12 @@ public sealed class RetrieveContext(
 			([.. text.Select(h => h.ChunkId)], settings.TextWeight),
 		]);
 		var top = ranked.Take(settings.TopK).Select(r => r.Key).ToList();
+		var missing = vector.Take(settings.GuaranteedVectorHits).Select(h => h.ChunkId).Where(id => !top.Contains(id)).ToList();
+		if (missing.Count > 0)
+		{
+			top = [.. top.Take(Math.Max(0, settings.TopK - missing.Count)), .. missing];
+		}
+
 		if (top.Count == 0)
 		{
 			return RetrievalResult.Empty;

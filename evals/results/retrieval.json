@@ -1,14 +1,14 @@
 {
-  "RanAt": "2026-10-14T13:53:04.207903+00:00",
+  "RanAt": "2026-10-16T13:51:35.2411893+00:00",
   "Modes": [
     {
       "Mode": "Hybrid",
       "Answerable": 44,
       "HitAt1": 0.5454545454545454,
-      "HitAt5": 0.9318181818181818,
-      "Mrr": 0.7196969696969696,
+      "HitAt5": 0.9772727272727273,
+      "Mrr": 0.7287878787878787,
       "CrossLingual": 21,
-      "CrossLingualHitAt5": 0.8571428571428571
+      "CrossLingualHitAt5": 0.9523809523809523
     },
     {
       "Mode": "VectorOnly",
@@ -33,12 +33,12 @@
     "SafeFloor": 0.79,
     "UnanswerableBelowFloor": 2,
     "Unanswerable": 10,
-    "BestSingleThreshold": 0.842,
-    "BestBalancedAccuracy": 0.825,
-    "MinAnswerable": 0.7919473884090007,
-    "MaxUnanswerable": 0.8469831691091342,
-    "MeanAnswerable": 0.8558762034494429,
-    "MeanUnanswerable": 0.8151062140270708
+    "BestSingleThreshold": 0.85,
+    "BestBalancedAccuracy": 0.8181818181818181,
+    "MinAnswerable": 0.7960370541799978,
+    "MaxUnanswerable": 0.8498014897226415,
+    "MeanAnswerable": 0.857666098843823,
+    "MeanUnanswerable": 0.8161543342211477
   },
   "Results": [
     {
@@ -58,8 +58,8 @@
     {
       "Id": "profile-03",
       "Mode": "Hybrid",
-      "Rank": null,
-      "TopSimilarity": 0.7919473884090007,
+      "Rank": 5,
+      "TopSimilarity": 0.8128130082134313,
       "TopChunk": "logs-metricas-trazas.md \u203A Logs, m\u00E9tricas y trazas no son tres pilares. Son una sola petici\u00F3n. \u203A El sistema de prueba: Tres servicios peque\u00F1os en Node 24, para que cada n\u00FAmero de este art\u00EDculo sea reproducible\u2026"
     },
     {
@@ -192,14 +192,14 @@
       "Id": "min-06",
       "Mode": "Hybrid",
       "Rank": 1,
-      "TopSimilarity": 0.8782631158828735,
+      "TopSimilarity": 0.8932797249126286,
       "TopChunk": "minimal-apis-dotnet10.md \u203A Minimal APIs Done Right in .NET 10: Validation, Versioning, and OpenAPI Without Controllers \u203A The whole thing: /// \u003Csummary\u003EPlaces a new order and returns its location.\u003C/summary\u003E public static Created \u2026"
     },
     {
       "Id": "rmq-01",
       "Mode": "Hybrid",
       "Rank": 3,
-      "TopSimilarity": 0.8919070363044739,
+      "TopSimilarity": 0.8938062191009521,
       "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A The three exchange types that matter \u203A The default exchange, and why every tutorial looks like it is lying: Every \u0022hello world\u0022 you have read publishes straight to a queue name: channel.sendToQueue(\u2026"
     },
     {
@@ -254,8 +254,8 @@
     {
       "Id": "bot-02",
       "Mode": "Hybrid",
-      "Rank": null,
-      "TopSimilarity": 0.8439607620239258,
+      "Rank": 5,
+      "TopSimilarity": 0.8603902459144592,
       "TopChunk": "claude-pr-review-bot.md \u203A A Claude PR Review Bot in C#: The Tool Use You Don\u0027t Need \u203A Two things that will bite you \u203A GitHub only accepts comments on lines that are in the diff: Post a review comment on a line the PR didn\u0027t touch and the API returns a 422 that names n\u2026"
     },
     {
@@ -304,7 +304,7 @@
       "Id": "obs-02",
       "Mode": "Hybrid",
       "Rank": 4,
-      "TopSimilarity": 0.8422243093118498,
+      "TopSimilarity": 0.8667688111433776,
       "TopChunk": "mcp-server-csharp.md \u203A Build an MCP Server in C#: Write Your Tools Once, Use Them in Every Claude \u203A The server we\u0027re building \u203A The tools: Here\u0027s the part that replaces last time\u0027s hand-written JSON Schema and switch statement. A\u2026"
     },
     {
@@ -360,7 +360,7 @@
       "Id": "none-02",
       "Mode": "Hybrid",
       "Rank": null,
-      "TopSimilarity": 0.8253738984242753,
+      "TopSimilarity": 0.826654935677497,
       "TopChunk": "node24-typescript.md \u203A Node 24 ejecuta TypeScript sin compilar: lo que funciona y lo que no \u203A Los n\u00FAmeros: Mejor tiempo de 25 ejecuciones, en una laptop con i7-1165G7, Windows 11 y Node 24.16. Medi\u2026"
     },
     {
@@ -395,7 +395,7 @@
       "Id": "none-07",
       "Mode": "Hybrid",
       "Rank": null,
-      "TopSimilarity": 0.8406013250350952,
+      "TopSimilarity": 0.8498014897226415,
       "TopChunk": "rabbitmq-part-1.md \u203A RabbitMQ from Fundamentals to Production, Part 1: Exchanges, Queues, and Bindings \u203A When to use a queue \u2014 and when not to: Reach for one when: The work can finish later without the caller waiting \u2014 invoices, recei\u2026"
     },
     {

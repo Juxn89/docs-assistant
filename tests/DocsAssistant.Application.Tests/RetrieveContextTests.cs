@@ -20,6 +20,7 @@ public sealed class RetrieveContextTests
 	[Fact]
 	public async Task Hybrid_FusesBothRankings_AndKeepsFusedOrder()
 	{
+		_options.GuaranteedVectorHits = 0;
 		_search.Vector = [A, B, C];
 		_search.Text = [B, C];
 		_search.Similarities = new() { [A] = 0.85, [B] = 0.9, [C] = 0.7 };
@@ -32,6 +33,40 @@ public sealed class RetrieveContextTests
 		Assert.Equal(0.9, result.TopSimilarity);
 		Assert.True(result.IsConfident);
 	}
+
+	/// <summary>
+	/// The cross-lingual case from the retrieval eval: the vector's first hit (A) is the answer, but the
+	/// passages full-text search also returns outscore it in the fusion and push it out of the top K.
+	/// </summary>
+	[Fact]
+	public async Task GuaranteedVectorHit_ReplacesTheLastFusedOne()
+	{
+		_options.GuaranteedVectorHits = 1;
+		_search.Vector = [A, B, C];
+		_search.Text = [B, C];
+		_search.Similarities = new() { [A] = 0.85, [B] = 0.9, [C] = 0.7 };
+
+		var result = await Retrieve().HandleAsync(TenantId.New(), "q", CancellationToken.None);
+
+		Assert.Equal([B, A], result.Chunks.Select(c => c.ChunkId));
+	}
+
+	[Fact]
+	public async Task GuaranteedVectorHit_AlreadyInTheTopK_ChangesNothing()
+	{
+		_options.GuaranteedVectorHits = 1;
+		_search.Vector = [B, A, C];
+		_search.Text = [B, C];
+		_search.Similarities = new() { [A] = 0.85, [B] = 0.9, [C] = 0.7 };
+
+		var result = await Retrieve().HandleAsync(TenantId.New(), "q", CancellationToken.None);
+
+		Assert.Equal([B, C], result.Chunks.Select(c => c.ChunkId));
+	}
+
+	[Fact]
+	public void OneVectorHit_IsGuaranteedByDefault() =>
+		Assert.Equal(1, new RetrievalOptions().GuaranteedVectorHits);
 
 	[Fact]
 	public async Task BelowTheFloor_IsNotConfident()

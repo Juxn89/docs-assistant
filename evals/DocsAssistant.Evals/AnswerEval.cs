@@ -26,12 +26,20 @@ internal sealed record AnswerItemResult(
 	long? InputTokens = null,
 	long? OutputTokens = null,
 	string? FinishReason = null,
-	double? CostUsd = null);
+	double? CostUsd = null,
+	bool? EvidenceRetrieved = null);
 
+/// <param name="EvidenceRetrieved">Answerable questions whose evidence retrieval put in the passages the model reads.</param>
+/// <param name="AnsweredWhenRetrievedRate">
+/// Of those, the share answered: the model's own answer rate. AnsweredRate also counts the questions
+/// retrieval failed, where abstaining is the right reply; retrieval recall is gated by its own eval.
+/// </param>
 internal sealed record AnswerMetrics(
 	string Provider,
 	int Answerable,
 	double AnsweredRate,
+	int EvidenceRetrieved,
+	double AnsweredWhenRetrievedRate,
 	double CitedEvidenceRate,
 	int Unanswerable,
 	double AbstentionRate,
@@ -100,6 +108,8 @@ internal static partial class AnswerEval
 		Dictionary<Guid, (string Doc, string Text)> chunkText,
 		Meter? meter)
 	{
+		var retrieved = item.Answerable ? await EvidenceRetrievedAsync(environment, tenant, item, chunkText) : (bool?)null;
+
 		await using var scope = environment.Services.CreateAsyncScope();
 		var ask = scope.ServiceProvider.GetRequiredService<AskQuestion>();
 
@@ -118,7 +128,25 @@ internal static partial class AnswerEval
 		var call = meter?.TakeLast();
 		return new AnswerItemResult(
 			item.Id, item.Answerable, completed!.Outcome.ToString(), cited, completed.HadInvalidCitations, clock.Elapsed.TotalMilliseconds, completed.Answer,
-			call?.InputTokens, call?.OutputTokens, call?.FinishReason, call?.CostUsd);
+			call?.InputTokens, call?.OutputTokens, call?.FinishReason, call?.CostUsd, retrieved);
+	}
+
+	/// <summary>
+	/// Whether the passages the model reads hold the evidence, by the same retrieval AskQuestion runs
+	/// (deterministic, no model call). Separates "the model would not answer" from "it was not given the answer".
+	/// </summary>
+	private static async Task<bool> EvidenceRetrievedAsync(
+		EvalEnvironment environment,
+		TenantId tenant,
+		GoldenItem item,
+		Dictionary<Guid, (string Doc, string Text)> chunkText)
+	{
+		await using var scope = environment.Services.CreateAsyncScope();
+		var context = await scope.ServiceProvider.GetRequiredService<RetrieveContext>().HandleAsync(tenant, item.Question, CancellationToken.None);
+		return context.Chunks.Any(c =>
+			chunkText.TryGetValue(c.ChunkId.Value, out var source)
+			&& source.Doc == item.Doc
+			&& Normalize(source.Text).Contains(Normalize(item.Evidence!), StringComparison.Ordinal));
 	}
 
 	private static Dictionary<string, AnswerItemResult> LoadProgress(string path) =>
@@ -132,6 +160,7 @@ internal static partial class AnswerEval
 	private static AnswerMetrics Score(string provider, List<AnswerItemResult> results)
 	{
 		var answerable = results.Where(r => r.Answerable).ToList();
+		var retrieved = answerable.Where(r => r.EvidenceRetrieved == true).ToList();
 		var unanswerable = results.Where(r => !r.Answerable).ToList();
 		var latencies = results.Select(r => r.LatencyMs).Order().ToList();
 
@@ -139,6 +168,8 @@ internal static partial class AnswerEval
 			provider,
 			answerable.Count,
 			Rate(answerable.Count(r => IsAnswer(r.Outcome)), answerable.Count),
+			retrieved.Count,
+			Rate(retrieved.Count(r => IsAnswer(r.Outcome)), retrieved.Count),
 			Rate(answerable.Count(r => r.CitedEvidence), answerable.Count),
 			unanswerable.Count,
 			Rate(unanswerable.Count(r => !IsAnswer(r.Outcome)), unanswerable.Count),
@@ -206,6 +237,7 @@ internal sealed record AnswerReport(DateTimeOffset RanAt, string Provider, Answe
 		var actual = new Dictionary<string, double>
 		{
 			["answeredRate"] = m.AnsweredRate,
+			["answeredWhenRetrievedRate"] = m.AnsweredWhenRetrievedRate,
 			["citedEvidenceRate"] = m.CitedEvidenceRate,
 			["abstentionRate"] = m.AbstentionRate,
 			["invalidCitationRate.max"] = m.InvalidCitationRate,
@@ -257,9 +289,9 @@ internal sealed record AnswerReport(DateTimeOffset RanAt, string Provider, Answe
 		return string.Create(
 			CultureInfo.InvariantCulture,
 			$"""
-			| Provider | answered | cited the evidence | abstained (unanswerable) | invalid citations | latency p50 / p95 | model calls | tokens in / out | cost | per 1,000 questions |
-			|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-			| {m.Provider} | {m.AnsweredRate:P0} ({m.Answerable} q) | {m.CitedEvidenceRate:P0} | {m.AbstentionRate:P0} ({m.Unanswerable} q) | {m.InvalidCitationRate:P0} | {m.LatencyP50Ms:N0} / {m.LatencyP95Ms:N0} ms | {m.ModelCalls} | {m.InputTokens:N0} / {m.OutputTokens:N0} | ${m.CostUsd:F4} | ${m.CostPer1000Questions(Results.Count):F2} |
+			| Provider | answered | answered when the evidence was retrieved | cited the evidence | abstained (unanswerable) | invalid citations | latency p50 / p95 | model calls | tokens in / out | cost | per 1,000 questions |
+			|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+			| {m.Provider} | {m.AnsweredRate:P0} ({m.Answerable} q) | {m.AnsweredWhenRetrievedRate:P0} ({m.EvidenceRetrieved} q) | {m.CitedEvidenceRate:P0} | {m.AbstentionRate:P0} ({m.Unanswerable} q) | {m.InvalidCitationRate:P0} | {m.LatencyP50Ms:N0} / {m.LatencyP95Ms:N0} ms | {m.ModelCalls} | {m.InputTokens:N0} / {m.OutputTokens:N0} | ${m.CostUsd:F4} | ${m.CostPer1000Questions(Results.Count):F2} |
 			""");
 	}
 
