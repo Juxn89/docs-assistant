@@ -67,6 +67,13 @@
 		<PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.6.1" />
 		<PackageVersion Include="Aspire.Hosting.Valkey" Version="13.6.1" />
 		<PackageVersion Include="CommunityToolkit.Aspire.Hosting.MailPit" Version="13.6.0" />
+		<!--
+			Transitive pin (Aspire.Hosting 13.6.1 and StreamJsonRpc → MessagePack 2.5.302), vulnerable to
+			GHSA-qhrr-8q5h-9q3h (published 15 Oct 2026, fixed in 2.5.303). NuGet audit fails the restore on it;
+			CentralPackageTransitivePinningEnabled lifts it to the patched version. 2.5.303 was released on
+			17 Sep 2026. Added 16 Oct 2026.
+		-->
+		<PackageVersion Include="MessagePack" Version="2.5.303" />
 	</ItemGroup>
 
 	<!--
